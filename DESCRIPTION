@@ -1,7 +1,7 @@
 Package: HardyWeinberg
 Type: Package
 Title: Graphical tests for Hardy-Weinberg equilibrium
-Version: 1.0
+Version: 1.1
 Date: 2007-08-01
 Author: Jan Graffelman <jan.graffelman@upc.edu>
 Maintainer: Jan Graffelman <jan.graffelman@upc.edu>
@@ -13,4 +13,4 @@ Description: Package HardyWeinberg is a package for exploring
  are included in the package.
 License: GPL version 2 or newer
 URL: http://www.r-project.org, http://www-eio.upc.edu/~jan
-Packaged: Tue Oct  2 17:22:37 2007; jan
+Packaged: Wed Oct  3 12:23:23 2007; jan
