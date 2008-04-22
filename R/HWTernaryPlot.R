@@ -1,5 +1,5 @@
 `HWTernaryPlot` <-
-function(X, n, addmarkers=TRUE, newframe=TRUE, hwcurve=TRUE, vbounds=TRUE, mafbounds=FALSE, mafvalue=0.05, axis=0, region=1, vertexlab=colnames(X), alpha = 0.05, vertex.cex = 1, pch = 19, cc = 0.5, markercol = "black", cex=0.75, axislab ="", verbose=FALSE, markerlab=NULL, mcex=1, connect = FALSE, curvecols=rep("black",5) , signifcolour=FALSE, ...)
+function(X, n, addmarkers=TRUE, newframe=TRUE, hwcurve=TRUE, vbounds=TRUE, mafbounds=FALSE, mafvalue=0.05, axis=0, region=1, vertexlab=colnames(X), alpha = 0.05, vertex.cex = 1, pch = 19, cc = 0.5, markercol = "black", markerbgcol= "black", cex=0.75, axislab ="", verbose=FALSE, markerlab=NULL, mcex=1, connect = FALSE, curvecols=rep("black",5) , signifcolour=TRUE, ...)
   {
     X <- as.matrix(X)
     nr <- nrow(X)
@@ -23,24 +23,6 @@ function(X, n, addmarkers=TRUE, newframe=TRUE, hwcurve=TRUE, vbounds=TRUE, mafbo
 
        plot(M[,1],M[,2], type="n", axes=FALSE, xlab="", ylab="", pch=19, asp=1, cex.main=2, ... )
        polygon(M)
-
-       if (axis==1) {
-          AXA <- rbind(c(0,0.5,0.5),c(1,0,0))
-          AXA <- AXA%*%M
-          lines(AXA[,1],AXA[,2])      
-       }
-
-       if (axis==2) {
-          AXAB <- rbind(c(0.5,0,0.5),c(0,1,0))
-          AXAB <- AXAB%*%M
-          lines(AXAB[,1],AXAB[,2])
-       }
-
-       if (axis==3) {
-          AXB <- rbind(c(0.5,0.5,0),c(0,0,1))
-          AXB <- AXB%*%M
-          lines(AXB[,1],AXB[,2])
-       }
        
        eps <- 0.04 * vertex.cex
        Mlab <- M + matrix(c(-eps,0,0,eps,eps,0),ncol=2,byrow=T)
@@ -48,7 +30,27 @@ function(X, n, addmarkers=TRUE, newframe=TRUE, hwcurve=TRUE, vbounds=TRUE, mafbo
 
        text(0,-0.1,axislab,cex=vertex.cex)
      }
-       if(hwcurve) {
+
+       if (axis==1) {
+          AXA <- rbind(c(0,0.5,0.5),c(1,0,0))
+          AXA <- AXA%*%M
+          lines(AXA[,1],AXA[,2],...)      
+       }
+
+       if (axis==2) {
+          AXAB <- rbind(c(0.5,0,0.5),c(0,1,0))
+          AXAB <- AXAB%*%M
+          lines(AXAB[,1],AXAB[,2],...)
+       }
+
+       if (axis==3) {
+          AXB <- rbind(c(0.5,0.5,0),c(0,0,1))
+          AXB <- AXB%*%M
+          lines(AXB[,1],AXB[,2],...)
+       }
+
+
+    if(hwcurve) {
          p <- seq(0,1,by=0.005)
          HW <- cbind(p^2,2*p*(1-p),(1-p)^2)
          HWc <- HW%*%M
@@ -207,9 +209,11 @@ function(X, n, addmarkers=TRUE, newframe=TRUE, hwcurve=TRUE, vbounds=TRUE, mafbo
              
                 for (i in 1:nrow(Xa))
                    pvals <- c(pvals,HWChisq(Xa[i,])$pval)
+                markerbgcol <- rep("green",nr)             
+                markerbgcol[pvals<0.05] <- "red"
                 markercol <- rep("green",nr)             
                 markercol[pvals<0.05] <- "red"
-                nsignif <- sum(pvals<0.05)
+                 nsignif <- sum(pvals<0.05)
 
              }
 
@@ -217,6 +221,8 @@ function(X, n, addmarkers=TRUE, newframe=TRUE, hwcurve=TRUE, vbounds=TRUE, mafbo
 
                 for (i in 1:nrow(Xa))
                    pvals <- c(pvals,HWChisq(Xa[i,],cc=0.5)$pval)
+                markerbgcol <- rep("green",nr)             
+                markerbgcol[pvals<0.05] <- "red"
                 markercol <- rep("green",nr)             
                 markercol[pvals<0.05] <- "red"
                 nsignif <- sum(pvals<0.05)
@@ -231,6 +237,8 @@ function(X, n, addmarkers=TRUE, newframe=TRUE, hwcurve=TRUE, vbounds=TRUE, mafbo
                    m <- matrix(c(x[1],x[2]/2,x[2]/2,x[3]),ncol=2)
                    out <- fisher.test(m,alternative="two.sided")
                    pvals <- c(pvals,out$p.value)
+                   markerbgcol <- rep("green",nr)             
+                   markerbgcol[pvals<0.05] <- "red"
                    markercol <- rep("green",nr)             
                    markercol[pvals<0.05] <- "red"
                    nsignif <- sum(pvals<0.05)
@@ -242,9 +250,9 @@ function(X, n, addmarkers=TRUE, newframe=TRUE, hwcurve=TRUE, vbounds=TRUE, mafbo
           }
 
           if (connect)
-              points(Xc[,1],Xc[,2],pch=pch,bg=markercol,col=markercol,cex=cex,type="l")
+              points(Xc[,1],Xc[,2],pch=pch,bg=markerbgcol,col=markercol,cex=cex,type="l")
           else
-              points(Xc[,1],Xc[,2],pch=pch,bg=markercol,col=markercol,cex=cex)
+              points(Xc[,1],Xc[,2],pch=pch,bg=markerbgcol,col=markercol,cex=cex)
           text(Xc[,1],Xc[,2],markerlab,cex=mcex)
        }
 

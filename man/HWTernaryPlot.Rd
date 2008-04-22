@@ -2,7 +2,7 @@
 \alias{HWTernaryPlot}
 \title{ Ternary plot with the Hardy-Weinberg acceptance region }
 \description{
-  {\tt HWTernaryPlot} is a routine that draws a ternary plot for three-way genotypic compositions (AA,AB,BB), and represents
+  \code{HWTernaryPlot} is a routine that draws a ternary plot for three-way genotypic compositions (AA,AB,BB), and represents
   the acceptance region for different tests for Hardy-Weinberg equilibrium (HWE) in the plot. This allows for graphical
   testing of a large set of markers (e.g. SNPs) for HWE. The (non) significance of the test
   for HWE can be inferred from the position of the marker in the ternary plot. Different statistical tests for HWE
@@ -13,9 +13,9 @@
 HWTernaryPlot(X, n, addmarkers = TRUE, newframe = TRUE, hwcurve = TRUE, 
 vbounds = TRUE, mafbounds = FALSE, mafvalue = 0.05, axis = 0, region = 1, 
 vertexlab = colnames(X), alpha = 0.05, vertex.cex = 1, pch = 19, cc = 0.5, 
-markercol = "black", cex = 0.75, axislab = "", verbose = FALSE, 
-markerlab = NULL, mcex = 1, connect = FALSE, curvecols = rep("black",5), 
-signifcolour = FALSE, ...)
+markercol = "black", markerbgcol = "black", cex = 0.75, axislab = "", 
+verbose = FALSE, markerlab = NULL, mcex = 1, connect = FALSE, curvecols = 
+rep("black",5), signifcolour = TRUE, ...)
 }
 \arguments{
   \item{X}{ a matrix of \code{n} genotypic compositions (\code{n} rows, rows summing 1, 3 columns, AA, AB and BB respectively).}
@@ -52,6 +52,7 @@ signifcolour = FALSE, ...)
   \item{pch}{ the plotting character used to represent the markers. }
   \item{cc}{ value for the continuity correction parameter (0.5 by default). }
   \item{markercol}{ vector with colours for the marker points in the triangle. }
+  \item{markerbgcol}{ vector with background colours for the marker points in the triangle. }
   \item{cex}{ expansion factor for the marker points in the triangle. }
   \item{axislab}{ a label to be put under the horizontal axis. }
   \item{verbose}{ print information on the numerically found cut-points between curves of the acceptance region and 
@@ -86,19 +87,10 @@ based on the ternary plot. \emph{Human Heredity} 65(2):77-84.
 \seealso{ \code{\link{HWChisq}} }
 \examples{
 
-nm <- 100 # number of markers
+n <- 100 # sample size
+m <- 100 # number of markers
 
-Xt <- NULL
-
-for (i in 1:nm) {
-   p <- runif(1)
-   X <- t(rmultinom(1, size = 100, prob=c(p^2,2*p*(1-p),(1-p)^2)))
-   Xt <- rbind(Xt,X)
-}
-
-Xc <- Xt/100
-
-colnames(Xc) <- c("AA","AB","BB")
+Xc <- HWData(n,m)$Xc
 
 HWTernaryPlot(Xc,100,region=1,hwcurve=TRUE,vbounds=FALSE,vertex.cex=2)
 }

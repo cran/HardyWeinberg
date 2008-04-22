@@ -3,9 +3,8 @@
 \alias{HardyWeinberg}
 \docType{package}
 \title{Graphical tests for Hardy-Weinberg equilibrium}
-}
-\description{
 
+\description{
 The HardyWeinberg-package provides graphical tests for Hardy-Weinberg equilibrium (HWE) based 
 on the ternary plot (de Finetti diagram). The package constructs ternary plots for genotypic 
 compositions for bi-allelic marker data. The acceptance region for several statistical tests
@@ -18,8 +17,8 @@ of a test for HWE can be inferred from the position of the marker in the plot.
 \tabular{ll}{
 Package: \tab HardyWeinberg\cr
 Type: \tab Package\cr
-Version: \tab 1.0\cr
-Date: \tab 2007-03-01\cr
+Version: \tab 1.2\cr
+Date: \tab 2008-04-22\cr
 License: \tab GPL Version 2 or later.\cr
 }
 
@@ -49,19 +48,10 @@ library(HardyWeinberg)
 
 set.seed(123)
 
-nm <- 100 # number of markers
+m <- 100 # number of markers
+n <- 100 # sample size
 
-Xt <- NULL
-
-for (i in 1:nm) {
-   p <- runif(1)
-   X <- t(rmultinom(1, size = 100, prob=c(p^2,2*p*(1-p),(1-p)^2)))
-   Xt <- rbind(Xt,X)
-}
-
-Xc <- Xt/100
-colnames(Xc) <- c("AA","AB","BB")
-
+Xc <- HWData(n,m)$Xc
 out <- HWTernaryPlot(Xc,100,region=1,vertex.cex=2,signifcolour=TRUE)
 
 }

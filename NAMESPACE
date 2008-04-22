@@ -1,1 +1,1 @@
-export (HWChisq,HWLratio,HWTernaryPlot,GenerateSamples)
+export (HWChisq,HWData,HWLratio,HWTernaryPlot,GenerateSamples)
