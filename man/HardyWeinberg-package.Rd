@@ -17,7 +17,7 @@ of a test for HWE can be inferred from the position of the marker in the plot.
 \tabular{ll}{
 Package: \tab HardyWeinberg\cr
 Type: \tab Package\cr
-Version: \tab 1.2\cr
+Version: \tab 1.3\cr
 Date: \tab 2008-04-22\cr
 License: \tab GPL Version 2 or later.\cr
 }
@@ -51,7 +51,9 @@ set.seed(123)
 m <- 100 # number of markers
 n <- 100 # sample size
 
-Xc <- HWData(n,m)$Xc
-out <- HWTernaryPlot(Xc,100,region=1,vertex.cex=2,signifcolour=TRUE)
+out <- HWData(n,m)
+Xc <- out$Xc
+Xa <- out$Xt
+out <- HWTernaryPlot(Xc,100,region=1,vertex.cex=2,signifcolour=TRUE,Xa=Xa)
 
 }

@@ -7,10 +7,11 @@ function(n=5,Dpos=TRUE,alphalimit=0.05) {
    pval <- NULL
    fA <- NULL
    for (i in 1:nrow(X)) {
-      m <- matrix(c(X[i,1],X[i,2]/2,X[i,2]/2,X[i,3]),ncol=2)
+#      m <- matrix(c(X[i,1],X[i,2]/2,X[i,2]/2,X[i,3]),ncol=2)
       fA <- c(fA,(2*X[i,1]+X[i,2])/(2*n))
       Ds <- c(Ds,HWChisq(X[i,])$D)
-      pval <- c(pval,fisher.test(m,alternative="two.sided")$p.value)
+#      pval <- c(pval,fisher.test(m,alternative="two.sided")$p.value)
+      pval <- c(pval,HWExact(X[i,],alternative="two.sided")$pval)
    }   
 
    Y <- data.frame(X[,1],X[,2],X[,3],fA,Ds,pval)

@@ -1,19 +1,49 @@
 `HWTernaryPlot` <-
-function(X, n, addmarkers=TRUE, newframe=TRUE, hwcurve=TRUE, vbounds=TRUE, mafbounds=FALSE, mafvalue=0.05, axis=0, region=1, vertexlab=colnames(X), alpha = 0.05, vertex.cex = 1, pch = 19, cc = 0.5, markercol = "black", markerbgcol= "black", cex=0.75, axislab ="", verbose=FALSE, markerlab=NULL, mcex=1, connect = FALSE, curvecols=rep("black",5) , signifcolour=TRUE, ...)
+function(X, n=NA, addmarkers=TRUE, newframe=TRUE, hwcurve=TRUE, vbounds=TRUE, mafbounds=FALSE, mafvalue=0.05, axis=0, region=1, vertexlab=colnames(X), alpha = 0.05, vertex.cex = 1, pch = 19, cc = 0.5, markercol = "black", markerbgcol= "black", cex=0.75, axislab ="", verbose=FALSE, markerlab=NULL, mcex=1, connect = FALSE, curvecols=rep("black",5) , signifcolour=TRUE, curtyp = "solid", ssf = "max", ...)
   {
     X <- as.matrix(X)
     nr <- nrow(X)
     nc <- ncol(X)
+    if(any(X<0)) stop("X must be non-negative")
+    if(nc != 3) stop("X must have three columns")
+    if(is.na(n)) {
+      if((sum(apply(X,1,sum))==nr))  # data are compositions
+        stop("argument n (the sample size) should be supplied")
+      else { # raw counts
+        ssf <- match.fun(ssf)
+        vsums <- as.matrix(apply(X,1,sum),ncol=1)
+        n <- apply(vsums,2,ssf)
+        Xr <- X
+        if (nrow(X) == 1) 
+            Xcom <- X/sum(X)
+        else {
+            Dr <- diag(apply(X, 1, sum))
+            Xcom <- solve(Dr) %*% X
+        }
+      }
+    }
+    else {
+      if((sum(apply(X,1,sum))==nr)) {  # data are compositions
+        Xr <- round(n*X)
+        Xcom <- X
+      }
+      else { # raw counts
+        Xr <- X
+        if (nrow(X) == 1) 
+            Xcom <- X/sum(X)
+        else {
+            Dr <- diag(apply(X, 1, sum))
+            Xcom <- solve(Dr) %*% X
+        }
+      }
+    }
     chiquant <- qchisq(1-alpha,1)
     r <- sqrt(chiquant/n)
     k <- cc/n
     M <- matrix(c(-1/sqrt(3),0,0,1,1/sqrt(3),0),ncol=2,byrow=T)
     nsignif <- NA
     
-    if(any(X) < 0) stop("X must be non-negative")
-    if(nc != 3) stop("X must have three columns")
-    if(!(sum(apply(X,1,sum))==nr)) stop("rows of X must sum to 1")
-    markerq <- (X[,2]+2*X[,3])/2
+    markerq <- (Xcom[,2]+2*Xcom[,3])/2
 
       if(newframe) {
        oldpty <- par("pty")
@@ -69,10 +99,10 @@ function(X, n, addmarkers=TRUE, newframe=TRUE, hwcurve=TRUE, vbounds=TRUE, mafbo
        ind0 <- markerq==0
        nfixed <- sum(ind1) + sum(ind0)
     
-       D <- 0.5*(X[,2] - 2*(1-markerq)*markerq)
-       Dpos <- sum(X[,2] > 2*(1-markerq)*markerq)
-       Dneg <- sum(X[,2] < 2*(1-markerq)*markerq)
-       Dzer <- sum(X[,2] == 2*(1-markerq)*markerq)
+       D <- 0.5*(Xcom[,2] - 2*(1-markerq)*markerq)
+       Dpos <- sum(Xcom[,2] > 2*(1-markerq)*markerq)
+       Dneg <- sum(Xcom[,2] < 2*(1-markerq)*markerq)
+       Dzer <- sum(Xcom[,2] == 2*(1-markerq)*markerq)
        Dtot <- Dpos+Dneg
 
 
@@ -105,19 +135,19 @@ function(X, n, addmarkers=TRUE, newframe=TRUE, hwcurve=TRUE, vbounds=TRUE, mafbo
 
          # lower curve for D<0
 
-         DnegLL <- DnegLow(r,k,n,cc,chiquant,verbose=verbose,cex=cex,curcol=curvecols[4],curtyp="solid")
+         DnegLL <- DnegLow(r,k,n,cc,chiquant,verbose=verbose,cex=cex,curcol=curvecols[4],curtyp=curtyp)
 
          # upper curve for D<0
 
-         DnegUL <- DnegUp(r,k,n,cc,chiquant,verbose=verbose,cex=cex,curcol=curvecols[4],curtyp="solid")
+         DnegUL <- DnegUp(r,k,n,cc,chiquant,verbose=verbose,cex=cex,curcol=curvecols[4],curtyp=curtyp)
 
          # lower curve for D>0
 
-         DposLL <- DposLow(r,k,n,cc,chiquant,verbose=verbose,cex=cex,curcol=curvecols[3],curtyp="solid")
+         DposLL <- DposLow(r,k,n,cc,chiquant,verbose=verbose,cex=cex,curcol=curvecols[3],curtyp=curtyp)
       
          # upper curve for D>0
 
-         DposUL <- DposUp(r,k,n,cc,chiquant,verbose=verbose,cex=cex,curcol=curvecols[3],curtyp="solid")
+         DposUL <- DposUp(r,k,n,cc,chiquant,verbose=verbose,cex=cex,curcol=curvecols[3],curtyp=curtyp)
 
          if(verbose) {
              cat("D<0 LL",round(DnegLL,digits=2),"\n")
@@ -129,21 +159,21 @@ function(X, n, addmarkers=TRUE, newframe=TRUE, hwcurve=TRUE, vbounds=TRUE, mafbo
        if(region==3) { # only limits for D>0, chisq with cc
          # lower curve for D>0
 
-         DposLL <- DposLow(r,k,n,cc,chiquant,verbose=verbose,cex=cex,curcol=curvecols[3],curtyp="dotted")
+         DposLL <- DposLow(r,k,n,cc,chiquant,verbose=verbose,cex=cex,curcol=curvecols[3],curtyp=curtyp)
       
          # upper curve for D>0
 
-         DposUL <- DposUp(r,k,n,cc,chiquant,verbose=verbose,cex=cex,curcol=curvecols[3],curtyp="dotted")
+         DposUL <- DposUp(r,k,n,cc,chiquant,verbose=verbose,cex=cex,curcol=curvecols[3],curtyp=curtyp)
 
        }
        if(region==4) { # only limits for D<0, chisq with cc
          # lower curve for D<0
 
-         DnegLL <- DnegLow(r,k,n,cc,chiquant,verbose=verbose,cex=cex,curcol=curvecols[4],curtyp="dotted")
+         DnegLL <- DnegLow(r,k,n,cc,chiquant,verbose=verbose,cex=cex,curcol=curvecols[4],curtyp=curtyp)
 
          # upper curve for D<0
 
-         DnegUL <- DnegUp(r,k,n,cc,chiquant,verbose=verbose,cex=cex,curcol=curvecols[4],curtyp="dotted")
+         DnegUL <- DnegUp(r,k,n,cc,chiquant,verbose=verbose,cex=cex,curcol=curvecols[4],curtyp=curtyp)
        }
 
        if(region==5) { # all limits
@@ -153,34 +183,34 @@ function(X, n, addmarkers=TRUE, newframe=TRUE, hwcurve=TRUE, vbounds=TRUE, mafbo
 
          # lower curve for D<0
 
-         DnegLL <- DnegLow(r,k,n,cc,chiquant,verbose=verbose,cex=cex,curcol=curvecols[3],curtyp="dotted")
+         DnegLL <- DnegLow(r,k,n,cc,chiquant,verbose=verbose,cex=cex,curcol=curvecols[3],curtyp=curtyp)
 
          # upper curve for D<0
 
-         DnegUL <- DnegUp(r,k,n,cc,chiquant,verbose=verbose,cex=cex,curcol=curvecols[3],curtyp="dotted")
+         DnegUL <- DnegUp(r,k,n,cc,chiquant,verbose=verbose,cex=cex,curcol=curvecols[3],curtyp=curtyp)
 
          # lower curve for D>0
 
-         DposLL <- DposLow(r,k,n,cc,chiquant,verbose=verbose,cex=cex,curcol=curvecols[4],curtyp="dotted")
+         DposLL <- DposLow(r,k,n,cc,chiquant,verbose=verbose,cex=cex,curcol=curvecols[4],curtyp=curtyp)
       
          # upper curve for D>0
 
-         DposUL <- DposUp(r,k,n,cc,chiquant,verbose=verbose,cex=cex,curcol=curvecols[4],curtyp="dotted")
+         DposUL <- DposUp(r,k,n,cc,chiquant,verbose=verbose,cex=cex,curcol=curvecols[4],curtyp=curtyp)
          
        }
 
        if(region==6) { # lower for D<0, upper for D>0
 
-         HWChisqUpperl(r,verbose=FALSE,cex=cex,curvecol=curvecols[2])
-         HWChisqLowerl(r,verbose=FALSE,cex=cex,curvecol=curvecols[2])
+#         HWChisqUpperl(r,verbose=FALSE,cex=cex,curvecol=curvecols[2])
+#         HWChisqLowerl(r,verbose=FALSE,cex=cex,curvecol=curvecols[2])
 
          # lower curve for D<0
 
-         DnegLL <- DnegLow(r,k,n,cc,chiquant,verbose=verbose,cex=cex,curcol=curvecols[4],curtyp="dashed")
+         DnegLL <- DnegLow(r,k,n,cc,chiquant,verbose=verbose,cex=cex,curcol=curvecols[4],curtyp=curtyp)
 
          # upper curve for D>0
 
-         DposUL <- DposUp(r,k,n,cc,chiquant,verbose=verbose,cex=cex,curcol=curvecols[3],curtyp="dashed")
+         DposUL <- DposUp(r,k,n,cc,chiquant,verbose=verbose,cex=cex,curcol=curvecols[3],curtyp=curtyp)
          
          
        }
@@ -189,26 +219,25 @@ function(X, n, addmarkers=TRUE, newframe=TRUE, hwcurve=TRUE, vbounds=TRUE, mafbo
 
           Crit <- CritSam(n)$Xn
           Critcar <- Crit%*%M        # cartesian coordinates
-          points(Critcar[,1],Critcar[,2],pch=pch,col=curvecols[5],cex=cex,type="l")
+          points(Critcar[,1],Critcar[,2],pch=pch,col=curvecols[5],cex=cex,type="l",lty=curtyp)
 
           Crit <- CritSam(n,Dpos=FALSE)$Xn
           Critcar <- Crit%*%M        # cartesian coordinates
-          points(Critcar[,1],Critcar[,2],pch=pch,col=curvecols[5],cex=cex,type="l")
+          points(Critcar[,1],Critcar[,2],pch=pch,col=curvecols[5],cex=cex,type="l",lty=curtyp)
 
        }
 
        if(addmarkers) {
-          Xc <- X%*%M # cartesian coordinates
+          Xc <- Xcom%*%M # cartesian coordinates
 
           if (signifcolour==TRUE) { 
 
-             Xa <- X*n # observed absolute frequencies
              pvals <- NULL
   
              if (region == 1) {
              
-                for (i in 1:nrow(Xa))
-                   pvals <- c(pvals,HWChisq(Xa[i,])$pval)
+                for (i in 1:nrow(Xr))
+                   pvals <- c(pvals,HWChisq(Xr[i,])$pval)
                 markerbgcol <- rep("green",nr)             
                 markerbgcol[pvals<0.05] <- "red"
                 markercol <- rep("green",nr)             
@@ -219,8 +248,8 @@ function(X, n, addmarkers=TRUE, newframe=TRUE, hwcurve=TRUE, vbounds=TRUE, mafbo
 
              if (region == 2) {
 
-                for (i in 1:nrow(Xa))
-                   pvals <- c(pvals,HWChisq(Xa[i,],cc=0.5)$pval)
+                for (i in 1:nrow(Xr))
+                   pvals <- c(pvals,HWChisq(Xr[i,],cc=0.5)$pval)
                 markerbgcol <- rep("green",nr)             
                 markerbgcol[pvals<0.05] <- "red"
                 markercol <- rep("green",nr)             
@@ -231,12 +260,11 @@ function(X, n, addmarkers=TRUE, newframe=TRUE, hwcurve=TRUE, vbounds=TRUE, mafbo
 
              if (region == 7) {
 
-                for (i in 1:nrow(Xa)) {
+                for (i in 1:nrow(Xr)) {
                     
-                   x <- Xa[i,]
-                   m <- matrix(c(x[1],x[2]/2,x[2]/2,x[3]),ncol=2)
-                   out <- fisher.test(m,alternative="two.sided")
-                   pvals <- c(pvals,out$p.value)
+                   x <- Xr[i,]
+                   out <- HWExact(Xr[i,],alternative="two.sided")
+                   pvals <- c(pvals,out$pval)
                    markerbgcol <- rep("green",nr)             
                    markerbgcol[pvals<0.05] <- "red"
                    markercol <- rep("green",nr)             
@@ -250,7 +278,7 @@ function(X, n, addmarkers=TRUE, newframe=TRUE, hwcurve=TRUE, vbounds=TRUE, mafbo
           }
 
           if (connect)
-              points(Xc[,1],Xc[,2],pch=pch,bg=markerbgcol,col=markercol,cex=cex,type="l")
+              points(Xc[,1],Xc[,2],pch=pch,col=curvecols[1],cex=cex,type="l",lty=curtyp)
           else
               points(Xc[,1],Xc[,2],pch=pch,bg=markerbgcol,col=markercol,cex=cex)
           text(Xc[,1],Xc[,2],markerlab,cex=mcex)

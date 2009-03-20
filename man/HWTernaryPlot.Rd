@@ -10,15 +10,22 @@
   correction and the Fisher exact test.
 }
 \usage{
-HWTernaryPlot(X, n, addmarkers = TRUE, newframe = TRUE, hwcurve = TRUE, 
+HWTernaryPlot(X, n = NA, addmarkers = TRUE, newframe = TRUE, hwcurve = TRUE, 
 vbounds = TRUE, mafbounds = FALSE, mafvalue = 0.05, axis = 0, region = 1, 
 vertexlab = colnames(X), alpha = 0.05, vertex.cex = 1, pch = 19, cc = 0.5, 
 markercol = "black", markerbgcol = "black", cex = 0.75, axislab = "", 
 verbose = FALSE, markerlab = NULL, mcex = 1, connect = FALSE, curvecols = 
-rep("black",5), signifcolour = TRUE, ...)
+rep("black",5), signifcolour = TRUE, curtyp = "solid", ssf = "max", ...)
 }
 \arguments{
-  \item{X}{ a matrix of \code{n} genotypic compositions (\code{n} rows, rows summing 1, 3 columns, AA, AB and BB respectively).}
+  \item{X}{ a matrix of \code{n} genotypic compositions or counts. If it
+    is a matrix of compositions, X should have (\code{n} rows that sum
+    1, and 3 columns, with the relative frequencies of AA, AB and BB
+    respectively. Argument \code{n} should be supplied as well. If X is
+    a matrix of raw genotypic counts, it should have 3 columns with the
+    absolute counts of AA, AB and BB respectively. Argument \code{n} may
+    be supplied and will be used for painting acceptance regions. If not
+    supplied \code{n} is computed from the data in \code{X}. }
   \item{n}{ the samples size (for a complete composition with no missing data). }
   \item{addmarkers}{ represent markers by dots in the triangle (\code{addmarkers=TRUE}) or not \cr 
                     (\code{addmarkers=FALSE}). }
@@ -69,7 +76,11 @@ rep("black",5), signifcolour = TRUE, ...)
         correction when D < 0 black, and the limits of the FE acceptance region purple. }
   \item{signifcolour}{ colour the marker points automatically according to the result of a signifance test 
         (green markers non-siginficant, red markers significant). 
-        \code{signifcolour} only takes effect if \code{region} is set to 1, 2 or 7.}
+        \code{signifcolour} only takes effect if \code{region} is set to
+	1, 2 or 7.}
+  \item{curtyp}{ style of the drawn curves (\code{"dashed","solid","dotted",...})}
+  \item{ssf}{ sample size function (\code{"max","min","mean","median",...}). Indicates how the sample size for
+              drawing acceptance regions is determined from the matrix of counts.}
   \item{\dots}{ other arguments passed on to the plot function (e.g. \code{main} for a main title). }
 }
 \value{
@@ -90,9 +101,11 @@ based on the ternary plot. \emph{Human Heredity} 65(2):77-84.
 n <- 100 # sample size
 m <- 100 # number of markers
 
-Xc <- HWData(n,m)$Xc
+out <- HWData(n,m)
+Xc <- out$Xc
+Xa <- out$Xt
 
-HWTernaryPlot(Xc,100,region=1,hwcurve=TRUE,vbounds=FALSE,vertex.cex=2)
+HWTernaryPlot(Xc,100,region=1,hwcurve=TRUE,vbounds=FALSE,vertex.cex=2,Xa=Xa)
 }
 
 \keyword{aplot}
