@@ -1,4 +1,4 @@
-5d1f6a38038c185be3cbdba89df9f3d5 *DESCRIPTION
+238c94c2f2b1f6b32121cabae8a7e16f *DESCRIPTION
 1178fb0c7104c069df4d59fbe8c3c8d2 *NAMESPACE
 cd611235bc2f4759836f1fe27fe9e699 *R/CheckRoots.R
 2510018fa8f5d863ca8e132c36f0ffa6 *R/CompProbDown.R
@@ -27,12 +27,8 @@ f0ddbf906b12aab72f1ac2bce3015bdc *R/HWLowercl.R
 e218269205cb9a47aac803339114c467 *R/alowcurve.R
 5397083c3dd578c130c1d4c4a64079d7 *R/cutoff.R
 c2e42837c17e6575668454fb9c9dc731 *R/maf.R
-8318dd6f82093cb0853a481ad9b5dba8 *inst/doc/HWTernaryPlots.pdf
-ec86f8274cc5f0b9596625e4fc5ce939 *inst/doc/HardyWeinberg-009.eps
-ada5011f0601643455e5a1ec6a1c1c51 *inst/doc/HardyWeinberg-009.pdf
-ef9f73c35c4191a18457afb7108695b3 *inst/doc/HardyWeinberg.Snw
-1e87fb7785a3f7262cd4429cf498bd81 *inst/doc/HardyWeinberg.pdf
-1c892009cd9626675b04c5e6ecea93c5 *inst/doc/Rplots.pdf
+eb99a76a3a5dfe005699d26cba369325 *inst/doc/HardyWeinberg.Snw
+6e3e9567d0af088cbdecbf376630f618 *inst/doc/HardyWeinberg.pdf
 af8e8188a974c5b52b4e2382344c1314 *man/GenerateSamples.Rd
 206d781b2dece56a6a7bd2904b621b88 *man/HWChisq.Rd
 247cfd282d40d2dec9dba1639f2fd12b *man/HWChisqMat.Rd
@@ -46,3 +42,8 @@ d34fa49ee7a7983737f2e824a8aa667f *man/HWTernaryPlot.Rd
 bb38e8c1a7f8d64541429cbe34adce2e *man/UniqueGenotypeCounts.Rd
 fa3a8b3ac88896fe58c25ce329f240ab *man/af.Rd
 316e16c878027ab7c5fff247aa40c56c *man/maf.Rd
+43a02298a94d8d9d937df1bce5bddffd *vignettes/HWTernaryPlots.pdf
+ec86f8274cc5f0b9596625e4fc5ce939 *vignettes/HardyWeinberg-009.eps
+ada5011f0601643455e5a1ec6a1c1c51 *vignettes/HardyWeinberg-009.pdf
+eb99a76a3a5dfe005699d26cba369325 *vignettes/HardyWeinberg.Snw
+775b7849e40a6c65d554a17c8cc762c2 *vignettes/Rplots.pdf
