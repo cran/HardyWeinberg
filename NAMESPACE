@@ -1,1 +1,2 @@
-export (HWChisq,HWCondProbAB,HWData,HWExact,HWLratio,HWTernaryPlot,GenerateSamples)
+export (af,HWChisq,HWChisqMat,HWCondProbAB,HWData,HWExact,HWExactMat,HWLratio,HWTernaryPlot,GenerateSamples,maf,UniqueGenotypeCounts)
+

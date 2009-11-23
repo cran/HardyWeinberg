@@ -8,7 +8,8 @@
 The HardyWeinberg-package provides graphical tests for Hardy-Weinberg equilibrium (HWE) based 
 on the ternary plot (de Finetti diagram). The package constructs ternary plots for genotypic 
 compositions for bi-allelic marker data. The acceptance region for several statistical tests
-of HWE (Chisquare, Chisquare with continuity correction, Fisher exact) can be depicted inside
+of HWE (Chisquare test, Chisquare test with continuity correction, Haldane's exact
+test) can be depicted inside
 the ternary plot with the routines of the package. Large numbers of bi-allelic markers 
 (e.g. SNPs) can be represented in a single ternary diagram and the statistical (non)significance
 of a test for HWE can be inferred from the position of the marker in the plot.
@@ -53,7 +54,6 @@ n <- 100 # sample size
 
 out <- HWData(n,m)
 Xc <- out$Xc
-Xa <- out$Xt
-out <- HWTernaryPlot(Xc,100,region=1,vertex.cex=2,signifcolour=TRUE,Xa=Xa)
+out <- HWTernaryPlot(Xc,100,region=1,vertex.cex=2,signifcolour=TRUE)
 
 }

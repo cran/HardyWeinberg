@@ -1,4 +1,5 @@
 \name{HWChisq}
+\Rdversion{1.1}
 \alias{HWChisq}
 \title{Chi square tests for Hardy Weinberg equilibrium}
 \description{
@@ -6,11 +7,13 @@
   equilibrium with or without continuity correction.
 }
 \usage{
-HWChisq(X, cc = 0, verbose = FALSE)
+HWChisq(X, cc = 0.5, alpha = 0.05, verbose = FALSE)
 }
 \arguments{
   \item{X}{\code{X} a vector containg the genotypic counts (AA,AB,BB).}
-  \item{cc}{\code{cc} the continuity correction parameter (default \code{cc = 0}).}
+  \item{cc}{\code{cc} the continuity correction parameter (default
+    \code{cc = 0}).}
+  \item{alpha}{ significance level (0.05 by default). }  
   \item{verbose}{ \code{verbose} = 1 prints results, \code{verbose} = 0 is silent.}
 }
 \value{

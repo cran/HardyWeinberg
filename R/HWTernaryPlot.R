@@ -1,5 +1,5 @@
 `HWTernaryPlot` <-
-function(X, n=NA, addmarkers=TRUE, newframe=TRUE, hwcurve=TRUE, vbounds=TRUE, mafbounds=FALSE, mafvalue=0.05, axis=0, region=1, vertexlab=colnames(X), alpha = 0.05, vertex.cex = 1, pch = 19, cc = 0.5, markercol = "black", markerbgcol= "black", cex=0.75, axislab ="", verbose=FALSE, markerlab=NULL, mcex=1, connect = FALSE, curvecols=rep("black",5) , signifcolour=TRUE, curtyp = "solid", ssf = "max", ...)
+function(X, n=NA, addmarkers=TRUE, newframe=TRUE, hwcurve=TRUE, vbounds=TRUE, mafbounds=FALSE, mafvalue=0.05, axis=0, region=1, vertexlab=colnames(X), alpha = 0.05, vertex.cex = 1, pch = 19, cc = 0.5, markercol = "black", markerbgcol= "black", cex=0.75, axislab ="", verbose=FALSE, markerlab=NULL, mcex=1, connect = FALSE, curvecols=rep("black",5) , signifcolour=TRUE, curtyp = "solid", ssf = "max", pvaluetype = "dost", ...)
   {
     X <- as.matrix(X)
     nr <- nrow(X)
@@ -215,13 +215,13 @@ function(X, n=NA, addmarkers=TRUE, newframe=TRUE, hwcurve=TRUE, vbounds=TRUE, ma
          
        }
 
-       if(region==7) { # For Fisher-Exact test
+       if(region==7) { # For Haldane's Exact test
 
-          Crit <- CritSam(n)$Xn
+          Crit <- CritSam(n,alphalimit=alpha,pvaluetype=pvaluetype)$Xn
           Critcar <- Crit%*%M        # cartesian coordinates
           points(Critcar[,1],Critcar[,2],pch=pch,col=curvecols[5],cex=cex,type="l",lty=curtyp)
 
-          Crit <- CritSam(n,Dpos=FALSE)$Xn
+          Crit <- CritSam(n,Dpos=FALSE,alphalimit=alpha,pvaluetype=pvaluetype)$Xn
           Critcar <- Crit%*%M        # cartesian coordinates
           points(Critcar[,1],Critcar[,2],pch=pch,col=curvecols[5],cex=cex,type="l",lty=curtyp)
 
@@ -237,12 +237,12 @@ function(X, n=NA, addmarkers=TRUE, newframe=TRUE, hwcurve=TRUE, vbounds=TRUE, ma
              if (region == 1) {
              
                 for (i in 1:nrow(Xr))
-                   pvals <- c(pvals,HWChisq(Xr[i,])$pval)
+                   pvals <- c(pvals,HWChisq(Xr[i,],cc=0)$pval)
                 markerbgcol <- rep("green",nr)             
-                markerbgcol[pvals<0.05] <- "red"
+                markerbgcol[pvals<alpha] <- "red"
                 markercol <- rep("green",nr)             
-                markercol[pvals<0.05] <- "red"
-                 nsignif <- sum(pvals<0.05)
+                markercol[pvals<alpha] <- "red"
+                 nsignif <- sum(pvals<alpha)
 
              }
 
@@ -251,10 +251,10 @@ function(X, n=NA, addmarkers=TRUE, newframe=TRUE, hwcurve=TRUE, vbounds=TRUE, ma
                 for (i in 1:nrow(Xr))
                    pvals <- c(pvals,HWChisq(Xr[i,],cc=0.5)$pval)
                 markerbgcol <- rep("green",nr)             
-                markerbgcol[pvals<0.05] <- "red"
+                markerbgcol[pvals<alpha] <- "red"
                 markercol <- rep("green",nr)             
-                markercol[pvals<0.05] <- "red"
-                nsignif <- sum(pvals<0.05)
+                markercol[pvals<alpha] <- "red"
+                nsignif <- sum(pvals<alpha)
 
              }
 
@@ -263,13 +263,13 @@ function(X, n=NA, addmarkers=TRUE, newframe=TRUE, hwcurve=TRUE, vbounds=TRUE, ma
                 for (i in 1:nrow(Xr)) {
                     
                    x <- Xr[i,]
-                   out <- HWExact(Xr[i,],alternative="two.sided")
+                   out <- HWExact(Xr[i,],alternative="two.sided",pvaluetype)
                    pvals <- c(pvals,out$pval)
                    markerbgcol <- rep("green",nr)             
-                   markerbgcol[pvals<0.05] <- "red"
+                   markerbgcol[pvals<alpha] <- "red"
                    markercol <- rep("green",nr)             
-                   markercol[pvals<0.05] <- "red"
-                   nsignif <- sum(pvals<0.05)
+                   markercol[pvals<alpha] <- "red"
+                   nsignif <- sum(pvals<alpha)
              }
 
              }

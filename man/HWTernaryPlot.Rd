@@ -7,7 +7,7 @@
   testing of a large set of markers (e.g. SNPs) for HWE. The (non) significance of the test
   for HWE can be inferred from the position of the marker in the ternary plot. Different statistical tests for HWE
   can be done graphically with this routine: the ordinary chisquare test, the chisquare test with continuity
-  correction and the Fisher exact test.
+  correction and the Haldane's exact test.
 }
 \usage{
 HWTernaryPlot(X, n = NA, addmarkers = TRUE, newframe = TRUE, hwcurve = TRUE, 
@@ -15,7 +15,7 @@ vbounds = TRUE, mafbounds = FALSE, mafvalue = 0.05, axis = 0, region = 1,
 vertexlab = colnames(X), alpha = 0.05, vertex.cex = 1, pch = 19, cc = 0.5, 
 markercol = "black", markerbgcol = "black", cex = 0.75, axislab = "", 
 verbose = FALSE, markerlab = NULL, mcex = 1, connect = FALSE, curvecols = 
-rep("black",5), signifcolour = TRUE, curtyp = "solid", ssf = "max", ...)
+rep("black",5), signifcolour = TRUE, curtyp = "solid", ssf = "max", pvaluetype = "dost", ...)
 }
 \arguments{
   \item{X}{ a matrix of \code{n} genotypic compositions or counts. If it
@@ -51,7 +51,7 @@ rep("black",5), signifcolour = TRUE, curtyp = "solid", ssf = "max", ...)
    5 = draw the acceptance regions for all preceding tests simultaneously \cr 
    6 = draw the acceptance region corresponding to a Chi-square test with continuity correction with the upper
        limit for D > 0 and the lower limit for D < 0 \cr
-   7 = draw the acceptance region corresponding to a two-sided Fisher exact test \cr
+   7 = draw the acceptance region corresponding to a two-sided exact test \cr
 }
   \item{vertexlab}{ labels for the three vertices of the triangle }
   \item{alpha}{ significance level (0.05 by default) }
@@ -73,14 +73,17 @@ rep("black",5), signifcolour = TRUE, curtyp = "solid", ssf = "max", ...)
         the Hardy-Weinberg curve red, the limits of the acceptance region for an ordinary chi-square test
         for HWE green, the limits of the acceptance region for a chi-square test with continuity correction
         when D > 0 blue and the limits of the acceptance region for a chi-square test with continuity 
-        correction when D < 0 black, and the limits of the FE acceptance region purple. }
+        correction when D < 0 black, and the limits of the exact acceptance region purple. }
   \item{signifcolour}{ colour the marker points automatically according to the result of a signifance test 
         (green markers non-siginficant, red markers significant). 
         \code{signifcolour} only takes effect if \code{region} is set to
 	1, 2 or 7.}
   \item{curtyp}{ style of the drawn curves (\code{"dashed","solid","dotted",...})}
   \item{ssf}{ sample size function (\code{"max","min","mean","median",...}). Indicates how the sample size for
-              drawing acceptance regions is determined from the matrix of counts.}
+              drawing acceptance regions is determined from the matrix
+	      of counts.}
+  \item{pvaluetype}{ method to compute p-values in an exact test
+    (\code{"dost"} or \code{"selome"})}	    
   \item{\dots}{ other arguments passed on to the plot function (e.g. \code{main} for a main title). }
 }
 \value{
@@ -103,9 +106,8 @@ m <- 100 # number of markers
 
 out <- HWData(n,m)
 Xc <- out$Xc
-Xa <- out$Xt
 
-HWTernaryPlot(Xc,100,region=1,hwcurve=TRUE,vbounds=FALSE,vertex.cex=2,Xa=Xa)
+HWTernaryPlot(Xc,100,region=1,hwcurve=TRUE,vbounds=FALSE,vertex.cex=2)
 }
 
 \keyword{aplot}
