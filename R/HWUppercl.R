@@ -1,5 +1,4 @@
-`HWUppercl` <-
-function(r,verbose=FALSE,cex=1,curvecol="black") {
+`HWUppercl` <- function(r,verbose=FALSE,cex=1,curvecol="black") {
    # draw upper confidence limit for ordinary chisquare test
    ll <- r/(1+r)
    ul <- 1/(1+r)

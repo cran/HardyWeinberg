@@ -1,5 +1,4 @@
-`CritSam` <-
-function(n=5,Dpos=TRUE,alphalimit=0.05,pvaluetype="dost") {
+`CritSam` <- function(n=5,Dpos=TRUE,alphalimit=0.05,pvaluetype="dost") {
    X <- GenerateSamples(n)
    ncomp <- nrow(X)
    Res <- NULL

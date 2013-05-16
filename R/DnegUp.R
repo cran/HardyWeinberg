@@ -1,5 +1,4 @@
-`DnegUp` <-
-function(r,k,n,cc,chiquant,verbose=FALSE,cex=1,curcol="black",curtyp="dotted")
+`DnegUp` <- function(r,k,n,cc,chiquant,verbose=FALSE,cex=1,curcol="black",curtyp="dotted")
   {
    # draw the upper cl for D<0, chisquare with cc
  

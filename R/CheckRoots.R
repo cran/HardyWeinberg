@@ -1,5 +1,4 @@
-`CheckRoots` <-
-function(roots,limits=c(0,1),mini=TRUE,verbose=FALSE) {
+`CheckRoots` <- function(roots,limits=c(0,1),mini=TRUE,verbose=FALSE) {
 if(verbose) {  
    cat("checking roots\n")
    print(roots)

@@ -1,5 +1,4 @@
-`DnegLow` <-
-function(r,k,n,cc,chiquant,verbose=FALSE,cex=1,curcol="black",curtyp="solid") {
+`DnegLow` <- function(r,k,n,cc,chiquant,verbose=FALSE,cex=1,curcol="black",curtyp="solid") {
    # draw the lower cl for D<0, chisquare with cc
    ll <- r/(1+r)
    ul <- 1/(1+r)

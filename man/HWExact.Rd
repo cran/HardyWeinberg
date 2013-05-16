@@ -5,7 +5,7 @@
   \code{HWExact} performs an exact test for Hardy-Weinberg equilibrium
 }
 \usage{
-HWExact(X, alternative = "two.sided", pvaluetype = "dost", verbose = FALSE)
+HWExact(X, alternative = "two.sided", pvaluetype = "selome", verbose = FALSE)
 }
 \arguments{
   \item{X}{ vector with the genotype counts AA, AB, BB }
@@ -19,15 +19,31 @@ HWExact(X, alternative = "two.sided", pvaluetype = "dost", verbose = FALSE)
 then the p-value of a two-sided test is computed as twice the tail area
 of a one-sided test. When set to \code{selome}, the p-value
 is computed as the sum of the probabilities of all samples less or
-equally likely as the current sample.}
+equally likely as the current sample. When set to \code{midp}, the
+p-value is computed as half the probability of the current sample +
+the probabilities of all samples that are more extreme.}
    \item{verbose}{ print results or not.}
 }
 \details{
-   \code{HWExact} use the recursion equations described by Wigginton
+   \code{HWExact} uses the recursion equations described by Wigginton
    et. al.
+
+   For large samples, \code{HWExact} may give the error message:
+   "evaluation nested too deeply: infinite recursion". This can usually
+   be resolved by increasing R's limit on nested expressions with
+   \code{options(expressions=10000)} or a higher limit. With higher
+   limits, the error message "protect(): protection stack overflow" can
+   occur. This error can usually be resolved by increasing R's
+   protection stack with the command line option
+   \code{--max-ppsize 100000} or higer values. However, with such large
+   samples the exact test will give virtually the same result as a
+   chi-square test, and it may be easier to use \code{HWChisq} in these
+   circumstances.
 }
 \value{
   \item{pval}{ p-value of the exact test }
+  \item{prob}{ probabilities of all possible samples with the same
+   sample size and minor allele count}
   \item{pofthesample}{ probability of the observed sample }
 }
 \references{Weir, B.S. (1996) Genetic data analysis II. Sinauer
@@ -37,11 +53,6 @@ equally likely as the current sample.}
   tests of Hardy-Weinberg equilibrium, American Journal of Human
   Genetics (76) pp. 887-893.}
 \author{ Jan Graffelman (jan.graffelman@upc.edu) }
-\note{
-   \code{HWExact} is designed for a fast analysis of a large set of
-   markers. \code{HWExact} is slower, but provides more detailed
-   statistics for the sample under study.
-}
 \seealso{ \code{\link{HWLratio}}, \code{\link{HWChisq}} }
 \examples{
 x <- c(298,489,213)

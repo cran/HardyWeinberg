@@ -1,5 +1,4 @@
-`HWLowercl` <-
-function(r,verbose=FALSE,cex=1,curvecol="black") {
+`HWLowercl` <- function(r,verbose=FALSE,cex=1,curvecol="black") {
    # draw lower confidence limit for ordinary chisquare test
    if (r <=1) {         
       p <- seq(0,1,by=0.005)

@@ -1,12 +1,11 @@
-`GenerateSamples` <-
-function(n=5) {
+`GenerateSamples` <- function(n=5) {
+  # generates all possible samples of size n.
 Res <- NULL
 for (i in 0:n) {
    AA <- i
    for (j in 0:(n-i)) {
       AB <- j
       BB <- (n-(AA+AB))
-#      cat(AA,AB,BB,"\n")
       sam <- c(AA,AB,BB)
       Res <- rbind(Res,sam)
     }

@@ -1,5 +1,4 @@
-`af` <-
-function(x) {
+`af` <- function(x) {
   if(is.vector(x)) {
    p <- (x[1]+0.5*x[2])/sum(x)
   } else

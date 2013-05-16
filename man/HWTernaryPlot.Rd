@@ -14,8 +14,9 @@ HWTernaryPlot(X, n = NA, addmarkers = TRUE, newframe = TRUE, hwcurve = TRUE,
 vbounds = TRUE, mafbounds = FALSE, mafvalue = 0.05, axis = 0, region = 1, 
 vertexlab = colnames(X), alpha = 0.05, vertex.cex = 1, pch = 19, cc = 0.5, 
 markercol = "black", markerbgcol = "black", cex = 0.75, axislab = "", 
-verbose = FALSE, markerlab = NULL, mcex = 1, connect = FALSE, curvecols = 
-rep("black",5), signifcolour = TRUE, curtyp = "solid", ssf = "max", pvaluetype = "dost", ...)
+verbose = FALSE, markerlab = NULL, markerpos = NULL, mcex = 1, connect =
+FALSE, curvecols = rep("black",5), signifcolour = TRUE, curtyp =
+"solid", ssf = "max", pvaluetype = "dost", ...)
 }
 \arguments{
   \item{X}{ a matrix of \code{n} genotypic compositions or counts. If it
@@ -65,6 +66,8 @@ rep("black",5), signifcolour = TRUE, curtyp = "solid", ssf = "max", pvaluetype =
   \item{verbose}{ print information on the numerically found cut-points between curves of the acceptance region and 
                   the edges of the triangle. }
   \item{markerlab}{ labels for the markers in the triangle. }
+  \item{markerpos}{ positions for the marker labels in the triangle
+    (1,2,3 or 4).}
   \item{mcex}{ character expansion factor for the labels of the markers in the ternary plot. }
   \item{connect}{ connect the represented markers by a line in the ternary plot. }
   \item{curvecols}{ a vector with four colour specifications for the different curves that can be used
@@ -93,9 +96,17 @@ rep("black",5), signifcolour = TRUE, curtyp = "solid", ssf = "max", pvaluetype =
   \item{percinrange }{percentage of markers in the appropriate.}
   \item{nsignif }{number of significant markers (only if \code{region} equals 1,2 or 7.)}
 }
+\details{
+   \code{HWTernaryPlot} automatically colours significant markers in
+   red, and non-significant markers in green if \code{region} is set to
+   1, 2 or 7.
+   }
 \references{
-Graffelman, J. and Morales, J. (2008) Graphical tests for Hardy-Weinberg equilibrium 
-based on the ternary plot. \emph{Human Heredity} 65(2):77-84.
+Graffelman, J. and Morales, J. (2008) Graphical Tests for Hardy-Weinberg Equilibrium 
+Based on the Ternary Plot. \emph{Human Heredity} 65(2):77-84.
+
+Graffelman, J. (2012) Exploring Bi-Allelelic Genetic Markers: The
+HardyWeinberg Package. \emph{Journal of Statistical Software}
 }
 \author{ Jan Graffelman \email{jan.graffelman@upc.edu} }
 \seealso{ \code{\link{HWChisq}} }

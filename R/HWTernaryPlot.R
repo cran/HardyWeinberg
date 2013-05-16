@@ -1,6 +1,15 @@
-`HWTernaryPlot` <-
-function(X, n=NA, addmarkers=TRUE, newframe=TRUE, hwcurve=TRUE, vbounds=TRUE, mafbounds=FALSE, mafvalue=0.05, axis=0, region=1, vertexlab=colnames(X), alpha = 0.05, vertex.cex = 1, pch = 19, cc = 0.5, markercol = "black", markerbgcol= "black", cex=0.75, axislab ="", verbose=FALSE, markerlab=NULL, mcex=1, connect = FALSE, curvecols=rep("black",5) , signifcolour=TRUE, curtyp = "solid", ssf = "max", pvaluetype = "dost", ...)
+`HWTernaryPlot` <- function(X, n=NA, addmarkers=TRUE, newframe=TRUE, hwcurve=TRUE, vbounds=TRUE, mafbounds=FALSE, mafvalue=0.05, axis=0, region=1, vertexlab=colnames(X), alpha = 0.05, vertex.cex = 1, pch = 19, cc = 0.5, markercol = "black", markerbgcol= "black", cex=0.75, axislab ="", verbose=FALSE, markerlab=NULL, markerpos=NULL, mcex=1, connect = FALSE, curvecols=rep("black",5) , signifcolour=TRUE, curtyp = "solid", ssf = "max", pvaluetype = "dost", ...)
   {
+# plot a ternary diagram that represents all rows of X as points. Acceptance regions for various tests for HWE
+#    can be added.
+    if(is.vector(X)) {
+      if(length(X)!=3) {
+        stop("X must have three elements")
+      }
+      else {
+        X <- matrix(X,ncol=3,dimnames=list(c("1"),names(X)))
+      }
+    }
     X <- as.matrix(X)
     nr <- nrow(X)
     nc <- ncol(X)
@@ -281,7 +290,7 @@ function(X, n=NA, addmarkers=TRUE, newframe=TRUE, hwcurve=TRUE, vbounds=TRUE, ma
               points(Xc[,1],Xc[,2],pch=pch,col=curvecols[1],cex=cex,type="l",lty=curtyp)
           else
               points(Xc[,1],Xc[,2],pch=pch,bg=markerbgcol,col=markercol,cex=cex)
-          text(Xc[,1],Xc[,2],markerlab,cex=mcex)
+          text(Xc[,1],Xc[,2],markerlab,cex=mcex,pos=markerpos)
        }
 
        return(list(minp=minp,maxp=maxp,inrange=inrange,percinrange=percinrange,nsignif=nsignif))

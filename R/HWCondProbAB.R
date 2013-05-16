@@ -1,5 +1,5 @@
-`HWCondProbAB` <-
-function(n,nA,nAB) {
+`HWCondProbAB` <- function(n,nA,nAB) {
+  # computes the conditional probabilities P(nAB|nA) using the Levene-Haldane distribution.
 nAA <- 0.5*(nA-nAB)
 nB <- 2*n - nA
 nBB <- 0.5*(nB-nAB)
