@@ -48,7 +48,7 @@ HWExact <- function (X, alternative = "two.sided", pvaluetype = "selome", verbos
           stop("invalid value for parameter pvaluetype")), 
         stop("invalid value for parameter alternative"))
     if (verbose) {
-        D <- HWChisq(X)$D
+        D <- 0.5 * (Xhet - nA*nB/(2*n))
         cat("Haldane's Exact test for Hardy-Weinberg equilibrium\n")
         stringpvalue <- switch(pvaluetype, dost = "using DOST p-value\n", 
             selome = "using SELOME p-value\n", midp = "using MID p-value\n", stop("invalid value for parameter pvaluetype"))

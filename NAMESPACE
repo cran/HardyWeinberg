@@ -1,2 +1,2 @@
-export (af,fisherz,HWAlltests,HWAlr,HWAlrPlot,HWChisq,HWChisqMat,HWClr,HWClrPlot,HWCondProbAB,HWData,HWExact,HWExactMat,HWf,HWGenotypePlot,HWIlr,HWIlrPlot,HWMissing,HWPower,HWLratio,HWQqplot,HWTernaryPlot,ifisherz,GenerateSamples,mac,maf,MakeCounts,recode,UniqueGenotypeCounts)
+export (af,fisherz,HWAlltests,HWAlr,HWAlrPlot,HWChisq,HWChisqMat,HWClr,HWClrPlot,HWCondProbAB,HWData,HWExact,HWExactMat,HWf,HWGenotypePlot,HWIlr,HWIlrPlot,HWMissing,HWPerm,HWPower,HWLratio,HWQqplot,HWTernaryPlot,ifisherz,GenerateSamples,mac,maf,MakeCounts,recode,UniqueGenotypeCounts)
 

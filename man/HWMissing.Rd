@@ -15,7 +15,7 @@
 }
 \usage{
 HWMissing(X, imputecolumn = 1, m = 50, verbose = FALSE, fisher = FALSE,
-alpha = 0.05, ...)
+alpha=0.05, varest=1, ...)
 }
 \arguments{
   \item{X}{An input data frame. By default, the first column should
@@ -27,6 +27,9 @@ alpha = 0.05, ...)
   \item{fisher}{Apply Fisher's z transformation to imputed inbreeding coefficients}
   \item{alpha}{significance level (0.05 by default) used when computing
     confidence intervals}
+  \item{varest}{Estimator for the variance of the inbreeding
+    coefficient. At present only 1 is allowed and computations are based
+    on a large-sample estimator (see details).}
   \item{\ldots}{additional options for function \code{mice} of the Mice package}
 }
 \details{
@@ -45,21 +48,33 @@ alpha = 0.05, ...)
    If there are no covariates, missings can be imputed under the MCAR
    assumption. In that case, missings are imputed by taking a random
    sample from the observed data. This is what \code{HWMissing} will do
-   if no covariates are supplied, \code{X} being a single factor variable.
+   if no covariates are supplied, \code{X} being a single factor
+   variable.
+
+   Several estimators for the variance of the inbreeding coefficient
+   have been described in the literature. The asymptotic variance of the
+   inbreeding coefficient under the null hypothesis is 1/n. At present
+   only \code{varest = 1} is implemented. The large-sample estimator
+   described in Weir (p. 66) is then used.
    }
 \value{A vector with the inbreeding coefficient, a confidence interval
   for the inbreeding coefficient, a p-value for a HWE test and missing data statistics.}
 \references{
 Little, R. J. A. and Rubin, D. B. (2002) Statistical analysis with missing data.
-Second edition, New York, John Wiley & sons}
+Second edition, New York, John Wiley & sons
+Weir, B. S. (1996) Genetic Data Analysis II, Sinauer Associates, Massachusetts}
 \author{ Jan Graffelman \email{jan.graffelman@upc.edu} }
 \seealso{ \code{\link{HWChisq}} }
 \examples{
-   data(Markers)
-   set.seed(123)
-   Results <- HWMissing(Markers[,1:3],m=50,verbose=TRUE)
-   set.seed(123)
-   Results <- HWMissing(Markers[,1:3],m=50,verbose=TRUE,method="polyreg")
+data(Markers)
+\dontrun{
+set.seed(123)
+Results <- HWMissing(Markers[,1],m=50,verbose=TRUE) # no covariates, imputation assuming MCAR. 
+set.seed(123)
+Results <- HWMissing(Markers[,1:3],m=50,verbose=TRUE) # impute with two allele intensities.
+set.seed(123)
+Results <- HWMissing(Markers[,c(1,4,5)],m=50,verbose=TRUE) # impute with two covariate SNPs
+}
 }
 \keyword{misc}
 

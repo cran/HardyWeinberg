@@ -25,6 +25,7 @@ HWChisq <- function (X, cc = 0.5, alpha = 0.05, verbose = FALSE)
     obs <- X
     # calculate expected counts under HWE.
     exp <- c(n * p^2, n * 2 * p * q, n * q^2)
+    if(any(exp<5)) warning("Expected counts below 5: chi-square approximation may be incorrect")
     D <- 0.5 * (obs[2] - exp[2])
     names(D) <- NULL
     # determine a cutoff value for the minor allele frequency, below
