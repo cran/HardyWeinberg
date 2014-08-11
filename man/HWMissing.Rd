@@ -14,8 +14,8 @@
   using Rubin's pooling rules.
 }
 \usage{
-HWMissing(X, imputecolumn = 1, m = 50, verbose = FALSE, fisher = FALSE,
-alpha=0.05, varest=1, ...)
+HWMissing(X,imputecolumn=1,m=50,verbose=FALSE,alpha=0.05,
+          varest="oneovern",return.imputed.sets=FALSE,...)
 }
 \arguments{
   \item{X}{An input data frame. By default, the first column should
@@ -24,12 +24,14 @@ alpha=0.05, varest=1, ...)
     is to be imputed (by default, the first colum, \code{imputecolumn=1}}
   \item{m}{The number of imputations (50 by default)}
   \item{verbose}{ \code{verbose = TRUE} prints results, \code{verbose = FALSE} is silent.}
-  \item{fisher}{Apply Fisher's z transformation to imputed inbreeding coefficients}
-  \item{alpha}{significance level (0.05 by default) used when computing
+   \item{alpha}{significance level (0.05 by default) used when computing
     confidence intervals}
   \item{varest}{Estimator for the variance of the inbreeding
-    coefficient. At present only 1 is allowed and computations are based
-    on a large-sample estimator (see details).}
+    coefficient. \code{varest="oneovern"} is the default and sets the
+    variance under the null (1/n). \code{varest="bailey"} uses an
+    approximation (see details).}
+  \item{return.imputed.sets}{If \code{return.imputed.sets=TRUE} then the
+imputed datasets are returned as a list object.}
   \item{\ldots}{additional options for function \code{mice} of the Mice package}
 }
 \details{
@@ -53,15 +55,25 @@ alpha=0.05, varest=1, ...)
 
    Several estimators for the variance of the inbreeding coefficient
    have been described in the literature. The asymptotic variance of the
-   inbreeding coefficient under the null hypothesis is 1/n. At present
-   only \code{varest = 1} is implemented. The large-sample estimator
-   described in Weir (p. 66) is then used.
+   inbreeding coefficient under the null hypothesis is 1/n, and is used
+   if \code{varest = "oneovern"} is used. This is the recommended
+   option. Alternatively, the approximation described in Weir (p. 66) can be used
+   with \code{varest = "bailey"}.
    }
-\value{A vector with the inbreeding coefficient, a confidence interval
-  for the inbreeding coefficient, a p-value for a HWE test and missing data statistics.}
+\value{
+  \item{Res}{A vector with the inbreeding coefficient, a confidence interval
+  for the inbreeding coefficient, a p-value for a HWE test and missing
+  data statistics.}
+  \item{Xmat}{A matrix with the genotypic composition of each of the
+   \code{m} imputed data sets.}
+  \item{ImputedSets}{A list object with all \code{m} imputed data
+   sets. Only returned if \code{return.imputed.sets=TRUE}}
+}
+
 \references{
-Little, R. J. A. and Rubin, D. B. (2002) Statistical analysis with missing data.
-Second edition, New York, John Wiley & sons
+Little, R. J. A. and Rubin, D. B. (2002) Statistical analysis with
+missing data. Second edition, New York, John Wiley & sons.
+
 Weir, B. S. (1996) Genetic Data Analysis II, Sinauer Associates, Massachusetts}
 \author{ Jan Graffelman \email{jan.graffelman@upc.edu} }
 \seealso{ \code{\link{HWChisq}} }
@@ -69,11 +81,11 @@ Weir, B. S. (1996) Genetic Data Analysis II, Sinauer Associates, Massachusetts}
 data(Markers)
 \dontrun{
 set.seed(123)
-Results <- HWMissing(Markers[,1],m=50,verbose=TRUE) # no covariates, imputation assuming MCAR. 
+Results <- HWMissing(Markers[,1],m=50,verbose=TRUE)$Res # no covariates, imputation assuming MCAR.
 set.seed(123)
-Results <- HWMissing(Markers[,1:3],m=50,verbose=TRUE) # impute with two allele intensities.
+Results <- HWMissing(Markers[,1:3],m=50,verbose=TRUE)$Res # impute with two allele intensities.
 set.seed(123)
-Results <- HWMissing(Markers[,c(1,4,5)],m=50,verbose=TRUE) # impute with two covariate SNPs
+Results <- HWMissing(Markers[,c(1,4,5)],m=50,verbose=TRUE)$Res # impute with two covariate SNPs
 }
 }
 \keyword{misc}

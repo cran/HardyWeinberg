@@ -18,8 +18,8 @@ of a test for HWE can be inferred from the position of the marker in the plot.
 \tabular{ll}{
 Package: \tab HardyWeinberg\cr
 Type: \tab Package\cr
-Version: \tab 1.3\cr
-Date: \tab 2008-04-22\cr
+Version: \tab 1.5.3\cr
+Date: \tab 2014-04-13\cr
 License: \tab GPL Version 2 or later.\cr
 }
 

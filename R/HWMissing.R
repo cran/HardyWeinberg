@@ -1,12 +1,12 @@
-HWMissing <- function(X,imputecolumn=1,m=50,verbose=FALSE,fisher=FALSE,alpha=0.05,varest=1,...) {
+HWMissing <- function(X,imputecolumn=1,m=50,verbose=FALSE,alpha=0.05,varest="oneovern",return.imputed.sets=FALSE,...) {
   #
   # function for inference for HWP using Multiple imputation.
   #
-     if (alpha <= 0 | alpha >= 1) 
+     if (alpha <= 0 | alpha >= 1)
        stop("HWMissing: alpha should be in the range (0,1)")
      objecttype <- class(X)
      choice <- switch(objecttype, data.frame = 1, factor = 2, stop("X should be a dataframe or a factor"))
-     if(choice == 1) { 
+     if(choice == 1) {
         y  <- as.numeric(X[,imputecolumn]) # internally everything is recoded as AA, AB, BB.
         yf <- factor(y,levels=c(1,2,3),labels=c("AA","AB","BB"))
         X[,imputecolumn] <- yf
@@ -18,17 +18,33 @@ HWMissing <- function(X,imputecolumn=1,m=50,verbose=FALSE,fisher=FALSE,alpha=0.0
         X <- data.frame(yf,rep(1,length(yf)))
         imp <- mice(X,m=m,predictorMatrix=quickpred(X,minpuc=0.10),printFlag=FALSE,method=c("sample",""),...)
      }
-     Xmat <- NULL
-     for(i in 1:m) {
-        Ximp <- complete(imp,i)
-        nAA <- sum(Ximp[,imputecolumn]=="AA")
-        nAB <- sum(Ximp[,imputecolumn]=="AB")
-        nBB <- sum(Ximp[,imputecolumn]=="BB")
-        Ximp <- c(AA=nAA,AB=nAB,BB=nBB)
-        Xmat <- rbind(Xmat,Ximp)
+     if(!return.imputed.sets) {
+        Xmat <- NULL
+        for(i in 1:m) {
+           Ximp <- complete(imp,i)
+           nAA <- sum(Ximp[,imputecolumn]=="AA")
+           nAB <- sum(Ximp[,imputecolumn]=="AB")
+           nBB <- sum(Ximp[,imputecolumn]=="BB")
+           Ximputedcounts <- c(AA=nAA,AB=nAB,BB=nBB)
+           Xmat <- rbind(Xmat,Ximputedcounts)
+        }
+        rownames(Xmat) <- 1:m
+     } else {
+        Xmat <- NULL
+        ImputedSets <- vector("list",m)
+        for(i in 1:m) {
+           Ximp <- complete(imp,i)
+           nAA <- sum(Ximp[,imputecolumn]=="AA")
+           nAB <- sum(Ximp[,imputecolumn]=="AB")
+           nBB <- sum(Ximp[,imputecolumn]=="BB")
+           Ximputedcounts <- c(AA=nAA,AB=nAB,BB=nBB)
+           Xmat <- rbind(Xmat,Ximputedcounts)
+           ImputedSets[[i]] <- Ximp
+        }
+        rownames(Xmat) <- 1:m
      }
      # combine estimates of f, using Rubin's pooling rules.
-     cout <- combineC(Xmat,fisher=fisher,alpha=alpha,varest=varest)
+     cout <- combineC(Xmat,alpha=alpha,varest=varest)
      Res <- c(cout$fhatimp,cout$llf,cout$ulf,cout$pvalimp,cout$r,cout$gamma)
      names(Res) <- c("f","llci","ulci","p-value","r","gamma")
      if(verbose) {
@@ -39,6 +55,6 @@ HWMissing <- function(X,imputecolumn=1,m=50,verbose=FALSE,fisher=FALSE,alpha=0.0
         cat("Relative increase in variance of f due to missings: r = ",round(cout$r,digits=4),"\n")
         cat("Fraction of missing information about f: lambda = ",round(cout$gamma,digits=4),"\n")
      }
-return(Res)
+     if(!return.imputed.sets) return(list(Res=Res,Xmat=Xmat)) else return(list(Res=Res,Xmat=Xmat,ImputedSets=ImputedSets))
 }
 

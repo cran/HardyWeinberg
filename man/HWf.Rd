@@ -13,6 +13,10 @@ HWf(X)
 \arguments{
   \item{X}{a vector of genotype counts (AA, AB, BB)}
 }
+\details{
+   For monomorphic markers a warning is issued, and the estimate for the
+   inbreeding coefficient is set to zero. 
+}
 \value{
   Returns the inbreeding coefficient (intraclass correlation coefficient)
 }
