@@ -1,4 +1,4 @@
-HWChisq <- function (X, cc = 0.5, alpha = 0.05, verbose = FALSE) 
+HWChisq <- function (X, cc = 0.5, alpha = 0.05, verbose = FALSE)
 {
     if(length(X)!=3 | any(X<0)) stop("HWChisq: X is not a 3 by 1 non-negative count vector")
     if(any(!is.wholenumber(X))) {
@@ -18,7 +18,7 @@ HWChisq <- function (X, cc = 0.5, alpha = 0.05, verbose = FALSE)
     names(p) <- NULL
     q <- 1 - p
     if ((p == 0) | (q == 0)) {
-        if (verbose) 
+        if (verbose)
             cat("warning: monomorphic marker\n")
         mono <- TRUE
     }
@@ -51,7 +51,7 @@ HWChisq <- function (X, cc = 0.5, alpha = 0.05, verbose = FALSE)
        if(cc==0) title <- "Chi-square test for Hardy-Weinberg equilibrium\n"
        else title <- "Chi-square test with continuity correction for Hardy-Weinberg equilibrium\n"
        cat(title)
-       cat("Chi2 = ", chisq, "p-value = ", pval, "D = ", D,"f = ", f, 
+       cat("Chi2 = ", chisq, "p-value = ", pval, "D = ", D,"f = ", f,
             "\n")
     }
     return(list(chisq = chisq, pval = pval, D = D, p = p, f = f))

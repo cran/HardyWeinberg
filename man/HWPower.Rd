@@ -54,8 +54,13 @@ are illustrated in the example section.
   the given significance level and minor allele count.
 }
 \references{
-Graffelman, J. and Morales, J. (2008) Graphical tests for Hardy-Weinberg equilibrium 
-based on the ternary plot. \emph{Human Heredity} 65(2):77-84.
+Graffelman, J. and Moreno, V. (2013) The Mid p-value in exact tests for
+Hardy-Weinberg proportions. \emph{Statistical Applications in Genetics
+  and Molecular Biology} 12(4): 433-448. \url{http://dx.doi.org/10.1515/sagmb-2012-0039}.
+
+Graffelman, J. (2015) Exploring Diallelic Genetic Markers: The HardyWeinberg Package.
+\emph{Journal of Statistical Software} 64(3):
+1-22. \url{http://www.jstatsoft.org/v64/i03/}.
 }
 \author{ Jan Graffelman (jan.graffelman@upc.edu) }
 \seealso{ \code{\link{HWExact}}}

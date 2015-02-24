@@ -46,11 +46,13 @@ equilibrium test statistics. Genetics 180, pp. 1609-1616.
 \author{ Jan Graffelman \email{jan.graffelman@upc.edu} }
 \seealso{ \code{\link{HWTernaryPlot}} \code{\link{HWExact}} \code{\link{qqplot}}}
 \examples{
+\dontrun{
 set.seed(1234)
 n <- 200 # sample size
 m <- 100 # number of markers
 X <- HWData(n,m)$Xt
 HWQqplot(X,logplot=TRUE,pvaluetype="selome",main="Q-Q Plot for HWE")
+}
 }
 \keyword{aplot}
 

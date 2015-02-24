@@ -55,10 +55,8 @@
     markerq <- (Xcom[,2]+2*Xcom[,3])/2
 
       if(newframe) {
-       oldpty <- par("pty")
-       on.exit(par(pty=oldpty))
-       par(pty="m")
-       par(xpd=TRUE) # allow for labels...
+       opar <- par(pty="m",xpd=TRUE)
+       on.exit(par(opar))
 
        plot(M[,1],M[,2], type="n", axes=FALSE, xlab="", ylab="", pch=19, asp=1, cex.main=2, ... )
        polygon(M)

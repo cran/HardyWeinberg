@@ -10,12 +10,14 @@
   and/or neighbouring markers. Multiple imputation algorithms
   implemented in the Mice package are used to obtain imputed data sets.
   Inference for HWE is carried out by estimating the inbreeding
-  coefficient for each imputed data set, and by combining all estimates
+  coefficient or exact p-values for each imputed data set, and
+  by combining all estimates
   using Rubin's pooling rules.
 }
 \usage{
-HWMissing(X,imputecolumn=1,m=50,verbose=FALSE,alpha=0.05,
-          varest="oneovern",return.imputed.sets=FALSE,...)
+HWMissing(X, imputecolumn = 1, m = 50, coding = c(0,1,2), verbose = FALSE, alpha = 0.05,
+    varest = "oneovern", statistic = "chisquare",  alternative =
+"two.sided", ...)
 }
 \arguments{
   \item{X}{An input data frame. By default, the first column should
@@ -23,6 +25,8 @@ HWMissing(X,imputecolumn=1,m=50,verbose=FALSE,alpha=0.05,
   \item{imputecolumn}{Indicates which column of the supplied data frame
     is to be imputed (by default, the first colum, \code{imputecolumn=1}}
   \item{m}{The number of imputations (50 by default)}
+  \item{coding}{Indicates how the genotype data is coded (e.g. 0 for AA,
+1 for AB, and 2 for BB).}
   \item{verbose}{ \code{verbose = TRUE} prints results, \code{verbose = FALSE} is silent.}
    \item{alpha}{significance level (0.05 by default) used when computing
     confidence intervals}
@@ -30,8 +34,17 @@ HWMissing(X,imputecolumn=1,m=50,verbose=FALSE,alpha=0.05,
     coefficient. \code{varest="oneovern"} is the default and sets the
     variance under the null (1/n). \code{varest="bailey"} uses an
     approximation (see details).}
-  \item{return.imputed.sets}{If \code{return.imputed.sets=TRUE} then the
-imputed datasets are returned as a list object.}
+  \item{statistic}{If \code{statistic = "chisquare"} then inbreeding
+    coefficients (equivalent to chisquare statistics) will be computed
+    for each imputed data set and then combined. If \code{statistic =
+      "exact"} then one-sided exact tests will be computed for each
+    imputed data set and the resulting p-values will be combined.}
+  \item{alternative}{\code{two.sided} (default) will perform a two-sided
+    test where both an excess and a dearth of heterozygotes count as
+    evidence against HWE. \code{less} is a one-sided test where only
+    dearth of heterozygotes counts a evidence against HWE,
+    \code{greater} is a one-sided test where only excess of
+    heterozygotes counts as evidence against HWE.}
   \item{\ldots}{additional options for function \code{mice} of the Mice package}
 }
 \details{
@@ -74,7 +87,14 @@ imputed datasets are returned as a list object.}
 Little, R. J. A. and Rubin, D. B. (2002) Statistical analysis with
 missing data. Second edition, New York, John Wiley & sons.
 
-Weir, B. S. (1996) Genetic Data Analysis II, Sinauer Associates, Massachusetts}
+Graffelman, J., S\'anchez, M., Cook, S. and Moreno, V. (2013) Statistical
+inference for Hardy-Weinberg proportions in the presence of missing
+genotype information. PLoS ONE 8(12):
+e83316. \url{http://dx.doi.org/10.1371/journal.pone.0083316}
+
+Graffelman, J. (2015) Exploring Diallelic Genetic Markers: The HardyWeinberg Package.
+\emph{Journal of Statistical Software} 64(3): 1-22. \url{http://www.jstatsoft.org/v64/i03/}.
+}
 \author{ Jan Graffelman \email{jan.graffelman@upc.edu} }
 \seealso{ \code{\link{HWChisq}} }
 \examples{

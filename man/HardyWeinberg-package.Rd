@@ -5,21 +5,23 @@
 \title{Graphical tests for Hardy-Weinberg equilibrium}
 
 \description{
-The HardyWeinberg-package provides graphical tests for Hardy-Weinberg equilibrium (HWE) based 
-on the ternary plot (de Finetti diagram). The package constructs ternary plots for genotypic 
-compositions for bi-allelic marker data. The acceptance region for several statistical tests
-of HWE (Chisquare test, Chisquare test with continuity correction, Haldane's exact
-test) can be depicted inside
-the ternary plot with the routines of the package. Large numbers of bi-allelic markers 
-(e.g. SNPs) can be represented in a single ternary diagram and the statistical (non)significance
-of a test for HWE can be inferred from the position of the marker in the plot.
+ The package HardyWeinberg offers tools for exploring
+ diallelic genetic marker data. It offers all classical tests (chi-square,
+ exact, likelihood-ratio and permutation tests) for
+ Hardy-Weinberg equilibrium, functions for power computation and
+ for the simulation of marker data under equilibrium and disequilibrium.
+ Functions for testing equilibrium in the presence of missing data by
+ using multiple imputation are provided. The package also supplies
+ various graphical tools such as ternary plots with acceptance regions,
+ log-ratio plots and Q-Q plots for exploring the equilibrium status of
+ a large set of diallelic markers. 
 }
 \details{
 \tabular{ll}{
 Package: \tab HardyWeinberg\cr
 Type: \tab Package\cr
-Version: \tab 1.5.3\cr
-Date: \tab 2014-04-13\cr
+Version: \tab 1.5.5\cr
+Date: \tab 2015-02-24\cr
 License: \tab GPL Version 2 or later.\cr
 }
 
@@ -38,8 +40,12 @@ Maintainer: Jan Graffelman <jan.graffelman@upc.edu>
 Weir, B.S. (1996) \emph{Genetic Data Analysis II}. Sinauer Associates, Massachusetts.
 
 Graffelman, J. and Morales, J. (2008) Graphical tests for Hardy-Weinberg equilibrium 
-based on the ternary plot. \emph{Human Heredity} 65(2):77-84.
+based on the ternary plot. \emph{Human Heredity} 65(2):77-84. \url{http://dx.doi.org/10.1159/000108939}.
+
+Graffelman, J. (2015) Exploring Diallelic Genetic Markers: The {HardyWeinberg} Package.
+\emph{Journal of Statistical Software} 64(3): 1-22. \url{http://www.jstatsoft.org/v64/i03/}.
 }
+
 \keyword{ package }
 \examples{
 

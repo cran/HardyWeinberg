@@ -22,7 +22,11 @@ HWPerm(x, nperm = 17000, verbose = TRUE, FUN = Chisquare, ...)
 The set of alleles for the observed sample is permuted. Consequently, the test is
 conditional on allele frequency.
 }
-\value{Returns the p-value of the test}
+\value{
+\code{HWPerm} returns a list with the components:
+  \item{stat }{value of the chosen test statistic for the observed sample.}
+  \item{pval }{p-value of the permutation test.}
+}
 \references{
 Ziegler, A. & K\"onig, I.R. (2006) A statistical approach to genetic
 epidemiology. Wiley.

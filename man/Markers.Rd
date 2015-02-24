@@ -13,8 +13,9 @@
 \usage{data(Markers)}
 \format{A data frame containing 146 rows and 5 columns}
 \references{
-Graffelman, J. (2013) Exploring bi-allelelic genetic markers: the
-HardyWeinberg package. Journal of Statistical Software. 
+Graffelman, J. (2015) Exploring Diallelic Genetic Markers: The
+        HardyWeinberg Package. Journal of Statistical Software, 64(3),
+   1-22. \url{http://www.jstatsoft.org/v64/i03/}.
 }
 \keyword{datasets}
      

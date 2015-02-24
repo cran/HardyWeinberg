@@ -23,7 +23,9 @@ HWIlrPlot(X, zeroadj = 0.5, ...)
 A matrix of log ratio coordinates.
 }
 \references{
-  Graffelman, J. and Egozcue, J. J. (2011) Hardy-Weinberg equilibrium: a nonparametric compositional approach. In Pawlowsky-Glahn, V. and Buccianti A., editors, Compositional Data Analysis: Theory and Applications, pages 208-217, John Wiley & Sons, Ltd. 
+  Graffelman, J. and Egozcue, J. J. (2011) Hardy-Weinberg equilibrium: a
+  nonparametric compositional approach. 
+  In Pawlowsky-Glahn, V. and Buccianti A., editors, Compositional Data Analysis: Theory and Applications, pages 208-217, John Wiley & Sons, Ltd. 
 }
 \author{ Jan Graffelman (jan.graffelman@upc.edu) }
 \seealso{ \code{\link{HWAlrPlot},\link{HWClrPlot}}}

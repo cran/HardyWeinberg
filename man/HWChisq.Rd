@@ -13,7 +13,7 @@ HWChisq(X, cc = 0.5, alpha = 0.05, verbose = FALSE)
   \item{X}{\code{X} a vector containg the genotypic counts (AA,AB,BB).}
   \item{cc}{\code{cc} the continuity correction parameter (default
     \code{cc = 0.5}).}
-  \item{alpha}{ significance level (0.05 by default). }  
+  \item{alpha}{ significance level (0.05 by default). }
   \item{verbose}{ \code{verbose} = 1 prints results, \code{verbose} = 0 is silent.}
 }
 \details{
@@ -22,6 +22,11 @@ HWChisq(X, cc = 0.5, alpha = 0.05, verbose = FALSE)
    frequencies, the continuity correction can lead to excessive type 1
    error rates, and is better turned off in that case. The continuity
    correction can be turned off by specifying \code{cc=0}.
+
+   When \code{alternative} is set to \code{less}, a one-sided test for
+   against a negative inbreeding coefficient (heterozygote excess) is
+   performed. When \code{alternative} is set to \code{greater} a one-sided test for
+   against a positive inbreeding coefficient (lack of heterozygotes) is performed.
 }
 \value{
 \code{HWChisq} returns a list with the components:

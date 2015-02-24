@@ -24,8 +24,8 @@ HWPerm <- function (x, nperm = 17000, verbose = TRUE, FUN = Chisquare, ...)
     pval <- nlarger/nperm
     if (verbose) {
         cat("Permutation test for Hardy-Weinberg equilibrium\n")
-        cat(nperm, "permutations. p-value:", pval, "\n")
+        cat("Observed statistic:", stat.obs, " ", nperm, "permutations. p-value:", pval, "\n")
     }
-    return(pval)
+    return(list(stat=stat.obs,pval=pval))
 }
 

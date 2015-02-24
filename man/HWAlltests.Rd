@@ -8,12 +8,17 @@ Perform all tests for Hardy-Weinberg equilibrium
   Hardy-Weinberg equilibrium and lists their p-values.
 }
 \usage{
-HWAlltests(x, verbose = FALSE)
+HWAlltests(x, verbose = FALSE, include.permutation.test=FALSE)
 }
 \arguments{
   \item{x}{a vector with a set of genotype counts (AA, AB, BB)}
   \item{verbose}{print output if set to TRUE}
+  \item{include.permutation.test}{turns on the permutation test if set to TRUE}
 }
+\details{
+By default the permutation test is not performed in order to reduce
+computing time. 
+   }
 \value{
 A dataframe with test statistics and p-values. 
 }
