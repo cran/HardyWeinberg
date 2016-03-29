@@ -26,8 +26,7 @@
         if (nrow(X) == 1) 
             Xcom <- X/sum(X)
         else {
-            Dr <- diag(apply(X, 1, sum))
-            Xcom <- solve(Dr) %*% X
+            Xcom <- HWClo(X)
         }
       }
     }
@@ -41,8 +40,7 @@
         if (nrow(X) == 1) 
             Xcom <- X/sum(X)
         else {
-            Dr <- diag(apply(X, 1, sum))
-            Xcom <- solve(Dr) %*% X
+            Xcom <- HWClo(X)
         }
       }
     }
@@ -238,25 +236,23 @@
           Xc <- Xcom%*%M # cartesian coordinates
 
           if (signifcolour==TRUE) { 
-
-             pvals <- NULL
   
              if (region == 1) {
-             
-                for (i in 1:nrow(Xr))
-                   pvals <- c(pvals,HWChisq(Xr[i,],cc=0)$pval)
+                chi.stats <- numeric(nr)           
+                chisq.crit <- qchisq(1-alpha,1)
+                chisq.stats <- HW.chi.mat(Xr) 
                 markerbgcol <- rep("green",nr)             
-                markerbgcol[pvals<alpha] <- "red"
+                markerbgcol[chisq.stats > chisq.crit] <- "red" # look if chisquare is too large.
                 markercol <- rep("green",nr)             
-                markercol[pvals<alpha] <- "red"
-                 nsignif <- sum(pvals<alpha)
+                markercol[chisq.stats > chisq.crit] <- "red"
+                nsignif <- sum(chisq.stats > chisq.crit)
 
              }
-
+              
              if (region == 2) {
-
-                for (i in 1:nrow(Xr))
-                   pvals <- c(pvals,HWChisq(Xr[i,],cc=0.5)$pval)
+                pvals <- numeric(nr)
+                for (i in 1:nr)
+                   pvals[i] <- HWChisq(Xr[i,],cc=0.5,verbose=FALSE)$pval
                 markerbgcol <- rep("green",nr)             
                 markerbgcol[pvals<alpha] <- "red"
                 markercol <- rep("green",nr)             
@@ -266,12 +262,11 @@
              }
 
              if (region == 7) {
-
-                for (i in 1:nrow(Xr)) {
+                pvals <- numeric(nr)
+                for (i in 1:nr) {
                     
                    x <- Xr[i,]
-                   out <- HWExact(Xr[i,],alternative="two.sided",pvaluetype)
-                   pvals <- c(pvals,out$pval)
+                   pvals[i] <- HWExact(Xr[i,],alternative="two.sided",verbose=FALSE,pvaluetype)$pval
                    markerbgcol <- rep("green",nr)             
                    markerbgcol[pvals<alpha] <- "red"
                    markercol <- rep("green",nr)             

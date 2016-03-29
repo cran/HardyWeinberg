@@ -1,19 +1,22 @@
 \name{vaf}
 \alias{vaf}
 \title{
-Computes the sample variance of the minor allele frequencies
+Computes the sample variance of the allele frequency for a biallelic marker.
 }
 \description{
-Function \code{vaf} computes the sample variance of the minor allele frequencies
+Function \code{vaf} computes the sample variance of the allele frequencies
 of a single sample or a matrix of samples.
 }
 \usage{
-vaf(X, hw = FALSE, minor = TRUE)
+vaf(X, hw = FALSE)
 }
 \arguments{
   \item{X}{vector or matrix with genotype counts (AA,AB,BB)}
   \item{hw}{assume Hardy-Weinberg proportions (\code{hw=TRUE}) or not (\code{hw=FALSE})}
-  \item{minor}{compute the variance for the minor allele \code{minor=TRUE} or major allele \code{major=TRUE}}
+}
+\details{
+  For biallelic markers the variance of the minor allele frequency
+  equals the variance of the major allele frequency. 
 }
 \value{
   a numeric vector of variances.

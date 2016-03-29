@@ -79,8 +79,6 @@ HWMissing(X, imputecolumn = 1, m = 50, coding = c(0,1,2), verbose = FALSE, alpha
   data statistics.}
   \item{Xmat}{A matrix with the genotypic composition of each of the
    \code{m} imputed data sets.}
-  \item{ImputedSets}{A list object with all \code{m} imputed data
-   sets. Only returned if \code{return.imputed.sets=TRUE}}
 }
 
 \references{
@@ -93,7 +91,7 @@ genotype information. PLoS ONE 8(12):
 e83316. \url{http://dx.doi.org/10.1371/journal.pone.0083316}
 
 Graffelman, J. (2015) Exploring Diallelic Genetic Markers: The HardyWeinberg Package.
-\emph{Journal of Statistical Software} 64(3): 1-22. \url{http://www.jstatsoft.org/v64/i03/}.
+\emph{Journal of Statistical Software} 64(3): 1-23. \url{http://www.jstatsoft.org/v64/i03/}.
 }
 \author{ Jan Graffelman \email{jan.graffelman@upc.edu} }
 \seealso{ \code{\link{HWChisq}} }

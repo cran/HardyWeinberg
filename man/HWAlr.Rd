@@ -28,7 +28,7 @@ HWAlr(X, zeroadj = 0.5, denominator = 2)
 \code{\link{HWClr},\link{HWIlr}}
 }
 \examples{
-   X <- HWData(100,100)$Xt
+   X <- HWData(100,100)
    Y <- HWAlr(X)
 }
 \keyword{misc}

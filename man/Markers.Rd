@@ -15,7 +15,7 @@
 \references{
 Graffelman, J. (2015) Exploring Diallelic Genetic Markers: The
         HardyWeinberg Package. Journal of Statistical Software, 64(3),
-   1-22. \url{http://www.jstatsoft.org/v64/i03/}.
+   1-23. \url{http://www.jstatsoft.org/v64/i03/}.
 }
 \keyword{datasets}
      

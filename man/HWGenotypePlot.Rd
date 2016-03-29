@@ -33,8 +33,7 @@ pch = 19, xlim = c(0, 1), ylim = c(0, 1), cex = 1, cex.axis = 2, cex.lab = 2, ..
 \examples{
 n <- 100 # sample size
 m <- 100 # number of markers
-out <- HWData(n,m)
-Xc <- out$Xc
+Xc <- HWClo(HWData(n,m))
 HWGenotypePlot(Xc,plottype=1,main="Heterozygote-homozygote scatterplot")
 }
 \keyword{aplot}

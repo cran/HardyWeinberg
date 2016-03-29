@@ -28,7 +28,7 @@ HWAlrPlot(X, zeroadj = 0.5)
 \code{\link{HWClrPlot},\link{HWIlrPlot}}
 }
 \examples{
-   X <- HWData(100,100)$Xt
+   X <- HWClo(HWData(100,100))
    HWAlrPlot(X)
 }
 \keyword{aplot}

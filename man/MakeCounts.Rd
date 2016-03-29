@@ -20,11 +20,16 @@ MakeCounts(X, alleles, pos1 = 1, pos2 = 3, coding = c(AA=0,AB=1,BB=2))
   \item{pos2}{position of the second allele in the allele string (3 by
     default)}
   \item{coding}{indicates how homozygotes and heterozygote are coded as
-    numbers. Only relevant if \code{X} is a matrix with numeric entries.}
+    numbers. Only relevant if \code{X} is a matrix with numeric
+    entries.}
 }
 \details{
   \code{MakeCounts} is thought for bi-allelic marker data only. Missings
-  are should be coded by NA. It produces the right input for \code{HWTernaryPlot}.
+  are should be coded by NA. It produces the right input for
+  \code{HWTernaryPlot}.
+
+  Heterozygotes may be coded in the data as "AB" or "BA". Both entries
+  will be counted as a heterozygote. 
 }
 \value{A matrix of 4 columns}
 \author{ Jan Graffelman \email{jan.graffelman@upc.edu} }

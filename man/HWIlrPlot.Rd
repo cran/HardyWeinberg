@@ -30,7 +30,7 @@ A matrix of log ratio coordinates.
 \author{ Jan Graffelman (jan.graffelman@upc.edu) }
 \seealso{ \code{\link{HWAlrPlot},\link{HWClrPlot}}}
 \examples{
-X <- HWData(100,100)$Xt
+X <- HWClo(HWData(100,100))
 HWIlrPlot(X)
 }
 \keyword{aplot}

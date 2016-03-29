@@ -20,7 +20,7 @@ HWChisqMat(X, ...)
 \author{ Jan Graffelman \email{jan.graffelman@upc.edu} }
 \seealso{ \code{\link{HWChisq}} }
 \examples{
-X <- HWData(100,10)$Xt
+X <- HWData(100,10)
 colnames(X) <- c("MM","MN","NN")
 Results <- HWChisqMat(X)
 Output <- cbind(X,Results$chisqvec,Results$pvalvec)

@@ -17,7 +17,7 @@
 
 
 %% almost as usual
-\author{Jan Graffelman\\Universitat Polit\`ecnica de Catalunya}
+\author{Jan Graffelman\\Universitat Polit\`ecnica de Catalunya\\version 1.5.6\\ \today}
 \title{Exploring Diallelic Genetic Markers: The \pkg{HardyWeinberg} Package}
 
 %% for pretty printing and a nice hypersummary also set:
@@ -29,9 +29,10 @@
 \Abstract{
   Testing genetic markers for Hardy-Weinberg equilibrium is an
   important issue in genetic association studies. The
-  \pkg{HardyWeinberg} package offers the classical tests for
+  \pkg{HardyWeinberg} package offers the classical autosomal tests for
   equilibrium, functions for power computation and for the simulation
-  of marker data under equilibrium and disequilibrium. Functions 
+  of marker data under equilibrium and disequilibrium. Recently, specific 
+  tests for X-chromosomal markers have been developed and included in the package. Functions 
 for testing equilibrium in the presence of missing data by using multiple
 imputation are provided. The package
   also supplies various graphical tools such as ternary plots with
@@ -132,7 +133,7 @@ imputation are provided. The package
 
 \section{Introduction}
 
-The \pkg{HardyWeinberg} package~\citep{Graffel23} consists of a set of
+The \pkg{HardyWeinberg} package~\citep{Graffel26} consists of a set of
 tools for analyzing diallelic genetic markers in the \proglang{R}
 environment~\citep{RRR}, and is particularly focused on the graphical
 representation of their (dis)equilibrium condition in various ways.
@@ -140,13 +141,16 @@ The package is mainly aimed at researchers working in the fields of
 genetics, statistics, epidemiology, bio-informatics and bio-statistics
 and is available from the Comprehensive \proglang{R} Archive Network
 (CRAN) at \url{http://CRAN.R-project.org/package=HardyWeinberg}.
-% This paper describes the state of the art of version 1.5.3 of the package
-% and substitutes the vignette that accompanied the previous version of the package.
+This paper describes the state of the art of version 1.5.5 of the package. 
+If you appreciate this software and wish to cite it, please cite the
+corresponding paper in the {\it Journal of Statistical 
+Software}~\citep{Graffel26}. 
 The structure of this paper is as follows. In
 Section~\ref{sec:hardyweinberg} we briefly introduce Hardy-Weinberg
 equilibrium. Section~\ref{sec:tests} reviews the classical statistical
 tests and power computation for Hardy-Weinberg
-equilibrium. Section~\ref{sec:graphics} treats graphical
+equilibrium. Section~\ref{sec:xchrom} briefly presents the X-chromosomal tests
+for equilibrium. Section~\ref{sec:graphics} treats graphical
 representations of Hardy-Weinberg equilibrium for sets of
 markers. Section~\ref{sec:session} is an example session showing how
 to analyze genetic markers with the functions of the package. Finally,
@@ -188,7 +192,7 @@ heterozygotes and homozygotes. Tests for HWE may thus help to detect
 cases in a case-control study may be indicative of disease
 association. Thus, tests for HWE may also provide clues in
 marker-disease association studies.
-\section{Classical tests for Hardy-Weinberg equilibrium}
+\section{Classical autosomal tests for Hardy-Weinberg equilibrium}
 \label{sec:tests}
 
 There are several statistical tests available for investigating
@@ -464,6 +468,16 @@ for $f$ and a $p$~value for a test for HWE can then be computed.
 Alternatively, exact inference for equilibrium when there are missings is 
 also possible by combining the exact $p$~values of the imputed data sets~\citep{Graffel27}.
 An example of inference for HWE with missing values is given in Section \ref{sec:session}.
+
+\section{X-chromosomal tests for Hardy-Weinberg equilibrium}
+\label{sec:xchrom}
+
+Recently,~\citet{Graffel28} have proposed specific tests for HWE for bi-allelic 
+markers on the X-chromosome. These tests take both males and females into account. The X-chromosomal tests
+can be carried out by the same functions mentioned in the previous Section (\code{HWChisq, HWLratio, HWExact, HWPerm}) and adding
+the argument \code{x.linked=TRUE} to the function call. For a detailed treatment of the X-chromosomal 
+tests, see~\citet{Graffel28}. The X-chromosomal procedures are omnibus tests that simultaneously test equality of allele frequencies
+in males and females and Hardy-Weinberg proportions in females. Examples of testing X-chromosomal markers for HWE are given below in Section~\ref{sec:session}.
 
 \section{Graphics for Hardy-Weinberg equilibrium}
 \label{sec:graphics}
@@ -741,7 +755,7 @@ vignette("HardyWeinberg")
 @
 
 
-\subsection{Testing for HWE}
+\subsection{Testing autosomal markers for HWE}
 \label{subsec:testing}
 
 We show how to perform several classical tests for Hardy-Weinberg
@@ -931,6 +945,80 @@ Results <- HWMissing(Markers[, 1:5], m = 50, statistic = "exact", verbose = TRUE
 and a similar $p$-value is obtained. See~\citet{Graffel24} for more details on
 testing for HWE with missing data.
 
+\subsection{Testing X-chromosomal markers for HWE}
+\label{subsec:testingx}
+
+We show here how to perform HWE tests for X-chromosomal markers. We use a vector of 5
+elements, containing male and female genotype counts.
+
+<<echo=TRUE>>=
+SNP1 <- c(A=399,B=205,AA=230,AB=314,BB=107) 
+HWChisq(SNP1,cc=0,x.linked=TRUE,verbose=TRUE)
+@
+
+When males are excluded from the test we get:
+
+<<echo=TRUE>>=
+HWChisq(SNP1[3:5],cc=0)
+@ 
+
+Note that the test including males is significant, whereas the test excluding males is not.
+
+The exact test for HWE for an X-chromosomal marker can be performed by adding the \code{x.linked=TRUE} 
+option:
+
+<<echo=TRUE>>=
+HWExact(SNP1,x.linked=TRUE)
+@ 
+
+which gives a $p$-value similar to the $\chi^2$ test. When the mid $p$-value is used we obtain
+
+<<echo=TRUE>>=
+HWExact(SNP1,x.linked=TRUE,pvaluetype="midp")
+@ 
+
+An exact test using the females only gives again a non-significant result:
+
+<<echo=TRUE>>=
+HWExact(SNP1[3:5])
+@ 
+
+The permutation test for X-linked markers gives
+
+<<echo=TRUE>>=
+HWPerm(SNP1,x.linked=TRUE)
+@ 
+
+And an X-chromosomal likelihood ratio test givs
+
+<<echo=TRUE>>=
+HWLratio(SNP1,x.linked=TRUE)
+@ 
+
+Finally, a summary of all X-chromosomal tests is obtained by
+
+<<echo=TRUE>>=
+HWAlltests(SNP1,x.linked=TRUE,include.permutation.test=TRUE)
+@ 
+
+Results of all tests are similar. Finally we test equality of allele frequencies in males and females with:
+
+<<echo=TRUE>>=
+AFtest(SNP1)
+@
+
+For this SNP, there is a significant difference in allele frequency 
+between males and females. 
+
+\subsection{Testing  sets of markers for HWE}
+\label{subsec:testingset}
+
+Functions \code{HWCHisq, HWLratio, HWExact, HWPerm} test a single diallelic marker for HWE. 
+Large sets of markers can be tested most efficiently with the functions \code{HWChisqStats} for the
+chi-square test, and with \code{HWExactStats} for the exact tests. Both these functions allow for
+X-linked markers via the \code{x.linked} argument. 
+
+
 \subsection{Power computation}
 \label{subsec:powercomp}
 
@@ -1012,7 +1100,7 @@ multinomial distribution with probabilities $p^2, 2pq$ and $q^2$ for
 generate data under inbreeding, by specifying a vector of inbreeding
 coefficients \code{f}.  We illustrate the use of \code{HWData} by
 simulating several data sets as shown below. Each simulated dataset is
-plotted in a ternary diagram in Figure~\ref{fig:simulated} in order to
+plotted in a ternary diagram in Figure~\ref{fig:simulated2} in order to
 show the effect of the different simulation options. We subsequently
 simulate 100 markers under HWE with allele frequency 0.5 (\code{X1}),
 100 markers under HWE with a random uniform allele frequency
@@ -1028,12 +1116,12 @@ frequency (\code{X6}).
 set.seed(123)
 n <- 100
 m <- 100
-X1 <- HWData(m, n, p = rep(0.5, m))$Xt
-X2 <- HWData(m, n)$Xt
-X3 <- HWData(m, n, p = rep(0.5, m), f = rep(0.5, m))$Xt
-X4 <- HWData(m, n, f = rep(0.5, m))$Xt
-X5 <- HWData(m, n, p = rep(c(0.2, 0.4, 0.6, 0.8), 25), pfixed = TRUE)$Xt
-X6 <- HWData(m, n, exactequilibrium = TRUE)$Xt
+X1 <- HWData(m, n, p = rep(0.5, m))
+X2 <- HWData(m, n)
+X3 <- HWData(m, n, p = rep(0.5, m), f = rep(0.5, m))
+X4 <- HWData(m, n, f = rep(0.5, m))
+X5 <- HWData(m, n, p = rep(c(0.2, 0.4, 0.6, 0.8), 25), pfixed = TRUE)
+X6 <- HWData(m, n, exactequilibrium = TRUE)
 opar <- par(mfrow = c(3, 2),mar = c(1, 0, 3, 0) + 0.1)
 par(mfg = c(1, 1))
 HWTernaryPlot(X1, main = "(a)", vbounds = FALSE)
@@ -1056,7 +1144,7 @@ par(opar)
 \caption{Ternary plots for markers simulated under different conditions. (a) multinomial sampling with $p=0.5$. 
   (b) multinomial sampling with a random uniform allele frequency. (c) multinomial sampling with $p=0.5$ and 
   with inbreeding ($f=0.5$). (d) multinomial sampling with a random allele frequency with inbreeding ($f=0.5$).
-  (e) sampling from the Levene-Haldane distribution with fixed allele frequencies, (f) a data set in exact equilibrium with a uniform allele frequency. Red points represent markers that are significant in a chi-square test for HWE, green points represent non-significant markers.}\label{fig:simulated}
+  (e) sampling from the Levene-Haldane distribution with fixed allele frequencies, (f) a data set in exact equilibrium with a uniform allele frequency. Red points represent markers that are significant in a chi-square test for HWE, green points represent non-significant markers.}\label{fig:simulated2}
 \end{center}
 \end{figure}
 \clearpage

@@ -18,7 +18,7 @@ HWExactMat(X, ...)
 \author{ Jan Graffelman \email{jan.graffelman@upc.edu} }
 \seealso{ \code{\link{HWExact}} }
 \examples{
-X <- HWData(100,10)$Xt
+X <- HWData(100,10)
 colnames(X) <- c("MM","MN","NN")
 Results <- HWExactMat(X)
 Output <- cbind(X,Results$pvalvec)

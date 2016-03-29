@@ -8,12 +8,17 @@ Function \code{HWPerm} does a permutation test for Hardy-Weinberg
 equilibrium using a user-supplied test statistic.
 }
 \usage{
-HWPerm(x, nperm = 17000, verbose = TRUE, FUN = Chisquare, ...)
+HWPerm(x, nperm = 17000, verbose = TRUE, x.linked = FALSE,
+FUN = ifelse(x.linked,Chisquare.x,Chisquare), ...) 
 }
 \arguments{
   \item{x}{A vector of genotype counts (AA,AB,BB)}
   \item{nperm}{The number of permutations}
-  \item{verbose}{\code{verbose} = TRUE will print results, \code{verbose} = FALSE is silent.}    
+  \item{verbose}{\code{verbose} = TRUE will print results,
+    \code{verbose} = FALSE is silent.}    
+  \item{x.linked}{ \code{x.linked=FALSE} indicates the marker is
+    autosomal (default), and \code{x.linked=TRUE} indicates it resides
+    on the X-chromosome.}
   \item{FUN}{An function call for calculating the test statistic for HWE
     (see examples below)}
   \item{\dots}{Additional parameters for the function call argument \code{FUN}}
@@ -28,7 +33,7 @@ conditional on allele frequency.
   \item{pval }{p-value of the permutation test.}
 }
 \references{
-Ziegler, A. & K\"onig, I.R. (2006) A statistical approach to genetic
+Ziegler, A. & K\"{o}nig, I.R. (2006) A statistical approach to genetic
 epidemiology. Wiley.
 }
 \author{ Jan Graffelman \email{jan.graffelman@upc.edu} }
@@ -43,6 +48,11 @@ HW.test <- HWPerm(x,nperm=10000,verbose=TRUE,function(y) HWLratio(y)$G2)
 # uses likelihood ratio statistic.
 HWPerm(x,nperm=10000,verbose=TRUE,function(y) 1-HWExact(y)$pval) # uses
 exact test p-value
+#
+# Permutation test for a marker on the X chromosome
+#
+rs5968922 <-  c(A=392, B=212, AA=275, AB=296, BB=80)
+HW.test <- HWPerm(rs5968922,nperm=10000,x.linked=TRUE,verbose=TRUE)
 }
 }
 \keyword{htest}

@@ -60,7 +60,7 @@ Hardy-Weinberg proportions. \emph{Statistical Applications in Genetics
 
 Graffelman, J. (2015) Exploring Diallelic Genetic Markers: The HardyWeinberg Package.
 \emph{Journal of Statistical Software} 64(3):
-1-22. \url{http://www.jstatsoft.org/v64/i03/}.
+1-23. \url{http://www.jstatsoft.org/v64/i03/}.
 }
 \author{ Jan Graffelman (jan.graffelman@upc.edu) }
 \seealso{ \code{\link{HWExact}}}

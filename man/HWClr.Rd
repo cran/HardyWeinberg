@@ -26,7 +26,7 @@ HWClr(X, zeroadj = 0.5)
 \code{\link{HWAlr},\link{HWIlr}}
 }
 \examples{
-   X <- HWData(100,100)$Xt
+   X <- HWData(100,100)
    Y <- HWClr(X)
 }
 \keyword{misc}

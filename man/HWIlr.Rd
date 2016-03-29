@@ -34,7 +34,7 @@ A matrix of log ratio coordinates.
 \code{\link{HWAlr},\link{HWClr}}
 }
 \examples{
-X <- HWData(100,100)$Xt
+X <- HWData(100,100)
 Y <- HWIlr(X)
 }
 \keyword{misc}

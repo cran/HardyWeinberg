@@ -20,8 +20,8 @@
 \tabular{ll}{
 Package: \tab HardyWeinberg\cr
 Type: \tab Package\cr
-Version: \tab 1.5.5\cr
-Date: \tab 2015-02-24\cr
+Version: \tab 1.5.6\cr
+Date: \tab 2015-10-05\cr
 License: \tab GPL Version 2 or later.\cr
 }
 
@@ -43,7 +43,7 @@ Graffelman, J. and Morales, J. (2008) Graphical tests for Hardy-Weinberg equilib
 based on the ternary plot. \emph{Human Heredity} 65(2):77-84. \url{http://dx.doi.org/10.1159/000108939}.
 
 Graffelman, J. (2015) Exploring Diallelic Genetic Markers: The {HardyWeinberg} Package.
-\emph{Journal of Statistical Software} 64(3): 1-22. \url{http://www.jstatsoft.org/v64/i03/}.
+\emph{Journal of Statistical Software} 64(3): 1-23. \url{http://www.jstatsoft.org/v64/i03/}.
 }
 
 \keyword{ package }
@@ -51,15 +51,14 @@ Graffelman, J. (2015) Exploring Diallelic Genetic Markers: The {HardyWeinberg} P
 
 library(HardyWeinberg)
 
-# make random compositions that are in HWE
+# draw random SNPs from a population that is in HWE
 
 set.seed(123)
 
 m <- 100 # number of markers
 n <- 100 # sample size
 
-out <- HWData(n,m)
-Xc <- out$Xc
-out <- HWTernaryPlot(Xc,100,region=1,vertex.cex=2,signifcolour=TRUE)
+X <- HWData(n,m)
+out <- HWTernaryPlot(X,100,region=1,vertex.cex=2,signifcolour=TRUE)
 
 }

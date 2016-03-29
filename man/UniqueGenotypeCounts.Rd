@@ -8,10 +8,11 @@ only the unique rows in the given matrix, together with their frequency
 of occurrence
 }
 \usage{
-UniqueGenotypeCounts(X)
+UniqueGenotypeCounts(X, verbose = TRUE)
 }
 \arguments{
   \item{X}{A n by 3 matrix with genotypic counts (AA,AB,BB)}
+  \item{verbose}{If TRUE then print some statistics}
 }
 \value{
   A matrix with 4 columns, AA, AB, BB, and frequency of occurrence
@@ -20,7 +21,7 @@ UniqueGenotypeCounts(X)
 \seealso{ \code{\link{GenerateSamples}} }
 \examples{
 set.seed(123)
-X <- HWData(n=100,nm=100)$Xt
+X <- HWData(n=100,nm=100)
 print(nrow(X))
 Y <- UniqueGenotypeCounts(X)
 print(nrow(Y))

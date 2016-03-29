@@ -106,7 +106,7 @@ Graffelman, J. and Morales, J. (2008) Graphical Tests for Hardy-Weinberg Equilib
 Based on the Ternary Plot. \emph{Human Heredity} 65(2):77-84. \url{http://dx.doi.org/10.1159/000108939}.
 
 Graffelman, J. (2015) Exploring Diallelic Genetic Markers: The HardyWeinberg Package.
-\emph{Journal of Statistical Software} 64(3): 1-22. \url{http://www.jstatsoft.org/v64/i03/}.
+\emph{Journal of Statistical Software} 64(3): 1-23. \url{http://www.jstatsoft.org/v64/i03/}.
 }
 \author{ Jan Graffelman \email{jan.graffelman@upc.edu} }
 \seealso{ \code{\link{HWChisq}} }
@@ -115,10 +115,8 @@ Graffelman, J. (2015) Exploring Diallelic Genetic Markers: The HardyWeinberg Pac
 n <- 100 # sample size
 m <- 100 # number of markers
 
-out <- HWData(n,m)
-Xc <- out$Xc
-
-HWTernaryPlot(Xc,100,region=1,hwcurve=TRUE,vbounds=FALSE,vertex.cex=2)
+X <- HWData(n,m)
+HWTernaryPlot(X,100,region=1,hwcurve=TRUE,vbounds=FALSE,vertex.cex=2)
 }
 
 \keyword{aplot}

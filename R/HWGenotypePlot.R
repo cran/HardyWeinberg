@@ -10,7 +10,6 @@ if (is.vector(X)) {
       names(X)))
    }
 }
-X <- as.matrix(X)
 nr <- nrow(X)
 nc <- ncol(X)
 if (any(X < 0)) 
@@ -20,8 +19,7 @@ if (nc != 3)
 if (nrow(X) == 1) {
     Xcom <- X/sum(X)
    } else {
-   Dr <- diag(apply(X, 1, sum))
-   Xcom <- solve(Dr) %*% X
+      Xcom <- HWClo(X)
    }
    fAA <- seq(0,1,by=0.01)
    fAB <- 2*(sqrt(fAA)-fAA)

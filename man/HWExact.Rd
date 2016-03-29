@@ -5,7 +5,8 @@
   \code{HWExact} performs an exact test for Hardy-Weinberg equilibrium
 }
 \usage{
-HWExact(X, alternative = "two.sided", pvaluetype = "selome", verbose = FALSE)
+HWExact(X, alternative = "two.sided", pvaluetype = "selome", x.linked =
+FALSE, verbose = TRUE)
 }
 \arguments{
   \item{X}{ vector with the genotype counts AA, AB, BB }
@@ -22,6 +23,9 @@ is computed as the sum of the probabilities of all samples less or
 equally likely as the current sample. When set to \code{midp}, the
 p-value is computed as half the probability of the current sample +
 the probabilities of all samples that are more extreme.}
+  \item{x.linked}{ \code{x.linked=FALSE} indicates the marker is
+    autosomal (default), and \code{x.linked=TRUE} indicates it resides
+    on the X-chromosome.}
    \item{verbose}{ print results or not.}
 }
 \details{
@@ -53,11 +57,18 @@ the probabilities of all samples that are more extreme.}
   tests of Hardy-Weinberg equilibrium, American Journal of Human
   Genetics (76) pp. 887-893.}
 \author{ Jan Graffelman (jan.graffelman@upc.edu) }
-\seealso{ \code{\link{HWLratio}}, \code{\link{HWChisq}} }
+\seealso{ \code{\link{HWLratio}}, \code{\link{HWChisq}}, \code{\link{HWExactStats}} }
 \examples{
+#
+# Example autosomal marker
+#
 x <- c(298,489,213)
 names(x) <- c("MM","MN","NN")
-HW.test <- HWExact(x)
-print(HW.test)
+HW.test <- HWExact(x,verbose=TRUE)
+#
+# Example x-linked marker
+#
+rs5968922  <- c(A=392, B=212, AA=275, AB=296, BB=80 )
+HWExact(rs5968922,x.linked=TRUE,verbose=TRUE) 
 }
 \keyword{htest}

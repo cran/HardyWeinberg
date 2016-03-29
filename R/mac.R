@@ -1,9 +1,6 @@
 mac <- function (X) 
 {
     # compute the minor allele count for a vector or for each row of matrix of genotype counts.
-    Xhom <- X[homozyg(X)]
-    Xhet <- X[heterozyg(X)]
-    X <- c(min(Xhom), Xhet, max(Xhom))
     if (is.vector(X)) {
         n <- sum(X)
         nA <- 2*X[1] + X[2] # number of A alleles
