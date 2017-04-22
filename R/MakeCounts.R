@@ -1,5 +1,9 @@
 MakeCounts <- function (X, alleles, pos1 = 1, pos2 = 3, coding = c(AA=0,AB=1,BB=2))
 {
+    if(is.vector(X)) {
+      X <- as.matrix(X,ncol=1)
+    }
+    X <- as.matrix(X) # coerce data frames to matrices.
     n <- nrow(X)
     p <- ncol(X)
     Y <- matrix(NA,nrow=p,ncol=4)

@@ -67,13 +67,13 @@ HWExact <- function (X, alternative = "two.sided", pvaluetype = "selome", x.link
                                           sep = ""), Xhet, paste("n", names(Xhom[2]), " = ",
                                                                  sep = ""), Xhom[2], "\n")
       stringtwosided <- paste("H0: HWE (D==0), H1: D <> 0 \nD = ",
-                              format(D, scientific = FALSE), "p = ", format(pval,
+                              format(D, scientific = FALSE), "p-value = ", format(pval,
                                                                             scientific = FALSE), "\n")
       stringgreater <- paste("H0: HWE (D==0), H1: D > 0 \nD = ",
-                             format(D, scientific = FALSE), "p = ", format(pval,
+                             format(D, scientific = FALSE), "p-value = ", format(pval,
                                                                            scientific = FALSE), "\n")
       stringless <- paste("H0: HWE (D==0), H1: D < 0 \nD = ",
-                          format(D, scientific = FALSE), "p = ", format(pval,
+                          format(D, scientific = FALSE), "p-value = ", format(pval,
                                                                         scientific = FALSE), "\n")
       toprint <- switch(alternative, two.sided = stringtwosided,
                         greater = stringgreater, less = stringless)
@@ -142,7 +142,7 @@ HWExact <- function (X, alternative = "two.sided", pvaluetype = "selome", x.link
                              selome = "using SELOME p-value\n", midp = "using MID p-value\n",
                              stop("invalid value for parameter pvaluetype"))
       cat(stringpvalue)
-      cat("Sample probability",pofthesample,"p = ",pval,"\n")
+      cat("Sample probability",pofthesample,"p-value = ",pval,"\n")
     }
     prob <- NA # there is no final probability vector in the x.linked case
   }

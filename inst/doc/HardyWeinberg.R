@@ -129,37 +129,37 @@ HWExact(SNP1,x.linked=TRUE,pvaluetype="midp")
 
 
 ###################################################
-### code chunk number 20: HardyWeinberg.Rnw:982-983
+### code chunk number 20: HardyWeinberg.Rnw:983-984
 ###################################################
 HWExact(SNP1[3:5])
 
 
 ###################################################
-### code chunk number 21: HardyWeinberg.Rnw:988-989
+### code chunk number 21: HardyWeinberg.Rnw:989-990
 ###################################################
 HWPerm(SNP1,x.linked=TRUE)
 
 
 ###################################################
-### code chunk number 22: HardyWeinberg.Rnw:994-995
+### code chunk number 22: HardyWeinberg.Rnw:995-996
 ###################################################
 HWLratio(SNP1,x.linked=TRUE)
 
 
 ###################################################
-### code chunk number 23: HardyWeinberg.Rnw:1000-1001
+### code chunk number 23: HardyWeinberg.Rnw:1001-1002
 ###################################################
 HWAlltests(SNP1,x.linked=TRUE,include.permutation.test=TRUE)
 
 
 ###################################################
-### code chunk number 24: HardyWeinberg.Rnw:1006-1007
+### code chunk number 24: HardyWeinberg.Rnw:1007-1008
 ###################################################
 AFtest(SNP1)
 
 
 ###################################################
-### code chunk number 25: HardyWeinberg.Rnw:1033-1042
+### code chunk number 25: HardyWeinberg.Rnw:1034-1043
 ###################################################
 x <- c(MM = 298, MN = 489, NN = 213)
 n <- sum(x)
@@ -173,7 +173,7 @@ print(pw8)
 
 
 ###################################################
-### code chunk number 26: HardyWeinberg.Rnw:1115-1138
+### code chunk number 26: HardyWeinberg.Rnw:1116-1139
 ###################################################
 set.seed(123)
 n <- 100
@@ -201,7 +201,7 @@ par(opar)
 
 
 ###################################################
-### code chunk number 27: HardyWeinberg.Rnw:1163-1166 (eval = FALSE)
+### code chunk number 27: HardyWeinberg.Rnw:1164-1167 (eval = FALSE)
 ###################################################
 ## data("HapMapCHBChr1", package = "HardyWeinberg")
 ## HWTernaryPlot(HapMapCHBChr1, region = 1, vbounds = FALSE)
@@ -209,7 +209,7 @@ par(opar)
 
 
 ###################################################
-### code chunk number 28: HardyWeinberg.Rnw:1199-1206 (eval = FALSE)
+### code chunk number 28: HardyWeinberg.Rnw:1200-1207 (eval = FALSE)
 ###################################################
 ## set.seed(123)
 ## data("HapMapCHBChr1", package = "HardyWeinberg")

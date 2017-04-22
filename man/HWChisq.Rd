@@ -58,7 +58,14 @@ come from a population with the specified fraction of males.}
   \item{f }{the inbreeding coefficient.}
 }
 \references{Weir, B.S. (1996) Genetic data analysis II. Sinauer
-  Associates, Massachusetts. See Chapter3.}
+  Associates, Massachusetts. See Chapter3.
+
+  For the chi-square test for X-linked markers:
+
+  Graffelman, J. & Weir, B.S. (2016) Testing for Hardy-Weinberg
+  equilibrium at bi-allelic genetic markers on the X chromosome. 
+  \emph{Heredity} 116(6) pp. 558--568. \url{http://dx.doi.org/10.1038/hdy.2016.20}
+}
 \author{ Jan Graffelman \email{jan.graffelman@upc.edu} }
 \seealso{ \code{\link{HWLratio}}, \code{\link{HWChisqStats}} }
 \examples{

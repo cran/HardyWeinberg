@@ -279,13 +279,14 @@
 
           }
 
-          if (connect)
+          if (connect) {
               points(Xc[,1],Xc[,2],pch=pch,col=curvecols[1],cex=cex,type="l",lty=curtyp)
+              points(Xc[,1],Xc[,2],pch=pch,bg=markerbgcol,col=markercol,cex=cex)
+          }
           else
               points(Xc[,1],Xc[,2],pch=pch,bg=markerbgcol,col=markercol,cex=cex)
           text(Xc[,1],Xc[,2],markerlab,cex=mcex,pos=markerpos)
        }
-
-       return(list(minp=minp,maxp=maxp,inrange=inrange,percinrange=percinrange,nsignif=nsignif))
+       results <- list(minp=minp,maxp=maxp,inrange=inrange,percinrange=percinrange,nsignif=nsignif)
   }
 

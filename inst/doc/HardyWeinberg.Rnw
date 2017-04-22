@@ -17,7 +17,7 @@
 
 
 %% almost as usual
-\author{Jan Graffelman\\Universitat Polit\`ecnica de Catalunya\\version 1.5.6\\ \today}
+\author{Jan Graffelman\\Universitat Polit\`ecnica de Catalunya\\version 1.5.7\\ \today}
 \title{Exploring Diallelic Genetic Markers: The \pkg{HardyWeinberg} Package}
 
 %% for pretty printing and a nice hypersummary also set:
@@ -477,7 +477,7 @@ markers on the X-chromosome. These tests take both males and females into accoun
 can be carried out by the same functions mentioned in the previous Section (\code{HWChisq, HWLratio, HWExact, HWPerm}) and adding
 the argument \code{x.linked=TRUE} to the function call. For a detailed treatment of the X-chromosomal 
 tests, see~\citet{Graffel28}. The X-chromosomal procedures are omnibus tests that simultaneously test equality of allele frequencies
-in males and females and Hardy-Weinberg proportions in females. Examples of testing X-chromosomal markers for HWE are given below in Section~\ref{sec:session}.
+in males and females and Hardy-Weinberg proportions in females.  Examples of testing X-chromosomal markers for HWE are given below in Section~\ref{sec:session}.
 
 \section{Graphics for Hardy-Weinberg equilibrium}
 \label{sec:graphics}
@@ -977,6 +977,7 @@ which gives a $p$-value similar to the $\chi^2$ test. When the mid $p$-value is 
 HWExact(SNP1,x.linked=TRUE,pvaluetype="midp")
 @ 
 
+These exact tests show that the joint null of Hardy-Weinberg proportions \emph{and} equality of allele frequencies has to be rejected.
 An exact test using the females only gives again a non-significant result:
 
 <<echo=TRUE>>=
@@ -995,7 +996,7 @@ And an X-chromosomal likelihood ratio test givs
 HWLratio(SNP1,x.linked=TRUE)
 @ 
 
-Finally, a summary of all X-chromosomal tests is obtained by
+Finally, a summary of all frequentist X-chromosomal tests is obtained by
 
 <<echo=TRUE>>=
 HWAlltests(SNP1,x.linked=TRUE,include.permutation.test=TRUE)
@@ -1049,7 +1050,7 @@ detecting deviations as large $\theta=8$, which is a doubling of the number of h
 Type I error rate and power for the chi-square test
 can be calculated by setting \code{test="chisq"}.
 With the allele frequency of this sample (\Sexpr{round(af(x),digits=4)}), $\theta=8$ amounts to an inbreeding 
-coefficient of \Sexpr{round(HardyWeinberg:::ThetatoF(af(x),8),digits=4)}.
+coefficient of \Sexpr{round(ThetatoF(af(x),8),digits=4)}.
 
 \subsection{Simulating data}
 \label{subsec:simulation}

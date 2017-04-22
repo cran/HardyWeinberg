@@ -8,7 +8,7 @@ Computation of Exact p-values for Hardy-Weinberg equilibrium for sets of SNPs
   for a large set of bi-allelic markers (typically SNPs). 
 }
 \usage{
-HWExactStats(X, x.linked = FALSE, ...)
+HWExactStats(X, x.linked = FALSE, plinkcode = TRUE, midp = FALSE,...)
 }
 \arguments{
   \item{X}{A matrix with genotype counts, one row per marker. \code{X}
@@ -16,6 +16,10 @@ HWExactStats(X, x.linked = FALSE, ...)
     for an autosomal data set.}
   \item{x.linked}{Logical indicating whether the markers are autosomal (\code{x.linked=FALSE})
     or X-chromosomal (\code{x.linked=TRUE}).}
+  \item{plinkcode}{Logical indicating whether to use faster C++ code
+from the PLINK software.}
+  \item{midp}{Logical indicating whether to use the mid p-value for the
+C++ code or not}
   \item{\dots}{extra arguments that are passed on to \code{HWExact}}
 }
 \details{
@@ -24,6 +28,10 @@ an autosomal dataset is should contain the 3 genotype counts in order
 (AA,AB,BB). For an X-chromosomal dataset it should contain the 5
 genotype counts in order (A,B,AA,AB,BB) where A and B are the male
 counts and AA, AB and BB the female counts.
+
+C++ code for faster calculation (functions \code{SNPHWE2} and
+\code{SNPHWEX}) with large datasets was generously shared by Christopher
+Chang, the same code is used in the program PLINK.
 }
 \value{A vector of p-values}
 \references{

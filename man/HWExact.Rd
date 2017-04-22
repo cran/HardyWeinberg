@@ -32,6 +32,8 @@ the probabilities of all samples that are more extreme.}
    \code{HWExact} uses the recursion equations described by Wigginton
    et. al.
 
+   For testing large sets of bi-allelic variants, use the faster code in \code{\link{HWExactStats}}.
+   
    For large samples, \code{HWExact} may give the error message:
    "evaluation nested too deeply: infinite recursion". This can usually
    be resolved by increasing R's limit on nested expressions with
@@ -55,16 +57,24 @@ the probabilities of all samples that are more extreme.}
   
   Wigginton, J.E., Cutler, D.J. and Abecasis, G.R. (2005) A note on exact
   tests of Hardy-Weinberg equilibrium, American Journal of Human
-  Genetics (76) pp. 887-893.}
+  Genetics (76) pp. 887-893.
+
+  Graffelman, J. and Moreno, V. (2013) The mid p-value in exact tests
+  for Hardy-Weinberg equilibrium, Statistical Applications in Genetics
+  and Molecular Biology 12(4) pp. 433-448.}
 \author{ Jan Graffelman (jan.graffelman@upc.edu) }
 \seealso{ \code{\link{HWLratio}}, \code{\link{HWChisq}}, \code{\link{HWExactStats}} }
 \examples{
 #
-# Example autosomal marker
+# Example for an autosomal marker using the standard exact p-value
 #
 x <- c(298,489,213)
 names(x) <- c("MM","MN","NN")
 HW.test <- HWExact(x,verbose=TRUE)
+#
+# Example for an autosomal marker using the mid p-value
+#
+HW.test <- HWExact(x,verbose=TRUE,pvaluetype="midp")
 #
 # Example x-linked marker
 #

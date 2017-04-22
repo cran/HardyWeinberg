@@ -1,5 +1,11 @@
-export (af,AFtest,agcounts,fisherz,HWAlltests,HWAlr,HWAlrPlot,HWChisq,HWChisqStats,HWChisqMat,HWClo,HWClr,HWClrPlot,HWCondProbAB,HWD,HWData,HWExact,HWExactPrevious,HWExactMat,HWExactStats,HWf,HWGenotypePlot,HWIlr,HWIlrPlot,HWMissing,HWPerm,HWPower,HWLratio,HWQqplot,HWTernaryPlot,ifisherz,GenerateSamples,mac,maf,MakeCounts,MakeFactor,recode,UniqueGenotypeCounts,vaf)
+export (af,AFtest,agcounts,fisherz,genlabels,HWABO,HWAlltests,HWAlr,HWAlrPlot,HWChisq,HWChisqStats,HWChisqMat,HWClo,HWClr,
+        HWClrPlot,HWCondProbAB,HWD,HWData,HWExact,HWExactPrevious,HWExactMat,HWExactStats,HWf,HWGenotypePlot,HWIlr,HWIlrPlot,HWMissing,
+        HWPerm,HWPower,HWLratio,HWQqplot,HWTernaryPlot,ifisherz,GenerateSamples,mac,maf,MakeCounts,MakeFactor,recode,ThetatoF,UniqueGenotypeCounts,vaf)
 import (mice)
+import (Rcpp)
 importFrom("graphics", "abline", "lines", "par", "plot", "points", "polygon", "text")
-importFrom("stats", "aggregate", "fisher.test", "pchisq", "pt", "qchisq", "qnorm", "qt", "quantile", "rbeta", "rmultinom", "runif", "var")
+importFrom("stats", "aggregate", "dmultinom", "fisher.test", "pchisq", "pt", "qchisq", "qnorm", "qt", "quantile",
+           "rbeta", "rmultinom", "runif", "var")
+useDynLib("HardyWeinberg")
+importFrom("Rcpp", "sourceCpp")
 
