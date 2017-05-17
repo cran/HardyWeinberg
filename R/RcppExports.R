@@ -9,3 +9,7 @@ SNPHWEX <- function(female_hets, female_hom1, female_hom2, male1, male2, midp) {
     .Call('HardyWeinberg_SNPHWEX', PACKAGE = 'HardyWeinberg', female_hets, female_hom1, female_hom2, male1, male2, midp)
 }
 
+support <- function() {
+    .Call('HardyWeinberg_support', PACKAGE = 'HardyWeinberg')
+}
+

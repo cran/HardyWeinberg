@@ -17,7 +17,7 @@
 
 
 %% almost as usual
-\author{Jan Graffelman\\Universitat Polit\`ecnica de Catalunya\\version 1.5.7\\ \today}
+\author{Jan Graffelman\\Universitat Polit\`ecnica de Catalunya\\version 1.5.8\\ \today}
 \title{Exploring Diallelic Genetic Markers: The \pkg{HardyWeinberg} Package}
 
 %% for pretty printing and a nice hypersummary also set:
@@ -32,7 +32,7 @@
   \pkg{HardyWeinberg} package offers the classical autosomal tests for
   equilibrium, functions for power computation and for the simulation
   of marker data under equilibrium and disequilibrium. Recently, specific 
-  tests for X-chromosomal markers have been developed and included in the package. Functions 
+  frequentist and Bayesian tests for X-chromosomal markers have been developed and included in the package. Functions 
 for testing equilibrium in the presence of missing data by using multiple
 imputation are provided. The package
   also supplies various graphical tools such as ternary plots with
@@ -475,9 +475,12 @@ An example of inference for HWE with missing values is given in Section \ref{sec
 Recently,~\citet{Graffel28} have proposed specific tests for HWE for bi-allelic 
 markers on the X-chromosome. These tests take both males and females into account. The X-chromosomal tests
 can be carried out by the same functions mentioned in the previous Section (\code{HWChisq, HWLratio, HWExact, HWPerm}) and adding
-the argument \code{x.linked=TRUE} to the function call. For a detailed treatment of the X-chromosomal 
-tests, see~\citet{Graffel28}. The X-chromosomal procedures are omnibus tests that simultaneously test equality of allele frequencies
-in males and females and Hardy-Weinberg proportions in females.  Examples of testing X-chromosomal markers for HWE are given below in Section~\ref{sec:session}.
+the argument \code{x.linked=TRUE} to the function call. For a detailed treatment of frequentist X-chromosomal 
+tests, see~\citet{Graffel28}. The frequentist X-chromosomal procedures are omnibus tests that simultaneously 
+test equality of allele frequencies in males and females and Hardy-Weinberg proportions in females. Recently, a
+Bayesian method for testing bi-allelic X-chromosomal variants has been proposed by Puig, Ginebra and 
+Graffelman~(\citeyear{Puig}). Examples of frequentist and Bayesian testing of X-chromosomal markers for HWE are given 
+below in Section~\ref{sec:session}.
 
 \section{Graphics for Hardy-Weinberg equilibrium}
 \label{sec:graphics}
@@ -1011,14 +1014,24 @@ AFtest(SNP1)
 For this SNP, there is a significant difference in allele frequency 
 between males and females. 
 
+Puig, Ginebra and Graffelman~(\citeyear{Puig}) have proposed a Bayesian test for HWE for variants on the X-chromosome which is implemented in the function \code{HWPosterior}.
+
+A Bayesian analysis of the same SNP is obtained by: 
+
+<<echo=TRUE>>=
+HWPosterior(SNP1)
+@ 
+
+and shows that a model with Hardy-Weinberg proportions for females and different allele frequencies for both sexes has the 
+largest posterior probability, and the largest Bayes factor.
+
 \subsection{Testing  sets of markers for HWE}
 \label{subsec:testingset}
 
 Functions \code{HWCHisq, HWLratio, HWExact, HWPerm} test a single diallelic marker for HWE. 
 Large sets of markers can be tested most efficiently with the functions \code{HWChisqStats} for the
 chi-square test, and with \code{HWExactStats} for the exact tests. Both these functions allow for
-X-linked markers via the \code{x.linked} argument. 
-
+X-linked markers via the \code{x.linked} argument. Exact tests that rely on exhaustive enumeration are slow in R, and \code{HWExactStats} now uses by default faster C++ code generously shared by Christopher Chang. The same C++ code is used in the current version (2.0) of Plink~(\cite{Purcell}).
 
 \subsection{Power computation}
 \label{subsec:powercomp}

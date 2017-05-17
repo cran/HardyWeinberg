@@ -23,7 +23,7 @@ HWChisq(X, cc = 0.5, verbose = TRUE, x.linked = FALSE, phifixed = NULL)
     \code{phifixed=NULL} indicates that the fraction of males
     (females) should be estimated from the data (default). If set to any
   other value (e.g. \code{phifixed=0.5}) then the sample is assumed to
-come from a population with the specified fraction of males.}
+  come from a population with the specified fraction of males.}
 }
 \details{
    \code{HWChisq} does a chi-square test for Hardy-Weinberg equilibrium,
@@ -56,6 +56,7 @@ come from a population with the specified fraction of males.}
   \item{D }{Half the deviation from Hardy-Weinberg equilibrium for the AB genotype.}
   \item{p }{the allele frequency of A.}
   \item{f }{the inbreeding coefficient.}
+  \item{expected }{the expected counts under Hardy-Weinberg equilibrium} 
 }
 \references{Weir, B.S. (1996) Genetic data analysis II. Sinauer
   Associates, Massachusetts. See Chapter3.

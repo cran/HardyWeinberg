@@ -24,15 +24,16 @@ HWChisq <- function (X, cc = 0.5, verbose = TRUE, x.linked = FALSE, phifixed = N
       mono <- TRUE
     }
     obs <- X
-    exp <- c(n * p^2, n * 2 * p * q, n * q^2)
-    if (any(exp < 5)) 
+    expected <- c(n * p^2, n * 2 * p * q, n * q^2)
+    names(expected) <- names(X)
+    if (any(expected < 5)) 
       warning("Expected counts below 5: chi-square approximation may be incorrect")
-    D <- 0.5 * (obs[2] - exp[2])
+    D <- 0.5 * (obs[2] - expected[2])
     names(D) <- NULL
-    chi <- (abs(obs - exp) - ccv)^2
+    chi <- (abs(obs - expected) - ccv)^2
     f <- HWf(X)
     if (!mono) {
-      chi2 <- chi/exp
+      chi2 <- chi/expected
       chisq <- sum(chi2)
       pval <- 1 - pchisq(chisq, 1)
     }
@@ -83,15 +84,16 @@ HWChisq <- function (X, cc = 0.5, verbose = TRUE, x.linked = FALSE, phifixed = N
         mono <- TRUE
       }
       obs <- X
-      exp <- c(theta*n*p, theta*n*(1-p), (1-theta)*n * p^2, (1-theta)*n * 2 * p * q, (1-theta)*n * q^2)
-      if (any(exp < 5)) 
+      expected <- c(theta*n*p, theta*n*(1-p), (1-theta)*n * p^2, (1-theta)*n * 2 * p * q, (1-theta)*n * q^2)
+      names(expected) <- names(X)
+      if (any(expected < 5)) 
         warning("Expected counts below 5: chi-square approximation may be incorrect")
-      chi <- (abs(obs - exp) - ccv)^2
+      chi <- (abs(obs - expected) - ccv)^2
       if(all(X[3:5]==0)) f <- NA else f <- HWf(X[3:5]) # computed from females only.
       D <- NA
       if(is.null(phifixed)) DF <- 2 else DF <- 3
       if (!mono) {
-        chi2 <- chi/exp
+        chi2 <- chi/expected
         chisq <- sum(chi2)    
         pval <- 1 - pchisq(chisq, DF)
       }
@@ -108,5 +110,5 @@ HWChisq <- function (X, cc = 0.5, verbose = TRUE, x.linked = FALSE, phifixed = N
             "f = ", f, "\n")
       }
   } # end else !x.linked
-  out <- list(chisq = chisq, pval = pval, D = D, p = p, f = f)
+  out <- list(chisq = chisq, pval = pval, D = D, p = p, f = f, expected = expected)
 }

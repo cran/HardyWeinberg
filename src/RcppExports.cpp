@@ -2,7 +2,6 @@
 // Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 #include <Rcpp.h>
-#include <R_ext/Rdynload.h>
 
 using namespace Rcpp;
 
@@ -36,9 +35,22 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// support
+NumericMatrix support();
+RcppExport SEXP HardyWeinberg_support() {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    rcpp_result_gen = Rcpp::wrap(support());
+    return rcpp_result_gen;
+END_RCPP
+}
+
+#include <R_ext/Rdynload.h>
 
 static const
 R_CallMethodDef callMethods[] = {
+{"support", (DL_FUNC) &support, 0},  
 {"SNPHWE2", (DL_FUNC) &SNPHWE2, 4},
 {"SNPHWEX", (DL_FUNC) &SNPHWEX, 7},
 NULL

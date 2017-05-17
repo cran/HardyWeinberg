@@ -29,16 +29,23 @@ an autosomal dataset is should contain the 3 genotype counts in order
 genotype counts in order (A,B,AA,AB,BB) where A and B are the male
 counts and AA, AB and BB the female counts.
 
-C++ code for faster calculation (functions \code{SNPHWE2} and
-\code{SNPHWEX}) with large datasets was generously shared by Christopher
-Chang, the same code is used in the program PLINK.
+Argument \code{plinkcode=TRUE} (the default) will use C++ code for faster calculation (functions \code{SNPHWE2} and
+\code{SNPHWEX}) with larger datasets. The C++ code  was generously shared by Christopher
+Chang, and the same code is used in the program
+\href{http://www.cog-genomics.org/plink/2.0}{PLINK (2.0)}.
 }
 \value{A vector of p-values}
 \references{
   Graffelman, J. and Weir, B.S. (2016) Testing for Hardy-Weinberg
   equilibrium at 2 bi-allelic genetic markers on the X chromosome.
+  \href{http://dx.doi.org/10.1038/hdy.2016.20}{Heredity} 116(6) pp. 558--568.
+  
+  Purcell et al. (2007) PLINK: A Toolset for Whole-Genome Association and
+  Population-Based Linkage Analysis. American Journal of Human Genetics
+  81(3) pp. 559--575.
 }
-\author{ Jan Graffelman \email{jan.graffelman@upc.edu} }
+\author{ Jan Graffelman \email{jan.graffelman@upc.edu} (R code) and
+  Christopher Chang \email{chrchang523@gmail.com} (C++ code)}
 \seealso{ \code{\link{HWExact}}  }
 \examples{
 #
@@ -49,7 +56,6 @@ X <- HWData(1000,100)
 monom <- (X[,2]==0 & X[,1]==0) | (X[,2]==0 & X[,3]==0)
 X <- X[!monom,] # exclude monomorphics
 Exact.pvalues <- HWExactStats(X,x.linked=FALSE)
-
 #
 # X-chromosomal example
 #
