@@ -16,7 +16,7 @@ vertexlab = colnames(X), alpha = 0.05, vertex.cex = 1, pch = 19, cc = 0.5,
 markercol = "black", markerbgcol = "black", cex = 0.75, axislab = "", 
 verbose = FALSE, markerlab = NULL, markerpos = NULL, mcex = 1, connect =
 FALSE, curvecols = rep("black",5), signifcolour = TRUE, curtyp =
-"solid", ssf = "max", pvaluetype = "dost", ...)
+"solid", ssf = "max", pvaluetype = "selome", ...)
 }
 \arguments{
   \item{X}{ a matrix of \code{n} genotypic compositions or counts. If it

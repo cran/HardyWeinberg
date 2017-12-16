@@ -2,26 +2,26 @@
 ### Encoding: ISO8859-1
 
 ###################################################
-### code chunk number 1: HardyWeinberg.Rnw:739-740
+### code chunk number 1: HardyWeinberg.Rnw:743-744
 ###################################################
 options(prompt = "R> ", continue = "+ ", width = 70, useFancyQuotes = FALSE)
 
 
 ###################################################
-### code chunk number 2: HardyWeinberg.Rnw:743-745 (eval = FALSE)
+### code chunk number 2: HardyWeinberg.Rnw:747-749 (eval = FALSE)
 ###################################################
 ## install.packages("HardyWeinberg")
 ## library("HardyWeinberg")
 
 
 ###################################################
-### code chunk number 3: HardyWeinberg.Rnw:756-757 (eval = FALSE)
+### code chunk number 3: HardyWeinberg.Rnw:760-761 (eval = FALSE)
 ###################################################
 ## vignette("HardyWeinberg")
 
 
 ###################################################
-### code chunk number 4: HardyWeinberg.Rnw:771-774
+### code chunk number 4: HardyWeinberg.Rnw:775-778
 ###################################################
 library("HardyWeinberg")
 x <- c(MM = 298, MN = 489, NN = 213)
@@ -29,52 +29,52 @@ HW.test <- HWChisq(x, verbose = TRUE)
 
 
 ###################################################
-### code chunk number 5: HardyWeinberg.Rnw:795-796
+### code chunk number 5: HardyWeinberg.Rnw:799-800
 ###################################################
 HW.test <- HWChisq(x, cc = 0, verbose = TRUE)
 
 
 ###################################################
-### code chunk number 6: HardyWeinberg.Rnw:804-805
+### code chunk number 6: HardyWeinberg.Rnw:808-809
 ###################################################
 HW.lrtest <- HWLratio(x, verbose = TRUE)
 
 
 ###################################################
-### code chunk number 7: HardyWeinberg.Rnw:813-814
+### code chunk number 7: HardyWeinberg.Rnw:817-818
 ###################################################
 HW.exacttest <- HWExact(x, verbose = TRUE)
 
 
 ###################################################
-### code chunk number 8: HardyWeinberg.Rnw:833-835
+### code chunk number 8: HardyWeinberg.Rnw:837-839
 ###################################################
 set.seed(123)
 HW.permutationtest <- HWPerm(x, verbose = TRUE)
 
 
 ###################################################
-### code chunk number 9: HardyWeinberg.Rnw:849-851
+### code chunk number 9: HardyWeinberg.Rnw:853-855
 ###################################################
 x <- c(MN = 489, NN = 213, MM = 298)
 HW.test <- HWChisq(x, verbose = TRUE)
 
 
 ###################################################
-### code chunk number 10: HardyWeinberg.Rnw:869-870
+### code chunk number 10: HardyWeinberg.Rnw:873-874
 ###################################################
 HW.results <- HWAlltests(x, verbose = TRUE, include.permutation.test = TRUE)
 
 
 ###################################################
-### code chunk number 11: HardyWeinberg.Rnw:881-883
+### code chunk number 11: HardyWeinberg.Rnw:885-887
 ###################################################
 data(Markers)
 Markers[1:12,]
 
 
 ###################################################
-### code chunk number 12: HardyWeinberg.Rnw:896-900
+### code chunk number 12: HardyWeinberg.Rnw:900-904
 ###################################################
 Xt <- table(Markers[,1])
 Xv <- as.vector(Xt)
@@ -83,89 +83,89 @@ HW.test <- HWChisq(Xv,cc=0,verbose=TRUE)
 
 
 ###################################################
-### code chunk number 13: HardyWeinberg.Rnw:912-914
+### code chunk number 13: HardyWeinberg.Rnw:916-918
 ###################################################
 set.seed(123)
 Results <- HWMissing(Markers[,1], m = 50, method = "sample", verbose=TRUE)
 
 
 ###################################################
-### code chunk number 14: HardyWeinberg.Rnw:932-934
+### code chunk number 14: HardyWeinberg.Rnw:936-938
 ###################################################
 set.seed(123)
 Results <- HWMissing(Markers[, 1:5], m = 50, verbose = TRUE)
 
 
 ###################################################
-### code chunk number 15: HardyWeinberg.Rnw:943-945
+### code chunk number 15: HardyWeinberg.Rnw:947-949
 ###################################################
 set.seed(123)
 Results <- HWMissing(Markers[, 1:5], m = 50, statistic = "exact", verbose = TRUE)
 
 
 ###################################################
-### code chunk number 16: HardyWeinberg.Rnw:957-959
+### code chunk number 16: HardyWeinberg.Rnw:961-963
 ###################################################
 SNP1 <- c(A=399,B=205,AA=230,AB=314,BB=107) 
 HWChisq(SNP1,cc=0,x.linked=TRUE,verbose=TRUE)
 
 
 ###################################################
-### code chunk number 17: HardyWeinberg.Rnw:964-965
+### code chunk number 17: HardyWeinberg.Rnw:968-969
 ###################################################
 HWChisq(SNP1[3:5],cc=0)
 
 
 ###################################################
-### code chunk number 18: HardyWeinberg.Rnw:973-974
+### code chunk number 18: HardyWeinberg.Rnw:977-978
 ###################################################
 HWExact(SNP1,x.linked=TRUE)
 
 
 ###################################################
-### code chunk number 19: HardyWeinberg.Rnw:979-980
+### code chunk number 19: HardyWeinberg.Rnw:983-984
 ###################################################
 HWExact(SNP1,x.linked=TRUE,pvaluetype="midp")
 
 
 ###################################################
-### code chunk number 20: HardyWeinberg.Rnw:986-987
+### code chunk number 20: HardyWeinberg.Rnw:990-991
 ###################################################
 HWExact(SNP1[3:5])
 
 
 ###################################################
-### code chunk number 21: HardyWeinberg.Rnw:992-993
+### code chunk number 21: HardyWeinberg.Rnw:996-997
 ###################################################
 HWPerm(SNP1,x.linked=TRUE)
 
 
 ###################################################
-### code chunk number 22: HardyWeinberg.Rnw:998-999
+### code chunk number 22: HardyWeinberg.Rnw:1002-1003
 ###################################################
 HWLratio(SNP1,x.linked=TRUE)
 
 
 ###################################################
-### code chunk number 23: HardyWeinberg.Rnw:1004-1005
+### code chunk number 23: HardyWeinberg.Rnw:1008-1009
 ###################################################
 HWAlltests(SNP1,x.linked=TRUE,include.permutation.test=TRUE)
 
 
 ###################################################
-### code chunk number 24: HardyWeinberg.Rnw:1010-1011
+### code chunk number 24: HardyWeinberg.Rnw:1014-1015
 ###################################################
 AFtest(SNP1)
 
 
 ###################################################
-### code chunk number 25: HardyWeinberg.Rnw:1021-1022
+### code chunk number 25: HardyWeinberg.Rnw:1025-1026
 ###################################################
 HWPosterior(SNP1)
 
 
 ###################################################
-### code chunk number 26: HardyWeinberg.Rnw:1047-1056
+### code chunk number 26: HardyWeinberg.Rnw:1051-1060
 ###################################################
 x <- c(MM = 298, MN = 489, NN = 213)
 n <- sum(x)
@@ -179,7 +179,7 @@ print(pw8)
 
 
 ###################################################
-### code chunk number 27: HardyWeinberg.Rnw:1129-1152
+### code chunk number 27: HardyWeinberg.Rnw:1133-1156
 ###################################################
 set.seed(123)
 n <- 100
@@ -207,7 +207,7 @@ par(opar)
 
 
 ###################################################
-### code chunk number 28: HardyWeinberg.Rnw:1177-1180 (eval = FALSE)
+### code chunk number 28: HardyWeinberg.Rnw:1181-1184 (eval = FALSE)
 ###################################################
 ## data("HapMapCHBChr1", package = "HardyWeinberg")
 ## HWTernaryPlot(HapMapCHBChr1, region = 1, vbounds = FALSE)
@@ -215,7 +215,7 @@ par(opar)
 
 
 ###################################################
-### code chunk number 29: HardyWeinberg.Rnw:1213-1220 (eval = FALSE)
+### code chunk number 29: HardyWeinberg.Rnw:1217-1224 (eval = FALSE)
 ###################################################
 ## set.seed(123)
 ## data("HapMapCHBChr1", package = "HardyWeinberg")

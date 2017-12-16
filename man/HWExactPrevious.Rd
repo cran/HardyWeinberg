@@ -64,11 +64,11 @@ the probabilities of all samples that are more extreme.}
 #
 x <- c(298,489,213)
 names(x) <- c("MM","MN","NN")
-HW.test <- HWExactPrevious(x,verbose=TRUE)
+\dontrun{HW.test <- HWExactPrevious(x,verbose=TRUE)}
 #
 # Example x-linked marker
 #
 rs5968922  <- c(A=392, B=212, AA=275, AB=296, BB=80 )
-HWExactPrevious(rs5968922,x.linked=TRUE,verbose=TRUE) 
+\dontrun{HWExactPrevious(rs5968922,x.linked=TRUE,verbose=TRUE) }
 }
 \keyword{htest}

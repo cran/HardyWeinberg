@@ -482,6 +482,10 @@ Bayesian method for testing bi-allelic X-chromosomal variants has been proposed 
 Graffelman~(\citeyear{Puig}). Examples of frequentist and Bayesian testing of X-chromosomal markers for HWE are given 
 below in Section~\ref{sec:session}.
 
+\section{Hardy-Weinberg equilibrium and allele frequencies of the sexes}
+
+Testing HWP for a genetic variant is contingent on the assumption of equality of allele frequencies in the sexes. Likewise, a chi-square of exact test for equality of allele frequencies assumes HWP. Recently,~\cite{Graffel31} proposed exact and likelihood ratio procedures that can test HWP and equality of allele frequencies (EAF) jointly or independently, using six different scenarios for a bi-allelic variant. Function \code{HWLRtest} can compare the different scenarios with a likelihood ratio test (LRT). Function \code{HWAIC} calculates Akaike's information criterion (AIC) for the different scenarios, in order to assist the decision which model best fits the data. Examples are given in Section~\ref{sec:session}. 
+
 \section{Graphics for Hardy-Weinberg equilibrium}
 \label{sec:graphics}
 
