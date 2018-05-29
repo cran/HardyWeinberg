@@ -46,8 +46,8 @@ HW.test <- HWPerm(x,nperm=10000,verbose=TRUE,function(z)
 HWChisq(z)$chisq,cc=0.5) # uses chi-square statistic with continuity correction.
 HW.test <- HWPerm(x,nperm=10000,verbose=TRUE,function(y) HWLratio(y)$G2)
 # uses likelihood ratio statistic.
-HWPerm(x,nperm=10000,verbose=TRUE,function(y) 1-HWExact(y)$pval) # uses
-exact test p-value
+HWPerm(x,nperm=10000,verbose=TRUE,function(y) 1-HWExact(y)$pval)
+# uses exact test p-value
 #
 # Permutation test for a marker on the X chromosome
 #

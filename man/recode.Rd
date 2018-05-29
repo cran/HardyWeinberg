@@ -5,7 +5,8 @@
    function \code{recode} recodes bi-allelic genetic marker information
    expressed as strings (e.g. "AA", "AB", "BB") into numerical form.
 }
-\usage{recode(X, alleles, values = c(0, 1, 2), pos1 = 1, pos2 = 3, minor = FALSE)}
+\usage{recode(X, alleles, values = c(0, 1, 2), pos1 = 1, pos2 = 3, minor
+= FALSE, verbose = FALSE)}
 \arguments{
   \item{X}{A matrix or dataframe of bi-allelic markers, individuals in
     rows, markers in columns}
@@ -19,7 +20,8 @@
   \item{minor}{coding is according to the number of copies of the minor
     allele. if \code{minor = TRUE}, the value of 2 reflects two copies
     of the minor allele, and the value 0 reflects no copies of the minor
-  allele.}
+    allele.}
+  \item{verbose}{print progress on the conversion or not.}
 }
 \details{
   \code{recode} is written for bi-allelic marker data

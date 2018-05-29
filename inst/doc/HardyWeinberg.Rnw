@@ -17,7 +17,7 @@
 
 
 %% almost as usual
-\author{Jan Graffelman\\Universitat Polit\`ecnica de Catalunya\\version 1.5.8\\ \today}
+\author{Jan Graffelman\\Universitat Polit\`ecnica de Catalunya\\version 1.6.1\\ \today}
 \title{Exploring Diallelic Genetic Markers: The \pkg{HardyWeinberg} Package}
 
 %% for pretty printing and a nice hypersummary also set:
@@ -141,7 +141,7 @@ The package is mainly aimed at researchers working in the fields of
 genetics, statistics, epidemiology, bio-informatics and bio-statistics
 and is available from the Comprehensive \proglang{R} Archive Network
 (CRAN) at \url{http://CRAN.R-project.org/package=HardyWeinberg}.
-This paper describes the state of the art of version 1.5.5 of the package. 
+This paper describes the state of the art of version 1.6.0 of the package. 
 If you appreciate this software and wish to cite it, please cite the
 corresponding paper in the {\it Journal of Statistical 
 Software}~\citep{Graffel26}. 

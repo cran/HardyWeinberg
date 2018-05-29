@@ -35,7 +35,7 @@ HWChisq <- function (X, cc = 0.5, verbose = TRUE, x.linked = FALSE, phifixed = N
     if (!mono) {
       chi2 <- chi/expected
       chisq <- sum(chi2)
-      pval <- 1 - pchisq(chisq, 1)
+      pval <- pchisq(chisq, 1, lower.tail = FALSE)
     }
     else {
       chisq <- NA
@@ -95,7 +95,7 @@ HWChisq <- function (X, cc = 0.5, verbose = TRUE, x.linked = FALSE, phifixed = N
       if (!mono) {
         chi2 <- chi/expected
         chisq <- sum(chi2)    
-        pval <- 1 - pchisq(chisq, DF)
+        pval <- pchisq(chisq, DF, lower.tail = FALSE)
       }
       else {
         chisq <- NA

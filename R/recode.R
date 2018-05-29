@@ -1,4 +1,4 @@
-recode <- function (X, alleles, values = c(0, 1, 2), pos1 = 1, pos2 = 3, minor = FALSE) 
+recode <- function (X, alleles, values = c(0, 1, 2), pos1 = 1, pos2 = 3, minor = FALSE, verbose = FALSE) 
 {
   if(is.matrix(X) | is.data.frame(X)) {
     n <- nrow(X)
@@ -8,7 +8,7 @@ recode <- function (X, alleles, values = c(0, 1, 2), pos1 = 1, pos2 = 3, minor =
       snp <- rep(NA, n)
       al1 <- substr(alleles[i], pos1, pos1)
       al2 <- substr(alleles[i], pos2, pos2)
-      if (i%%100 == 0) 
+      if ((i%%100 == 0) & (verbose)) 
         cat("Converting marker ", i, "\n")
       hom1 <- paste(al1, al1, sep = "")
       hom2 <- paste(al2, al2, sep = "")
