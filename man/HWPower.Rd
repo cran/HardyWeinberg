@@ -56,7 +56,7 @@ are illustrated in the example section.
 \references{
 Graffelman, J. and Moreno, V. (2013) The Mid p-value in exact tests for
 Hardy-Weinberg proportions. \emph{Statistical Applications in Genetics
-  and Molecular Biology} 12(4): 433-448. \url{http://dx.doi.org/10.1515/sagmb-2012-0039}.
+  and Molecular Biology} 12(4): 433-448. 
 
 Graffelman, J. (2015) Exploring Diallelic Genetic Markers: The HardyWeinberg Package.
 \emph{Journal of Statistical Software} 64(3):

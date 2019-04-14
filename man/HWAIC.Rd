@@ -3,19 +3,22 @@
 \title{Compute Akaike's Information Criterion (AIC) for HWP and EAF models}
 \description{
   Function \code{HWAIC} calculates Akaike's Information Criterion for
-  six different models that describe a bi-allelic genetic variant: A:
+  ten different models that describe a bi-allelic genetic variant: M11:
   Hardy-Weinberg proportions and equality of allele frequencies in the
-  sexes (HWP & EAF); B: EAF and equality of inbreeding coefficients in
-  the sexes (EIC); C: EAF; D: HWP; E: EIC; F: None of the previous.
+  sexes (HWP & EAF); M12: EAF and HWP in males only; M13: EAF and HWP in
+  females only; M14: EAF and equality of inbreeding coefficients in
+  the sexes (EIC); M15: EAF only; M21: HWP in both sexes; M22: HWP for
+  males only; M23: HWP for females only; M24: EIC only; M25: None of the previous.
 }
 \usage{
-HWAIC(x, y, tracing = 0)
+HWAIC(x, y, tracing = 0, tol = 0.000001)
 }
 \arguments{
   \item{x}{Male genotype counts (AA,AB,BB)}
   \item{y}{Female genotype counts (AA,AB,BB)}
   \item{tracing}{Activate tracing in the maximization of some
     likelihoods (0=no tracing; 1:tracing)}
+  \item{tol}{tolerance for iterative maximization of some likelihoods}
 }
 \details{
   The log-likelihood for the six models is calculated. For two models (C

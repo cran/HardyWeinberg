@@ -5,7 +5,7 @@ Estimate allele frequencies and test for Hardy-Weinberg equilibrium with
 a tri-allelic ABO system.
 }
 \description{
-Function \code{AF.em} takes four genotype counts ("A","B","AB","OO") and
+Function \code{HWABO} takes four genotype counts ("A","B","AB","OO") and
 estimates the three allele frequencies using the EM algorithm.
 }
 \usage{

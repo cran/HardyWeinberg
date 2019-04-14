@@ -9,19 +9,19 @@ HWLRtest <- function(x,y,scene.null="S1",scene.alt="S6",verbose=TRUE,tracing=0) 
   ff <- HWf(y)
   f  <- HWf(z)
   out.null <- switch(scene.null,
-         S1 = loglik.1(pa,z), # EoAF and HWP (f's zero)
-         S2 = loglik.2(pa,z,f), # EoAF and EoIC
-         S3 = loglik.3(pa,f,x,y,tracing), # EAF only
-         S4 = loglik.4(pa,x,y,pam,paf), # HWP for both sexes
-         S5 = loglik.5(x,y,tracing), #no EAF but with EIC
-         S6 = loglik.6(x,y,pam,paf,fm,ff))
+         S1 = loglik.M11(pa,z), # EoAF and HWP (f's zero)
+         S2 = loglik.M14(pa,z,f), # EoAF and EoIC
+         S3 = loglik.M15(pa,f,x,y,tracing), # EAF only
+         S4 = loglik.M21(x,y,pam,paf), # HWP for both sexes
+         S5 = loglik.M24(x,y,tracing), #no EAF but with EIC
+         S6 = loglik.M25(x,y,pam,paf,fm,ff))
   out.alt <- switch(scene.alt,
-         S1 = loglik.1(pa,z), # EoAF and HWP (f's zero)
-         S2 = loglik.2(pa,z,f), # EoAF and EoIC
-         S3 = loglik.3(pa,f,x,y,tracing), # EAF only
-         S4 = loglik.4(pa,x,y,pam,paf), # HWP for both sexes
-         S5 = loglik.5(x,y,tracing), #no EAF but with EIC
-         S6 = loglik.6(x,y,pam,paf,fm,ff))
+         S1 = loglik.M11(pa,z), # EoAF and HWP (f's zero)
+         S2 = loglik.M14(pa,z,f), # EoAF and EoIC
+         S3 = loglik.M15(pa,f,x,y,tracing), # EAF only
+         S4 = loglik.M21(x,y,pam,paf), # HWP for both sexes
+         S5 = loglik.M24(x,y,tracing), #no EAF but with EIC
+         S6 = loglik.M25(x,y,pam,paf,fm,ff))
   loglik0 <- out.null[1]
   loglik1 <- out.alt[1]
   df <- out.alt[2] - out.null[2]

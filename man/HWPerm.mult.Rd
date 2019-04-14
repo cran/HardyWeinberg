@@ -41,7 +41,7 @@ HWPerm.mult(x, y = NULL, nperm = 17000, eps = 0, verbose = TRUE, ...)
 }
 \references{
   Graffelman, J. and Weir, B.S. (2017) Multi-allelic exact tests for Hardy-Weinberg equilibrium that account for gender.
-  \href{https://doi.org/10.1101/172874}{doi: 10.1101/172874 bioRxiv preprint}
+  \href{https://doi.org/10.1111/1755-0998.12748}{https://doi.org/10.1111/1755-0998.12748}
 }
 \author{
   Jan Graffelman \email{jan.graffelman@upc.edu}

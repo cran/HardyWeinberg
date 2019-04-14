@@ -132,8 +132,8 @@
        }    
 
        if(region==1) { # simple hw ci
-          HWChisqUpperl(r,verbose=FALSE,cex=cex,curvecol=curvecols[2])
-          HWChisqLowerl(r,verbose=FALSE,cex=cex,curvecol=curvecols[2])
+          HWChisqUpperl(r,verbose=FALSE,cex=cex,curvecol=curvecols[2],curtyp=curtyp)
+          HWChisqLowerl(r,verbose=FALSE,cex=cex,curvecol=curvecols[2],curtyp=curtyp)
        }
 
        if(region==2) { # all curves for hw with cc

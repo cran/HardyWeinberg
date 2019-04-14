@@ -1,4 +1,5 @@
-loglik.1 <- function(pa,z) {
+loglik.M11 <-
+function(pa,z) {
   paa <- pa*pa
   pab <- 2*pa*(1-pa)
   pbb <- (1-pa)*(1-pa)

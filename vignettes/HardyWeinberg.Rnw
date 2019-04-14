@@ -17,7 +17,7 @@
 
 
 %% almost as usual
-\author{Jan Graffelman\\Universitat Polit\`ecnica de Catalunya\\version 1.6.1\\ \today}
+\author{Jan Graffelman\\Universitat Polit\`ecnica de Catalunya\\version 1.6.2\\ \today}
 \title{Exploring Diallelic Genetic Markers: The \pkg{HardyWeinberg} Package}
 
 %% for pretty printing and a nice hypersummary also set:
@@ -482,9 +482,9 @@ Bayesian method for testing bi-allelic X-chromosomal variants has been proposed 
 Graffelman~(\citeyear{Puig}). Examples of frequentist and Bayesian testing of X-chromosomal markers for HWE are given 
 below in Section~\ref{sec:session}.
 
-\section{Hardy-Weinberg equilibrium and allele frequencies of the sexes}
+\section{HWE and gender allele frequencies}
 
-Testing HWP for a genetic variant is contingent on the assumption of equality of allele frequencies in the sexes. Likewise, a chi-square of exact test for equality of allele frequencies assumes HWP. Recently,~\cite{Graffel31} proposed exact and likelihood ratio procedures that can test HWP and equality of allele frequencies (EAF) jointly or independently, using six different scenarios for a bi-allelic variant. Function \code{HWLRtest} can compare the different scenarios with a likelihood ratio test (LRT). Function \code{HWAIC} calculates Akaike's information criterion (AIC) for the different scenarios, in order to assist the decision which model best fits the data. Examples are given in Section~\ref{sec:session}. 
+Testing HWP for a genetic variant is contingent on the assumption of equality of allele frequencies in the sexes. Likewise, a chi-square of exact test for equality of allele frequencies assumes HWP. Recently,~\cite{Graffel31} proposed exact and likelihood ratio procedures that can test HWP and equality of allele frequencies (EAF) jointly or independently, using different scenarios for a bi-allelic variant. Function \code{HWLRtest} compares different scenarios with a likelihood ratio test (LRT). Puig, Ginebra and Graffelman~(\citeyear{Puig2}) describe ten different scenarios for autosomal variants that allow for sex-specific allele frequencies and inbreeding coefficients. The different scenarios can be compared using Bayesian model selection implemented in function \code{HWPosterior}. Alternatively, function \code{HWAIC} can be used to calculate Akaike's information criterion (AIC), which can also be used to decide which model best fits the data. Examples are given in Section~\ref{sec:session}. 
 
 \section{Graphics for Hardy-Weinberg equilibrium}
 \label{sec:graphics}
@@ -952,6 +952,26 @@ Results <- HWMissing(Markers[, 1:5], m = 50, statistic = "exact", verbose = TRUE
 and a similar $p$-value is obtained. See~\citet{Graffel24} for more details on
 testing for HWE with missing data.
 
+Autosomal tests for HWP assume equality of allele frequencies in the sexes. When sex is taken into account, several scenarios are possible. The function \code{HWPosterior} can be used to perform Bayesian model selection using the posterior probability of each scenario. We consider an example using an SNP of the JPT sample taken from the 1000G project.
+
+<<>>=
+data(JPTsnps)
+Results <- HWPosterior(JPTsnps[1,],x.linked=FALSE,precision=0.05)
+@  
+
+The results show that for this variant, equality of allele frequencies in the sexes and HWP for both sexes (model $M_{11}$) is the model with the largest probability. For more accurate results, higher precision of posterior probabilities can be obtained by specifying {\tt precision=0.005}, at the expense of increasing the computation time.
+
+We analyse the same variant by calculating the AIC for each scenario. This is achieved by
+
+<<>>=
+data(JPTsnps)
+AICs <- HWAIC(JPTsnps[1,1:3],JPTsnps[1,4:6])
+AICs
+@
+
+In this case, the AIC criterion identifies the same $M_{11}$ model as the best fitting model.
+
+
 \subsection{Testing X-chromosomal markers for HWE}
 \label{subsec:testingx}
 
@@ -1023,7 +1043,7 @@ Puig, Ginebra and Graffelman~(\citeyear{Puig}) have proposed a Bayesian test for
 A Bayesian analysis of the same SNP is obtained by: 
 
 <<echo=TRUE>>=
-HWPosterior(SNP1)
+HWPosterior(SNP1,x.linked=TRUE)
 @ 
 
 and shows that a model with Hardy-Weinberg proportions for females and different allele frequencies for both sexes has the 

@@ -104,68 +104,83 @@ Results <- HWMissing(Markers[, 1:5], m = 50, statistic = "exact", verbose = TRUE
 
 
 ###################################################
-### code chunk number 16: HardyWeinberg.Rnw:961-963
+### code chunk number 16: HardyWeinberg.Rnw:957-959
+###################################################
+data(JPTsnps)
+Results <- HWPosterior(JPTsnps[1,],x.linked=FALSE,precision=0.05)
+
+
+###################################################
+### code chunk number 17: HardyWeinberg.Rnw:966-969
+###################################################
+data(JPTsnps)
+AICs <- HWAIC(JPTsnps[1,1:3],JPTsnps[1,4:6])
+AICs
+
+
+###################################################
+### code chunk number 18: HardyWeinberg.Rnw:981-983
 ###################################################
 SNP1 <- c(A=399,B=205,AA=230,AB=314,BB=107) 
 HWChisq(SNP1,cc=0,x.linked=TRUE,verbose=TRUE)
 
 
 ###################################################
-### code chunk number 17: HardyWeinberg.Rnw:968-969
+### code chunk number 19: HardyWeinberg.Rnw:988-989
 ###################################################
 HWChisq(SNP1[3:5],cc=0)
 
 
 ###################################################
-### code chunk number 18: HardyWeinberg.Rnw:977-978
+### code chunk number 20: HardyWeinberg.Rnw:997-998
 ###################################################
 HWExact(SNP1,x.linked=TRUE)
 
 
 ###################################################
-### code chunk number 19: HardyWeinberg.Rnw:983-984
+### code chunk number 21: HardyWeinberg.Rnw:1003-1004
 ###################################################
 HWExact(SNP1,x.linked=TRUE,pvaluetype="midp")
 
 
 ###################################################
-### code chunk number 20: HardyWeinberg.Rnw:990-991
+### code chunk number 22: HardyWeinberg.Rnw:1010-1011
 ###################################################
 HWExact(SNP1[3:5])
 
 
 ###################################################
-### code chunk number 21: HardyWeinberg.Rnw:996-997
+### code chunk number 23: HardyWeinberg.Rnw:1016-1017
 ###################################################
 HWPerm(SNP1,x.linked=TRUE)
 
 
 ###################################################
-### code chunk number 22: HardyWeinberg.Rnw:1002-1003
+### code chunk number 24: HardyWeinberg.Rnw:1022-1023
 ###################################################
 HWLratio(SNP1,x.linked=TRUE)
 
 
 ###################################################
-### code chunk number 23: HardyWeinberg.Rnw:1008-1009
+### code chunk number 25: HardyWeinberg.Rnw:1028-1029
 ###################################################
 HWAlltests(SNP1,x.linked=TRUE,include.permutation.test=TRUE)
 
 
 ###################################################
-### code chunk number 24: HardyWeinberg.Rnw:1014-1015
+### code chunk number 26: HardyWeinberg.Rnw:1034-1035
 ###################################################
 AFtest(SNP1)
 
 
 ###################################################
-### code chunk number 25: HardyWeinberg.Rnw:1025-1026
+### code chunk number 27: HardyWeinberg.Rnw:1045-1046
 ###################################################
-HWPosterior(SNP1)
+HWPosterior(SNP1,x.linked=TRUE)
 
 
 ###################################################
-### code chunk number 26: HardyWeinberg.Rnw:1051-1060
+### code chunk number 28: HardyWeinberg.Rnw:1071-1080
 ###################################################
 x <- c(MM = 298, MN = 489, NN = 213)
 n <- sum(x)
@@ -179,7 +194,7 @@ print(pw8)
 
 
 ###################################################
-### code chunk number 27: HardyWeinberg.Rnw:1133-1156
+### code chunk number 29: HardyWeinberg.Rnw:1153-1176
 ###################################################
 set.seed(123)
 n <- 100
@@ -207,7 +222,7 @@ par(opar)
 
 
 ###################################################
-### code chunk number 28: HardyWeinberg.Rnw:1181-1184 (eval = FALSE)
+### code chunk number 30: HardyWeinberg.Rnw:1201-1204 (eval = FALSE)
 ###################################################
 ## data("HapMapCHBChr1", package = "HardyWeinberg")
 ## HWTernaryPlot(HapMapCHBChr1, region = 1, vbounds = FALSE)
@@ -215,7 +230,7 @@ par(opar)
 
 
 ###################################################
-### code chunk number 29: HardyWeinberg.Rnw:1217-1224 (eval = FALSE)
+### code chunk number 31: HardyWeinberg.Rnw:1237-1244 (eval = FALSE)
 ###################################################
 ## set.seed(123)
 ## data("HapMapCHBChr1", package = "HardyWeinberg")
