@@ -237,7 +237,7 @@ par(opar)
 ## HWQqplot(HapMapCHBChr1)
 ## dev.off()
 ## set.seed(123)
-## SimulatedData <- HWData(nm = 225, n = 84, p = af(HapMapCHBChr1))$Xt
+## SimulatedData <- HWData(nm = 225, n = 84, p = af(HapMapCHBChr1))
 ## HWQqplot(SimulatedData)
 
 

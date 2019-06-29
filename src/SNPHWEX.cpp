@@ -1,3 +1,4 @@
+#define STRICT_R_HEADERS
 #include <Rcpp.h>
 
 using namespace Rcpp;
@@ -81,7 +82,7 @@ double SNPHWE2(int32_t obs_hets, int32_t obs_hom1, int32_t obs_hom2, uint32_t mi
       centerp += lastp2;
       // doesn't seem to make a difference, but seems best to minimize use of
       // INFINITY
-      if (centerp > DBL_MAX) {
+      if (centerp > std::numeric_limits<double>::max()) {
 	return 0;
       }
     }
@@ -127,7 +128,7 @@ double SNPHWE2(int32_t obs_hets, int32_t obs_hom1, int32_t obs_hom2, uint32_t mi
 	break;
       }
       centerp += lastp2;
-      if (centerp > DBL_MAX) {
+      if (centerp > std::numeric_limits<double>::max()) {
 	return 0;
       }
     }
@@ -166,6 +167,7 @@ double SNPHWE2(int32_t obs_hets, int32_t obs_hom1, int32_t obs_hom2, uint32_t mi
   return (tailp - ((1 - kSmallEpsilon) * kExactTestBias * 0.5) * tie_ct) / (tailp + centerp);
 }
 
+// [[Rcpp::export]]
 int32_t SNPHWEX_tailsum(uint32_t high_het_side, double* base_probp, double* saved_hetsp, double* saved_hom1p, double* saved_hom2p, uint32_t* tie_ctp, double *totalp) {
   // similar to fisher23_tailsum()
   double total = 0;
@@ -357,7 +359,7 @@ double SNPHWEX(int32_t female_hets, int32_t female_hom1, int32_t female_hom2, in
 	break;
       }
       centerp += cur_prob;
-      if (centerp > DBL_MAX) {
+      if (centerp > std::numeric_limits<double>::max()) {
 	return 0;
       }
     }
@@ -418,7 +420,7 @@ double SNPHWEX(int32_t female_hets, int32_t female_hom1, int32_t female_hom2, in
 	break;
       }
       centerp += cur_prob;
-      if (centerp > DBL_MAX) {
+      if (centerp > std::numeric_limits<double>::max()) {
 	return 0;
       }
     }
@@ -584,7 +586,7 @@ double SNPHWEX(int32_t female_hets, int32_t female_hom1, int32_t female_hom2, in
       SNPHWEX_tailsum(1, &base_probr, &cur_rhets, &cur_rhom1, &cur_rhom2, &tie_ct, &tail_incr2);
       tailp += tail_incr2;
       centerp += row_prob - tail_incr1 - tail_incr2;
-      if (centerp > DBL_MAX) {
+      if (centerp > std::numeric_limits<double>::max()) {
 	return 0;
       }
     }

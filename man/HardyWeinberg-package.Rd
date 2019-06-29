@@ -10,8 +10,8 @@
 \tabular{ll}{
 Package: \tab HardyWeinberg\cr
 Type: \tab Package\cr
-Version: \tab 1.6.2\cr
-Date: \tab 2019-04-12\cr
+Version: \tab 1.6.3\cr
+Date: \tab 2019-06-28\cr
 License: \tab GPL Version 2 or later.\cr
 }
 

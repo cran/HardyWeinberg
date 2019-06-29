@@ -17,7 +17,7 @@
 
 
 %% almost as usual
-\author{Jan Graffelman\\Universitat Polit\`ecnica de Catalunya\\version 1.6.2\\ \today}
+\author{Jan Graffelman\\Universitat Polit\`ecnica de Catalunya\\version 1.6.3\\ \today}
 \title{Exploring Diallelic Genetic Markers: The \pkg{HardyWeinberg} Package}
 
 %% for pretty printing and a nice hypersummary also set:
@@ -1240,7 +1240,7 @@ data("HapMapCHBChr1", package = "HardyWeinberg")
 HWQqplot(HapMapCHBChr1)
 dev.off()
 set.seed(123)
-SimulatedData <- HWData(nm = 225, n = 84, p = af(HapMapCHBChr1))$Xt
+SimulatedData <- HWData(nm = 225, n = 84, p = af(HapMapCHBChr1))
 HWQqplot(SimulatedData)
 @ 
 
