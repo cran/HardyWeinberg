@@ -1,4 +1,4 @@
-HWExact <- function (X, alternative = "two.sided", pvaluetype = "selome", x.linked = FALSE, verbose = TRUE)
+HWExact <- function (X, alternative = "two.sided", pvaluetype = "selome", eps=1e-10, x.linked = FALSE, verbose = TRUE)
 {
   if(!x.linked) {
     if (length(X) != 3 | any(X < 0))
@@ -129,7 +129,7 @@ HWExact <- function (X, alternative = "two.sided", pvaluetype = "selome", x.link
     pofthesample <- sample.prob.last(n,nm,nmA,nA,nfAB)
 
     for(i in 1:nrow(Z)) {
-      prob[i] <- subsamples.prob(nA, nB, nm, nf, nt, Z[i,1], Z[i,2], Z[i,3], pofthesample)
+      prob[i] <- subsamples.prob(nA, nB, nm, nf, nt, Z[i,1], Z[i,2], Z[i,3], pofthesample, eps)
     }
 
     if(pvaluetype=="selome") pval <- sum(prob)

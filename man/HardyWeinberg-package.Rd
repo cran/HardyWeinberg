@@ -10,8 +10,8 @@
 \tabular{ll}{
 Package: \tab HardyWeinberg\cr
 Type: \tab Package\cr
-Version: \tab 1.6.3\cr
-Date: \tab 2019-06-28\cr
+Version: \tab 1.6.5\cr
+Date: \tab 2020-08-10\cr
 License: \tab GPL Version 2 or later.\cr
 }
 
@@ -38,7 +38,7 @@ Based on the Ternary Plot. \emph{Human Heredity} 65(2):77-84.
 
 Graffelman, J. (2015) Exploring Diallelic Genetic Markers: The {HardyWeinberg} Package.
 \emph{Journal of Statistical Software} 64(3):
-1-23. \url{http://www.jstatsoft.org/v64/i03/}.
+1-23. \url{https://www.jstatsoft.org/v64/i03/}.
 
 Graffelman, J. and Weir, B.S. (2016) Testing for Hardy-Weinberg
 equilibrium at bi-allelic genetic markers on

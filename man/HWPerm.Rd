@@ -9,7 +9,7 @@ equilibrium using a user-supplied test statistic.
 }
 \usage{
 HWPerm(x, nperm = 17000, verbose = TRUE, x.linked = FALSE,
-FUN = ifelse(x.linked,Chisquare.x,Chisquare), ...) 
+FUN = ifelse(x.linked,Chisquare.x,Chisquare), eps=1e-10, ...) 
 }
 \arguments{
   \item{x}{A vector of genotype counts (AA,AB,BB)}
@@ -21,6 +21,7 @@ FUN = ifelse(x.linked,Chisquare.x,Chisquare), ...)
     on the X-chromosome.}
   \item{FUN}{An function call for calculating the test statistic for HWE
     (see examples below)}
+  \item{eps}{Tolerance for comparison of floating point numbers (1e-10 by default)}
   \item{\dots}{Additional parameters for the function call argument \code{FUN}}
 }
 \details{

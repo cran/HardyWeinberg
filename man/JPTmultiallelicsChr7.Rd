@@ -16,7 +16,7 @@ on chromosome 7 from the Japanese sample of the 1000 genomes project.
   multi-allelic variants on chromosome 7 of the JPT sample of the 1000 genomes project.
 }
 \source{
-  The \href{http://www.internationalgenome.org}{1000 genomes project}.
+  The \href{https://www.internationalgenome.org}{The 1000 genomes project}.
 }
 \references{
 Graffelman, J. and Weir, B.S. (2017) Multi-allelic exact tests for Hardy-Weinberg equilibrium that

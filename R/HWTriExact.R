@@ -56,14 +56,14 @@ HWTriExact <- function(x,y=NULL,eps=0,nperm=17000,verbose=TRUE) {
       fe <- toTriangular(X[i,4:9])
       pr[i] <- density.ma.gender(ma,fe)  
     }
+    ind.pval <- pr <= pofthesample+eps
+    pval <- sum(pr[ind.pval])
     if(verbose) {
       cat("Tri-allelic Exact test for HWE and EAF (X-chromosomal)\n")
       cat("Allele counts: na = ",na,"nb = ",nb,"nc =",nc,"\n")
       cat("Sample contains: ",nm,"males and",nf,"females\n")
       cat("sum probabilities all outcomes",sum(pr),"\n")
       cat("probability of the sample",pofthesample,"\n")
-      ind.pval <- pr <= pofthesample+eps
-      pval <- sum(pr[ind.pval])
       cat("p-value = ",pval,"\n")  
     }
   }

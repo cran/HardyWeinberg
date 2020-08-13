@@ -8,7 +8,7 @@ each bi-allelic marker, containing 4 columns with the counts AA, AB, BB
 and NA (missings) respectively
 }
 \usage{
-MakeCounts(X, alleles, pos1 = 1, pos2 = 3, coding = c(AA=0,AB=1,BB=2))
+MakeCounts(X, alleles, pos1 = 1, pos2 = 3, coding = c(AA=0,AB=1,BB=2), sep = "")
 }
 \arguments{
   \item{X}{A matrix or dataframe with bi-allelic genotyping information,
@@ -22,6 +22,7 @@ MakeCounts(X, alleles, pos1 = 1, pos2 = 3, coding = c(AA=0,AB=1,BB=2))
   \item{coding}{indicates how homozygotes and heterozygote are coded as
     numbers. Only relevant if \code{X} is a matrix with numeric
     entries.}
+  \item{sep}{allele separator character for genotype data in text format ("" for AA; "/" for "A/A")}
 }
 \details{
   \code{MakeCounts} is thought for bi-allelic marker data only. Missings

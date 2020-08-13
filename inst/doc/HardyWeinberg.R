@@ -1,5 +1,4 @@
 ### R code from vignette source 'HardyWeinberg.Rnw'
-### Encoding: ISO8859-1
 
 ###################################################
 ### code chunk number 1: HardyWeinberg.Rnw:743-744

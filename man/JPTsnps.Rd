@@ -12,7 +12,7 @@ Genomes project.
 \usage{data("JPTsnps")}
 \format{data frame}
 \source{
-  The \href{http://www.internationalgenome.org}{1000 genomes project}.
+  The \href{https://www.internationalgenome.org}{The 1000 genomes project}.
 }
 \references{
 Puig, X., Ginebra, J. and Graffelman, J. (2019) Bayesian model selection

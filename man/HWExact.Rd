@@ -5,7 +5,7 @@
   \code{HWExact} performs an exact test for Hardy-Weinberg equilibrium
 }
 \usage{
-HWExact(X, alternative = "two.sided", pvaluetype = "selome", x.linked =
+HWExact(X, alternative = "two.sided", pvaluetype = "selome", eps=1e-10, x.linked =
 FALSE, verbose = TRUE)
 }
 \arguments{
@@ -26,6 +26,8 @@ the probabilities of all samples that are more extreme.}
   \item{x.linked}{ \code{x.linked=FALSE} indicates the marker is
     autosomal (default), and \code{x.linked=TRUE} indicates it resides
     on the X-chromosome.}
+  \item{eps}{a tolerance that can be set for comparing probabilities in order to include
+    tied outcomes}
    \item{verbose}{ print results or not.}
 }
 \details{

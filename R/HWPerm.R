@@ -1,9 +1,10 @@
-HWPerm <- function (x, nperm = 17000, verbose = TRUE, x.linked = FALSE, FUN = ifelse(x.linked,Chisquare.x,Chisquare), ...) 
+HWPerm <- function (x, nperm = 17000, verbose = TRUE, x.linked = FALSE, FUN = ifelse(x.linked,Chisquare.x,Chisquare), eps=1e-10, ...) 
 {
 if(!x.linked) { # autosomal marker
     n <- sum(x)
     nA <- 2 * x[1] + x[2]
     nB <- 2 * n - nA
+    if(min(nA,nB)==0) stop("Monomorphic marker.")
     stat.obs <- FUN(x)
     pseudodist <- numeric(nperm)
     i1 <- seq(1, 2 * n, 2)
@@ -21,8 +22,15 @@ if(!x.linked) { # autosomal marker
         stat.pseudo <- FUN(y)
         pseudodist[i] <- stat.pseudo
     }
-    nlarger <- sum(pseudodist >= stat.obs)
+
+    ii <- nearlyEqual(pseudodist,rep(stat.obs,nperm),eps)
+    nlarger <- sum(ii) # sum of all tied cases
+    
+    iii <- !ii & pseudodist > stat.obs
+    nlarger <- nlarger + sum(iii) # add the rest
+    
     pval <- nlarger/nperm
+
     if (verbose) {
         cat("Permutation test for Hardy-Weinberg equilibrium\n")
         cat("Observed statistic:", stat.obs, " ", nperm, "permutations. p-value:", 
@@ -49,6 +57,7 @@ if(!x.linked) { # autosomal marker
     x <- c(nmA,nmB,nfAA,nfAB,nfBB)
     nA <- nmA + 2*nfAA + nfAB
     nB <- nmB + 2*nfBB + nfAB
+    if(min(nA,nB)==0) stop("Monomorphic marker.")
     nt <- nA+nB
     stat.obs <- FUN(x)
     pseudodist <- numeric(nperm)
@@ -71,8 +80,15 @@ if(!x.linked) { # autosomal marker
         stat.pseudo <- FUN(y)
         pseudodist[i] <- stat.pseudo
     }
-    nlarger <- sum(pseudodist >= stat.obs)
+
+    ii <- nearlyEqual(pseudodist,rep(stat.obs,nperm),eps)
+    nlarger <- sum(ii) # sum of all tied cases
+    
+    iii <- !ii & pseudodist > stat.obs
+    nlarger <- nlarger + sum(iii) # add the rest
+    
     pval <- nlarger/nperm
+    
     if (verbose) {
         cat("Permutation test for Hardy-Weinberg equilibrium of an X-linked marker\n")
         cat("Observed statistic:", stat.obs, " ", nperm, "permutations. p-value:", 

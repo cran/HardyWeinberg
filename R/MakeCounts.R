@@ -1,4 +1,4 @@
-MakeCounts <- function (X, alleles, pos1 = 1, pos2 = 3, coding = c(AA=0,AB=1,BB=2))
+MakeCounts <- function (X, alleles, pos1 = 1, pos2 = 3, coding = c(AA=0,AB=1,BB=2), sep = "")
 {
     if(is.vector(X)) {
       X <- as.matrix(X,ncol=1)
@@ -12,10 +12,10 @@ MakeCounts <- function (X, alleles, pos1 = 1, pos2 = 3, coding = c(AA=0,AB=1,BB=
         snp <- X[, j]
         al1 <- substr(alleles[j], pos1, pos1)
         al2 <- substr(alleles[j], pos2, pos2)
-        homAA <- paste(al1, al1, sep = "")
-        homBB <- paste(al2, al2, sep = "")
-        hetAB <- paste(al1, al2, sep = "")
-        hetBA <- paste(al2, al1, sep = "")
+        homAA <- paste(al1, al1, sep = sep)
+        homBB <- paste(al2, al2, sep = sep)
+        hetAB <- paste(al1, al2, sep = sep)
+        hetBA <- paste(al2, al1, sep = sep)
         nAA <- sum(snp == homAA, na.rm = TRUE)
         nBB <- sum(snp == homBB, na.rm = TRUE)
         nAB <- sum(snp == hetAB, na.rm = TRUE) + sum(snp == hetBA, na.rm = TRUE)
