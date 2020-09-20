@@ -5,6 +5,27 @@
 
 using namespace Rcpp;
 
+// xChromosomal
+double xChromosomal(IntegerVector rmV, IntegerVector mfV, int rk, NumericVector robservedValsV, NumericVector rPvalsV, int rstatID, int rhistobins, NumericVector rhistoboundsV, double rhistoData, int rsafeSecs, double tables);
+RcppExport SEXP _HardyWeinberg_xChromosomal(SEXP rmVSEXP, SEXP mfVSEXP, SEXP rkSEXP, SEXP robservedValsVSEXP, SEXP rPvalsVSEXP, SEXP rstatIDSEXP, SEXP rhistobinsSEXP, SEXP rhistoboundsVSEXP, SEXP rhistoDataSEXP, SEXP rsafeSecsSEXP, SEXP tablesSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type rmV(rmVSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type mfV(mfVSEXP);
+    Rcpp::traits::input_parameter< int >::type rk(rkSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type robservedValsV(robservedValsVSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type rPvalsV(rPvalsVSEXP);
+    Rcpp::traits::input_parameter< int >::type rstatID(rstatIDSEXP);
+    Rcpp::traits::input_parameter< int >::type rhistobins(rhistobinsSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type rhistoboundsV(rhistoboundsVSEXP);
+    Rcpp::traits::input_parameter< double >::type rhistoData(rhistoDataSEXP);
+    Rcpp::traits::input_parameter< int >::type rsafeSecs(rsafeSecsSEXP);
+    Rcpp::traits::input_parameter< double >::type tables(tablesSEXP);
+    rcpp_result_gen = Rcpp::wrap(xChromosomal(rmV, mfV, rk, robservedValsV, rPvalsV, rstatID, rhistobins, rhistoboundsV, rhistoData, rsafeSecs, tables));
+    return rcpp_result_gen;
+END_RCPP
+}
 // SNPHWE2
 double SNPHWE2(int32_t obs_hets, int32_t obs_hom1, int32_t obs_hom2, uint32_t midp);
 RcppExport SEXP _HardyWeinberg_SNPHWE2(SEXP obs_hetsSEXP, SEXP obs_hom1SEXP, SEXP obs_hom2SEXP, SEXP midpSEXP) {
@@ -47,6 +68,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_HardyWeinberg_xChromosomal", (DL_FUNC) &_HardyWeinberg_xChromosomal, 11},
     {"_HardyWeinberg_SNPHWE2", (DL_FUNC) &_HardyWeinberg_SNPHWE2, 4},
     {"_HardyWeinberg_SNPHWEX", (DL_FUNC) &_HardyWeinberg_SNPHWEX, 6},
     {"_HardyWeinberg_support", (DL_FUNC) &_HardyWeinberg_support, 0},

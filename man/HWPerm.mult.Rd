@@ -8,14 +8,13 @@ Permutation tests fo variants with multiple alleles
   Hardy-Weinberg equilibrium for autosomal and X-chromosomal variants.
 }
 \usage{
-HWPerm.mult(x, y = NULL, nperm = 17000, eps = 0, verbose = TRUE, ...)
+HWPerm.mult(x, y = NULL, nperm = 17000, eps = 1e-10, verbose = TRUE, ...)
 }
 \arguments{
   \item{x}{vector or triangular matrix with male genotype counts}
   \item{y}{vector or triangular matrix with female genotype counts}
   \item{nperm}{number of permutations (17.000 by default)}
-  \item{eps}{a tolerance that can be set for comparing probabilities in order to include
-    tied outcomes}
+  \item{eps}{a tolerance for the comparison of floating point numbers}
   \item{verbose}{print output or not}
   \item{\dots}{addtional arguments}
 }

@@ -1,4 +1,4 @@
-HWPerm.mult <- function(x, y = NULL, nperm = 17000, eps = 0, verbose = TRUE, ...) {
+HWPerm.mult <- function(x, y = NULL, nperm = 17000, eps = 1e-10, verbose = TRUE, ...) {
   testtype <- NULL
   
   if(is.null(y)) { 
@@ -62,8 +62,13 @@ HWPerm.mult <- function(x, y = NULL, nperm = 17000, eps = 0, verbose = TRUE, ...
       stat.psuedo <- dlevene.bi(y)
       pseudodist[i] <- stat.pseudo
     }
-    nsmaller <- sum(pseudodist <= pofthesample)
+
+    ii <- nearlyEqual(pseudodist, rep(pofthesample, nperm), eps)
+    nsmaller <- sum(ii)
+    iii <- !ii & pseudodist < pofthesample
+    nsmaller <- nsmaller + sum(iii)
     pval <- nsmaller/nperm
+    
     if (verbose) {
         cat("Permutation test for Hardy-Weinberg equilibrium (autosomal).\n")
         cat("2 alleles detected.\n")
@@ -110,8 +115,13 @@ HWPerm.mult <- function(x, y = NULL, nperm = 17000, eps = 0, verbose = TRUE, ...
       stat.pseudo <- dgraffelmanweir.bi(x.s,y.s)
       pseudodist[i] <- stat.pseudo
     }
-    nsmaller <- sum(pseudodist <= pofthesample)
+
+    ii <- nearlyEqual(pseudodist, rep(pofthesample, nperm), eps)
+    nsmaller <- sum(ii)
+    iii <- !ii & pseudodist < pofthesample
+    nsmaller <- nsmaller + sum(iii)
     pval <- nsmaller/nperm
+
     if (verbose) {
         cat("Permutation test for Hardy-Weinberg equilibrium and equality of allele frequencies (X-chromosomal).\n")
         cat("2 alleles detected.\n")
@@ -213,12 +223,11 @@ HWPerm.mult <- function(x, y = NULL, nperm = 17000, eps = 0, verbose = TRUE, ...
       
     #  print(pseudodist)
       
-    lim <- pofthesample + eps  
-    ind <- pseudodist <= lim
-      
-    K <- sum(ind) # number of MC samples with smaller prob that observed.
-    
-    pval <- K/nperm
+    ii <- nearlyEqual(pseudodist, rep(pofthesample, nperm), eps)
+    nsmaller <- sum(ii)
+    iii <- !ii & pseudodist < pofthesample
+    nsmaller <- nsmaller + sum(iii)
+    pval <- nsmaller/nperm
     
     if (verbose) {
         cat("Permutation test for Hardy-Weinberg equilibrium and equality of allele frequencies (autosomal).\n")
@@ -299,13 +308,12 @@ HWPerm.mult <- function(x, y = NULL, nperm = 17000, eps = 0, verbose = TRUE, ...
         
       #  print(pseudodist)
         
-    lim <- pofthesample + eps  
-    ind <- pseudodist <= lim
-        
-    K <- sum(ind) # number of MC samples with smaller prob that observed.
-        
-    pval <- K/nperm
-      
+    ii <- nearlyEqual(pseudodist, rep(pofthesample, nperm), eps)
+    nsmaller <- sum(ii)
+    iii <- !ii & pseudodist < pofthesample
+    nsmaller <- nsmaller + sum(iii)
+    pval <- nsmaller/nperm
+
     if (verbose) {
         cat("Permutation test for Hardy-Weinberg equilibrium and equality of allele frequencies (X-chromosomal).\n")
         cat(k,"alleles detected.\n")
@@ -365,11 +373,11 @@ HWPerm.mult <- function(x, y = NULL, nperm = 17000, eps = 0, verbose = TRUE, ...
         
     } # end for
       
-    lim <- pofthesample + eps  
-    ind <- pseudodist <= lim
-      
-    K <- sum(ind) # number of MC samples with smaller prob that observed.
-    pval <- K/nperm
+    ii <- nearlyEqual(pseudodist, rep(pofthesample, nperm), eps)
+    nsmaller <- sum(ii)
+    iii <- !ii & pseudodist < pofthesample
+    nsmaller <- nsmaller + sum(iii)
+    pval <- nsmaller/nperm
     
     if (verbose) {
         cat("Permutation test for Hardy-Weinberg equilibrium (autosomal).\n")

@@ -17,7 +17,7 @@
 
 
 %% almost as usual
-\author{Jan Graffelman\\Universitat Polit\`ecnica de Catalunya\\version 1.6.5\\ \today}
+\author{Jan Graffelman\\Universitat Polit\`ecnica de Catalunya\\version 1.6.7\\ \today}
 \title{Exploring Diallelic Genetic Markers: The \pkg{HardyWeinberg} Package}
 
 %% for pretty printing and a nice hypersummary also set:
@@ -722,6 +722,24 @@ found. Q-Q plots assume independent observations. We note that this
 assumption will be violated if the markers under study are closely
 neighboring markers from the same region of a single chromosome.
 
+\section{Multiple alleles}
+
+Functionality for the analysis of genetic variants with multiple alleles has gradually been incorporated into the
+\pkg{HardyWeinberg} package. We briefly describe that functionality in this section, and some practical multi-allelic
+examples have been included in the example session Section~\ref{sec:session} below.\\
+
+The ABO locus is one of the most well-known multi-allelic systems, being particular for the co-dominance of the A and B alleles, and the dominance of the latter over the O allele, such that historical data on this locus typically has four phenotype counts: A, B, AB and O. A test for HWE in this situation is iterative, and based on the EM algorithm~\citep{Yasuda}. This test is implemented in function {\tt HWABO}.\\
+
+The chi-square test described for two alleles in Section~\ref{subsec:chisquare} can easily be extended for multiple alleles, in which case the reference distribution under the null hypothesis of equilibrium is $\chi_{\frac{1}{2}k(k-1)}^2$, where $k$ is the number of alleles. In general, a chi-square test is not recommended in a multi-allelic situation. Typically, some alleles are rare, leading to low genotype counts and failure of the chi-square statistic to follow the asymptotic chi-square distribution. In this setting, an exact or permutation test is in general preferred.\\   
+
+The permutation test described in Section~\ref{subsec:permutation} is easily extended to multiple alleles. The main difference is that
+the allele string containing all alleles of the sample will contain more letters than just A and B. This string can again be
+scrambled, and pairs of alleles can be joined into genotypes. The different genotype counts for the permuted sample can then be calculated,
+and test statistics for disequilibrium can be calculated. Function \code{HWPerm.mult} implements, in R code, the permutation test for multiple alleles. This function also allows for multi-allelic variants on the X chromosome.\\
+
+The HWE exact test with multiple alleles is based on a generalization of probability density in Eq.~\ref{eq:exact} for multiple alleles, which was obtained by Levene~(\citeyear{Levene}). Doing an exact test with multiple alleles is computationally much more demanding than an exact test for a bi-allelic variant. Several scholars have proposed algorithms for HWE exact tests with multiple alleles~\citep{Louis,Guo,Huber}. The HardyWeinberg package has a specific function for resolving the tri-allelic case, implemented in the function {\tt HWTriExact}. This function implements a full enumeration algorithm in R, which can be slow if the number of genotype arrays compatible with the given allele counts is large. For three and four allelic variants an important speedup is provided by using network algorithms~\citep{Aoki,Engels}, implemented in {\tt HWNetwork}, which
+allows for a more efficient calculation of the final p-value that avoids the full enumeration of all possible samples. For indel polymorphisms, which typical just have a few alleles, {\tt HWTriExact} or {\tt HWNetwork} may represent a good choice. For microsatellites, which typically have many more alleles, a permutation test will usually be faster than the network algoritm. Functions {\tt HWTriExact} and
+{\tt HWNetwork} also both allow for X chromosomal variants.
 
 \section{An example session}
 \label{sec:session}
@@ -732,7 +750,8 @@ plotting genetic markers. We consider installation
 (Section~\ref{subsec:testing}), power computations
 (Section~\ref{subsec:powercomp}), simulation of marker data
 (Section~\ref{subsec:simulation}) and graphics for HWE
-(Section~\ref{subsec:graphics}).
+(Section~\ref{subsec:graphics}). These sections are dedicated to bi-allelic polymorphisms.
+(Section~\ref{subsec:multiple}) shows examples of testing for HWE with multiple alleles.
 
 \subsection{Installation}
 \label{subsec:install}
@@ -1257,6 +1276,67 @@ dataset and its simulated counterpart are in agreement with HWE.
   frequency).}\label{fig:qqplot2}
 \end{figure}
 
+\subsection{Testing variants with multiple alleles}
+\label{subsec:multiple}
+
+The classical three-allelic ABO locus can be tested for equilibrium with \code{HWABO}, as shown for the sample (A=182,B=60,AB=17,OO=176) below.
+
+<<fig=FALSE,echo=TRUE>>=
+x <- c(fA=182,fB=60,nAB=17,nOO=176)
+al.fre <- HWABO(x)
+@
+
+Allele frequencies, initially set to being equifrequent, converge in six iterations to their final values. A Chi-square test with one degree of freedom indicates equilibrium can not be rejected.
+
+A general tri-allelic locus can be tested for equilibrium with an exact test by \code{HWTriExact} as shown below, supplying the genotype counts as a six element named vector.
+
+<<fig=FALSE,echo=TRUE>>=
+x <- c(AA=20,AB=31,AC=26,BB=15,BC=12,CC=0)
+results <- HWTriExact(x)
+@
+
+The output gives the probability of the observed sample, and 
+the exact test p-value. For this example, the null hypothesis of equilibrium proportions is rejected at a significance level of 
+5\%. \code{HWTriExact} uses a complete enumeration algorithm programmed in R, which can be slow, depending on the genotype counts of the particular sample. A faster analysis for tri-allelics is to use a network algorithm. For the data at hand, the exact test based on the network algorithm is carried out by with \code{HWNetwork}
+
+<<fig=FALSE,echo=TRUE>>=
+x <- c(AA=20,AB=31,AC=26,BB=15,BC=12,CC=0)
+x <- toTriangular(x)
+m <- c(A=0,B=0,C=0)
+results <- HWNetwork(ma=m,fe=x)
+@
+
+First of all, note that \code{HWNetwork} allows for the X chromosomal variants, and requires the specification of male and
+female genotype counts (arguments \code{ma} and \code{fe}). 
+To do an autosomal test, hemizygous male counts should be set to zero, and the female genotype counts should be set to contain the autosomal counts of males and females. Second, note that the \code{fe} argument is required to be a lower triangular matrix, and
+for this reason the counts a first reorganised in this format with
+\code{toTriangular}. The p-value is exactly the same as before. A X chromosomal variant is tested for HWE by supplying separate vectors for males and females as shown below
+
+<<fig=FALSE,echo=TRUE>>=
+males   <- c(A=1,B=21,C=34) 
+females <- c(AA=0,AB=1,AC=0,BB=8,BC=24,CC=15)
+results <- HWTriExact(females,males)
+@
+
+and this can also be done with the network algorithm by
+
+<<fig=FALSE,echo=TRUE>>=
+males   <- c(A=1,B=21,C=34) 
+females <- toTriangular(c(AA=0,AB=1,AC=0,BB=8,BC=24,CC=15))
+results <- HWNetwork(ma=males,fe=females)
+@
+
+For many alleles a permutation test will generally be faster. We run the permutation test for a tri-allelic autosomal analysed above 
+
+<<fig=FALSE,echo=TRUE>>=
+set.seed(123)
+x <- c(AA=20,AB=31,AC=26,BB=15,BC=12,CC=0)
+x <- toTriangular(x)
+#results <- HWPerm.mult(x)
+@
+
+Note that this gives a similar, but not identical p-value, in comparison with \code{HWTriExact} above. As this works with named vectors (in capitals) this currently allows the permutation test to be used for variants with up to 26 alleles.
+ 
 \section{Discussion}
 \label{sec:others}
 

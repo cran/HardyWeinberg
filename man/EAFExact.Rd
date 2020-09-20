@@ -8,12 +8,13 @@ Exact test for equality of allele frequencies in males and females
 in males and females for variants with k alleles (k >= 2).
 }
 \usage{
-EAFExact(m, f, verbose = TRUE)
+EAFExact(m, f, verbose = TRUE, ...)
 }
 \arguments{
   \item{m}{vector or triangular matrix with male genotype counts}
   \item{f}{vector or triangular matrix with female genotype counts}
   \item{verbose}{print output (TRUE) or not (FALSE)}
+  \item{\dots}{additional arguments for \code{fisher.test}}
 }
 \details{
   For bi-allelic autosomal variants the genotype counts can be supplied as vectors

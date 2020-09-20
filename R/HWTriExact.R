@@ -1,4 +1,4 @@
-HWTriExact <- function(x,y=NULL,eps=0,nperm=17000,verbose=TRUE) {
+HWTriExact <- function(x,y=NULL,eps=1e-10,nperm=17000,verbose=TRUE) {
     test.type <- NULL
     x <- unlist(x)
     if(!is.null(y)) y <- unlist(y)
@@ -7,6 +7,7 @@ HWTriExact <- function(x,y=NULL,eps=0,nperm=17000,verbose=TRUE) {
   if(length(x)==6 & length(y)==3) test.type <- 3 # x-chromosomal accounting for sex 
     if(is.null(test.type)) stop("incorrect number of genotype counts in x or y")
     pseudodist <- NULL
+    
   if(test.type==1) {
     if(is.vector(x)) G <- toTriangular(x) else G <- x
     pofthesample <- dlevene(G) 
@@ -18,9 +19,12 @@ HWTriExact <- function(x,y=NULL,eps=0,nperm=17000,verbose=TRUE) {
     for(i in 1:nrow(O)) {
       pr[i] <- dlevene(toTriangular(O[i,]))  
     }
-    lim <- pofthesample + eps
-    ind <- pr <= lim
-    pval <- sum(pr[ind])
+
+    ii <- nearlyEqual(pr, rep(pofthesample, nrow(O)), eps)
+    pval <- sum(pr[ii]) # sum of all tied samples
+    iii <- ((!ii) & (pr < pofthesample))
+    pval <- pval + sum(pr[iii])
+
     if(verbose) {
       cat("Tri-allelic Exact test for HWE (autosomal).\n")
       cat("Allele counts: A =",na,"B =",nb,"C =",nc,"\n"); 
@@ -56,8 +60,12 @@ HWTriExact <- function(x,y=NULL,eps=0,nperm=17000,verbose=TRUE) {
       fe <- toTriangular(X[i,4:9])
       pr[i] <- density.ma.gender(ma,fe)  
     }
-    ind.pval <- pr <= pofthesample+eps
-    pval <- sum(pr[ind.pval])
+
+    ii <- nearlyEqual(pr, rep(pofthesample, nrow(X)), eps)
+    pval <- sum(pr[ii]) # sum of all tied samples
+    iii <- ((!ii) & (pr < pofthesample))
+    pval <- pval + sum(pr[iii])
+
     if(verbose) {
       cat("Tri-allelic Exact test for HWE and EAF (X-chromosomal)\n")
       cat("Allele counts: na = ",na,"nb = ",nb,"nc =",nc,"\n")
@@ -69,3 +77,5 @@ HWTriExact <- function(x,y=NULL,eps=0,nperm=17000,verbose=TRUE) {
   }
   list(pval=pval,pseudodist=pseudodist,pofthesample=pofthesample)
 }
+
+

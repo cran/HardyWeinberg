@@ -10,7 +10,7 @@ for equilibrium and equality of allele frequencies if the genotype
 counts are given separately for both sexes
 }
 \usage{
-HWTriExact(x, y = NULL, eps = 0, nperm = 17000, verbose = TRUE)
+HWTriExact(x, y = NULL, eps = 1e-10, nperm = 17000, verbose = TRUE)
 }
 \arguments{
   \item{x}{vector with 6 genotype counts (AA,AB,AC,BB,BC,CC)}

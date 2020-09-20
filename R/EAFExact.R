@@ -1,4 +1,4 @@
-EAFExact <- function(m,f,verbose=TRUE) {
+EAFExact <- function(m,f,verbose=TRUE,...) {
     knownformat <- FALSE
     m <- unlist(m)
     f <- unlist(f)
@@ -77,7 +77,7 @@ EAFExact <- function(m,f,verbose=TRUE) {
   tab <- rbind(m.ac,f.ac)
   rownames(tab) <- c("males","females")
   colnames(tab) <- alleles.f
-  out <- fisher.test(tab)
+  out <- fisher.test(tab,...)
   pval <- out$p.value
   n <- nm + nf
   if(verbose) {
