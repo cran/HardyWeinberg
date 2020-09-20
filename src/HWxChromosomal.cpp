@@ -1,18 +1,9 @@
 #include <Rcpp.h>
 #include "HWxChrom.h"
+#include <math.h>
 #include <time.h>
 using namespace Rcpp;
 
-/*
-#define NOT_READY_FOR_R 1    // I added this
-
-#ifdef NOT_READY_FOR_R    // This stuff can be removed in the R-only version
-
-*/
-
-
-#define R_pow_di pow  // The following defines convert R calls to normal C
-/* #define Rprintf printf*/
 #define lgammafn lgamma
 
 /* #else
@@ -21,8 +12,8 @@ using namespace Rcpp;
 #endif
 */
 
-
 // Globals
+
 COUNTTYPE * Rarray;
 unsigned Rbytes;
 int nAlleles;
@@ -186,7 +177,7 @@ static void twoAlleleSpecialCaseX() {
             nGenes += Rarray[i];
           }
           n = (nGenes - nMales) / 2;
-          constMales -= log(2)*n;    // add 2^n in the constant males
+          constMales -= log(2.0)*n;    // add 2^n in the constant males
           
           if(res1 > res2) {            // make sure res1 <= res2. If they need swapping, then swap lookups too
             resTemp = res2;
@@ -250,7 +241,7 @@ static void recursiveEnumeration(int index) {
                 Rarray[i] -= alleleVect[i];
                 nGenes += Rarray[i];
               }
-              constMales -= log(2)*(nGenes / 2);
+              constMales -= log(2.0)*(nGenes / 2);
               homozygoteX(nAlleles, 0, constMales, Rarray);
               // Reset Rarray
               for (int i = 0; i < nAlleles; i++) {
@@ -358,7 +349,7 @@ void xChrom (int *rm,
   lnFact[0] = 0;
   double lni=0;
   for (int i = 1; i <= rm[0]; i++) {
-    lni = log(i);
+    lni = log((double) i);
     lnFact[i] = lnFact[i-1] + lni;
   }
 
