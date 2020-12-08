@@ -421,6 +421,7 @@ double xChromosomal(IntegerVector rmV,
   double * robservedVals; // observed stats: LLR, Prob, U, X2
   double * rPvals; // computed P values: LLR, Prob, U, X2
   double * rhistobounds; // Two values indicating the range for histogram
+  double result;
   
   rm = (int *)calloc(rmV.length(), sizeof(int));
   mf = (int *)calloc(mfV.length(), sizeof(int));
@@ -449,8 +450,16 @@ double xChromosomal(IntegerVector rmV,
   for(i=0; i<rPvalsV.length();i++){
     rPvalsV[i] = rPvals[i];
   }
+
+  free(rm);
+  free(mf);
+  free(robservedVals);
+  free(rhistobounds);
+
+  result = rPvals[1];
+  free(rPvals);
   
   //return DataFrame::create(Named("rPvals")=rPvalsV);
-  return rPvals[1];
+  return result;
 }
 
