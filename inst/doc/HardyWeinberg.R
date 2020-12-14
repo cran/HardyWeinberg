@@ -260,7 +260,7 @@ results <- HWTriExact(x)
 x <- c(AA=20,AB=31,AC=26,BB=15,BC=12,CC=0)
 x <- toTriangular(x)
 m <- c(A=0,B=0,C=0)
-results <- HWNetwork(ma=m,fe=x)
+#results <- HWNetwork(ma=m,fe=x)
 
 
 ###################################################
@@ -276,7 +276,7 @@ results <- HWTriExact(females,males)
 ###################################################
 males   <- c(A=1,B=21,C=34) 
 females <- toTriangular(c(AA=0,AB=1,AC=0,BB=8,BC=24,CC=15))
-results <- HWNetwork(ma=males,fe=females)
+#results <- HWNetwork(ma=males,fe=females)
 
 
 ###################################################

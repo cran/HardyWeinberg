@@ -2,7 +2,7 @@ export (af,alleles,AFtest,agcounts,dgraffelmanweir.bi,dlevene,dlevene.bi,EAFExac
         HWAlr,HWAlrPlot,
         HWChisq,HWChisqStats,
         HWChisqMat,HWClo,HWClr,HWClrPlot,HWCondProbAB,HWD,HWData,HWExact,HWExactPrevious,HWExactMat,HWExactStats,HWf,HWGenotypePlot,HWIlr,
-        HWIlrPlot,HWLindley,HWLRtest,HWLRAllTests,HWLratio,HWMissing,HWNetwork,
+        HWIlrPlot,HWLindley,HWLRtest,HWLRAllTests,HWLratio,HWMissing,
         HWPerm,HWPerm.mult,HWPower,HWPosterior,HWQqplot,HWTernaryPlot,HWTriExact,ifisherz,GenerateSamples,mac,maf,MakeCounts,MakeFactor,
         n.alleles,recode,
         strsort,ThetatoF,toTriangular,UniqueGenotypeCounts,vaf)

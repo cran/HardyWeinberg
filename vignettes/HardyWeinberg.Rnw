@@ -17,7 +17,7 @@
 
 
 %% almost as usual
-\author{Jan Graffelman\\Universitat Polit\`ecnica de Catalunya\\version 1.6.9\\ \today}
+\author{Jan Graffelman\\Universitat Polit\`ecnica de Catalunya\\version 1.7.0\\ \today}
 \title{Exploring Diallelic Genetic Markers: The \pkg{HardyWeinberg} Package}
 
 %% for pretty printing and a nice hypersummary also set:
@@ -1303,7 +1303,7 @@ the exact test p-value. For this example, the null hypothesis of equilibrium pro
 x <- c(AA=20,AB=31,AC=26,BB=15,BC=12,CC=0)
 x <- toTriangular(x)
 m <- c(A=0,B=0,C=0)
-results <- HWNetwork(ma=m,fe=x)
+#results <- HWNetwork(ma=m,fe=x)
 @
 
 First of all, note that \code{HWNetwork} allows for the X chromosomal variants, and requires the specification of male and
@@ -1323,7 +1323,7 @@ and this can also be done with the network algorithm by
 <<fig=FALSE,echo=TRUE>>=
 males   <- c(A=1,B=21,C=34) 
 females <- toTriangular(c(AA=0,AB=1,AC=0,BB=8,BC=24,CC=15))
-results <- HWNetwork(ma=males,fe=females)
+#results <- HWNetwork(ma=males,fe=females)
 @
 
 For many alleles a permutation test will generally be faster. We run the permutation test for a tri-allelic autosomal analysed above 
