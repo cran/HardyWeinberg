@@ -88,7 +88,7 @@ missing data. Second edition, New York, John Wiley & sons.
 Graffelman, J., S\'anchez, M., Cook, S. and Moreno, V. (2013) Statistical
 inference for Hardy-Weinberg proportions in the presence of missing
 genotype information. PLoS ONE 8(12):
-e83316. \url{http://dx.doi.org/10.1371/journal.pone.0083316}
+e83316. \doi{10.1371/journal.pone.0083316}
 
 Graffelman, J. (2015) Exploring Diallelic Genetic Markers: The HardyWeinberg Package.
 \emph{Journal of Statistical Software} 64(3): 1-23. \url{https://www.jstatsoft.org/v64/i03/}.

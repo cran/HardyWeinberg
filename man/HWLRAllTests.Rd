@@ -22,14 +22,14 @@ p-value of six different tests: 1) joint HWP and EAF (A-F); 2) EAF
 irrespective of HWP (C-F); 3) HWP irrespective of EAF (D-F); 4) HWP
 versus EIC (given EAF) (A-B); 5) EIC irrespective of EAF (E-F) and 6)
 HWP versus EIC. Letters refer to scenarios described by Graffelman &
-Weir (2017).
+Weir (2018).
 }
 \value{A named vector with six p-values}
 \references{
- Graffelman, J. and Weir, B.S. (2017) On the testing of Hardy-Weinberg
+ Graffelman, J. and Weir, B.S. (2018) On the testing of Hardy-Weinberg
  proportions and equality of allele frequencies in males and females at
  bi-allelic genetic
- markers. \href{http://dx.doi.org/10.1002/gepi.22079}{Genetic Epidemiology} pp. 1--15.
+ markers. Genetic Epidemiology 42(1): pp. 34--48. \doi{10.1002/gepi.22079}
 }
 \author{ Jan Graffelman \email{jan.graffelman@upc.edu}}
 \seealso{

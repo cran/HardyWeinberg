@@ -26,10 +26,9 @@ HWAIC(x, y, tracing = 0, tol = 0.000001)
 }
 \value{A named vector containing 6 values for AIC}
 \references{
- Graffelman, J. and Weir, B.S. (2017) On the testing of Hardy-Weinberg
+ Graffelman, J. and Weir, B.S. (2018) On the testing of Hardy-Weinberg
  proportions and equality of allele frequencies in males and females at
- bi-allelic genetic
- markers. \href{http://dx.doi.org/10.1002/gepi.22079}{Genetic Epidemiology} pp. 1--15.
+ bi-allelic genetic markers. Genetic Epidemiology 42(1) pp. 34-48. \doi{10.1002/gepi.22079}
 }
 \author{ Jan Graffelman \email{jan.graffelman@upc.edu}} 
 \seealso{\code{\link{HWLRtest}}}

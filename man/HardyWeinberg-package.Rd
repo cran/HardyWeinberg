@@ -10,8 +10,8 @@
 \tabular{ll}{
 Package: \tab HardyWeinberg\cr
 Type: \tab Package\cr
-Version: \tab 1.7.0\cr
-Date: \tab 2020-12-13\cr
+Version: \tab 1.7.1\cr
+Date: \tab 2021-01-04\cr
 License: \tab GPL Version 2 or later.\cr
 }
 
@@ -43,7 +43,7 @@ Graffelman, J. (2015) Exploring Diallelic Genetic Markers: The {HardyWeinberg} P
 Graffelman, J. and Weir, B.S. (2016) Testing for Hardy-Weinberg
 equilibrium at bi-allelic genetic markers on
 the X chromosome. \emph{Heredity} 116(6):
-558-568. \url{https://doi.org/10.1038/hdy.2016.20} Nature Publishing Group.
+558-568. \doi{10.1038/hdy.2016.20} Nature Publishing Group.
 
 Hardy, G.H. (1908) Mendelian Proportions in a Mixed Population.
 \emph{Science} 28(706): 49-50. 

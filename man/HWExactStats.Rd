@@ -38,7 +38,7 @@ Chang, and the same code is used in the program
 \references{
   Graffelman, J. and Weir, B.S. (2016) Testing for Hardy-Weinberg
   equilibrium at bi-allelic genetic markers on the X chromosome.
-  \href{http://dx.doi.org/10.1038/hdy.2016.20}{Heredity} 116(6) pp. 558--568.
+  Heredity 116(6) pp. 558--568. \doi{10.1038/hdy.2016.20}
   
   Purcell et al. (2007) PLINK: A Toolset for Whole-Genome Association and
   Population-Based Linkage Analysis. American Journal of Human Genetics

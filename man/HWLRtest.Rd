@@ -37,10 +37,10 @@ HWLRtest(x, y, scene.null = "S1", scene.alt = "S6", verbose = TRUE, tracing = 0)
   \item{pval}{p-value}
 }
 \references{
- Graffelman, J. and Weir, B.S. (2017) On the testing of Hardy-Weinberg
+ Graffelman, J. and Weir, B.S. (2018) On the testing of Hardy-Weinberg
  proportions and equality of allele frequencies in males and females at
  bi-allelic genetic
- markers. \href{http://dx.doi.org/10.1002/gepi.22079}{Genetic Epidemiology} pp. 1--15.
+ markers. Genetic Epidemiology 42(1) pp. 34--48 \doi{10.1002/gepi.22079}
 }
 \author{ Jan Graffelman \email{jan.graffelman@upc.edu}} 
 \seealso{

@@ -30,6 +30,7 @@ double maxLLR, maxlPr, minmaxU, minX2; // cutoff values
 double statSpan, constProbTerm, constLLRterm, probSum, leftStat;
 double *hProb;
 double umean, uvariance;
+double JANEPS=1.0e-10;
 
 // ---------------------------- NEW --------------------------
 COUNTTYPE * alleleVect;  // vector of alleles + 1 (for males recursion)
@@ -149,7 +150,7 @@ static void heterozygoteX(int r, int c, double probl, double constMales, COUNTTY
           probSum += prob;
           
           //if (problT <= maxlPr) pPr += prob;   // ----------------------------------------- Where we add the Probability
-          if (nearlyEqual(problT,maxlPr)) pPr += prob; 
+          if (nearlyEqual(problT,maxlPr,JANEPS)) pPr += prob; 
           else if(problT < maxlPr) pPr += prob;
           
         } // for a11
@@ -204,8 +205,8 @@ static void twoAlleleSpecialCaseX() {
             probSum += prob;
             
            // if (problT <= maxlPr) pPr += prob;
-           if (nearlyEqual(problT,maxlPr)) pPr += prob; 
-           else if(problT < maxlPr) pPr += prob;
+	    if (nearlyEqual(problT,maxlPr,JANEPS)) pPr += prob; 
+	    else if(problT < maxlPr) pPr += prob;
             
           } // for a11
 }
@@ -370,13 +371,19 @@ void xChrom (int *rm,
   constProbTerm +=  lgammafn(male+1) + lgammafn(female+1) - lgammafn(nt+1);
   
   // Get cutoffs for the four test statistics
-  double oneMinus = 0.9999999; // Guards against floating-point-equality-test errors
-  if(robservedVals[0] > 0.000000000001) robservedVals[0] = 0; // positive values are rounding errors
-  maxLLR = robservedVals[0] * oneMinus;
-  maxlPr = log(robservedVals[1]) * oneMinus;
-  minmaxU = robservedVals[2] * oneMinus;
+  double oneMinus = 0.9999999;  // Guards against floating-point-equality-test errors
+  if(robservedVals[0] > 0.000000000001) robservedVals[0] = 0;  // positive values are rounding errors
+  maxLLR = robservedVals[0] * oneMinus; 
+  maxlPr = log(robservedVals[1]) * oneMinus; 
+  minmaxU = robservedVals[2] * oneMinus; 
   minX2 = robservedVals[3] * oneMinus;
-  
+
+  /*  
+  maxLLR = robservedVals[0]; 
+  maxlPr = log(robservedVals[1]); 
+  minmaxU = robservedVals[2]; 
+  minX2 = robservedVals[3];  
+  */
   
   start = time(NULL);
 
@@ -446,10 +453,6 @@ double xChromosomal(IntegerVector rmV,
   }
   
   xChrom (rm, mf, &rk, robservedVals, rPvals, &rstatID, &rhistobins, rhistobounds, &rhistoData, &rsafeSecs, &tables);
-
-  for(i=0; i<rPvalsV.length();i++){
-    rPvalsV[i] = rPvals[i];
-  }
 
   free(rm);
   free(mf);

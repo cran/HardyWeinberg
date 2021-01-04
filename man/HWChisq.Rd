@@ -65,7 +65,7 @@ HWChisq(X, cc = 0.5, verbose = TRUE, x.linked = FALSE, phifixed = NULL)
 
   Graffelman, J. & Weir, B.S. (2016) Testing for Hardy-Weinberg
   equilibrium at bi-allelic genetic markers on the X chromosome. 
-  \emph{Heredity} 116(6) pp. 558--568. \url{http://dx.doi.org/10.1038/hdy.2016.20}
+  \emph{Heredity} 116(6) pp. 558--568. \doi{10.1038/hdy.2016.20}
 }
 \author{ Jan Graffelman \email{jan.graffelman@upc.edu} }
 \seealso{ \code{\link{HWLratio}}, \code{\link{HWChisqStats}} }
