@@ -1,6 +1,7 @@
-c7414c25380acc708170962a5045e7b3 *DESCRIPTION
-f717cae4d218336778f8212597903a9e *NAMESPACE
+2c7bed528a4ad5154c3101bd2329298a *DESCRIPTION
+9abcd0c58d82b719f8b21eb336402631 *NAMESPACE
 7b8f4a43f713baefec20ae29d4c740c5 *R/AFtest.R
+ba528b4e183c7e7a4452b7a691d1724c *R/AllelesToTriangular.R
 4b53668633e49087dae7e190197b0b26 *R/AuxQ.R
 f661ff0a09feeaf8e22c65a349fc2bfd *R/CheckRoots.R
 b76a92344dc3695670fb152fb7cee733 *R/Chisquare.R
@@ -57,7 +58,7 @@ df46c965e5ee6ba439165f4b33bfdfb2 *R/HWLratio.R
 c13a0a47facbfc62fe508dd40b4ac768 *R/HWMissing.R
 a5262afb94344ddb038c8a85bce7594f *R/HWNetwork.R
 5de6f3c6206ad268ce77d378d072e480 *R/HWPerm.R
-1641921d1b0dda4371b62bdf0c046a38 *R/HWPerm.mult.R
+5f370ff2241cb90e6c0aee2935cbdafb *R/HWPerm.mult.R
 6670c8cd58012d9491c6639ccbd4c944 *R/HWPosterior.R
 b86b65f512562532b208f2c80c2d6b38 *R/HWPower.R
 c26ccacf749f4b235aecf74936e919a5 *R/HWQqplot.R
@@ -148,8 +149,8 @@ e053ba1693e880f5a3793d66e55dc126 *R/sample.prob.R
 fbbfe3773e05bcaba5e37635894caab3 *R/subsamples.prob.R
 9b2539ab81040d4676a3654c3a3c8462 *R/toTriangular.R
 e8de4143f15b8abd9d9c519670088d6d *R/vaf.R
-e8f1fd2532fcf7e23725d1c01bedfdff *build/partial.rdb
-b3bc5954931328c1d29d759b2ee8606a *build/vignette.rds
+8910a97969933ea7adfaaa7ca91e3b91 *build/partial.rdb
+bf3502aef13ab63995ebc26f5f872a4f *build/vignette.rds
 de901f61dc40540171eb943cea9f9fbe *data/Alzheimer.rda
 a8fe32126fe63670b1910556a4c2c8dc *data/HapMapCHBChr1.rda
 4aca24a4781fdecc819bff13d3410143 *data/JPTmultiallelicsChr7.rda
@@ -159,12 +160,14 @@ c35b856e98ed879d014a5654e4384e96 *data/JPTtriallelicsChr7.rda
 22c9faf23cc41c7ab37383b6b3419fe2 *data/JPTtriallelicsChrX.rda
 eda02e0350c7dd7030140ef3bdf5978f *data/Markers.rda
 d95ac3570ab66f9dede411264e6f137d *data/Mourant.rda
-6d2e744ea98ccfdc994b0665dac1b188 *data/TSIXTriAllelics.rda
+5050eb4ab1c0373409afd10e238de1be *data/NistSTRs.rda
+aa058a73cc541d70c9155008537b4b62 *data/TSIXTriAllelics.rda
 e04ccebd33750287431808d266260913 *inst/CITATION
-5230ccb4d4b1f8337d4f8165287b09a7 *inst/doc/HardyWeinberg.R
-4296680b667b12d5873c6e69aad48e4b *inst/doc/HardyWeinberg.Rnw
-0767bb3e4d16e0d15bfdbf1f289c2e9d *inst/doc/HardyWeinberg.pdf
+e459aa906b8690fd4eea1be3715d6358 *inst/doc/HardyWeinberg.R
+308b97e7c966324dc2ed155375b91636 *inst/doc/HardyWeinberg.Rnw
+edcc1d5c3660dde082ca19245304afc1 *inst/doc/HardyWeinberg.pdf
 78efad9d76b562e21e46e9d0c4b12bfa *man/AFtest.Rd
+3bfe23e24cd4ae527a615a55ccaf615d *man/AllelesToTriangular.Rd
 f33cac08f311810d1710c04a60e7f956 *man/Alzheimer.Rd
 c2c48972c593cb0a7d294ce3841b32d3 *man/EAFExact.Rd
 af8e8188a974c5b52b4e2382344c1314 *man/GenerateSamples.Rd
@@ -196,7 +199,7 @@ fa75e5278f8ac61b944311acf08e2801 *man/HWCondProbAB.Rd
 524b05713648a830a722f43e66d0569b *man/HWMissing.Rd
 e9eaf6d5b90254aa618344df35838878 *man/HWNetwork.Rd
 0653032cbf65897d3cbe46c1b708bfcc *man/HWPerm.Rd
-ea95dcc29b6b057812029f77c48980ea *man/HWPerm.mult.Rd
+fd1eb5adb5d1fa0a53cae5b803bad0d4 *man/HWPerm.mult.Rd
 429e2f33231b8848359a4274c54d0d8d *man/HWPosterior.Rd
 153a8329e02dc9499266fe9fb6ae7a99 *man/HWPower.Rd
 c7c55ed3ca74d4bcbf429483b22a4fce *man/HWQqplot.Rd
@@ -204,7 +207,7 @@ b0788dcd6ae7688d815d6480390570f1 *man/HWTernaryPlot.Rd
 d735c0829a1d2d0ef6bfc48c55b6fce6 *man/HWTriExact.Rd
 d57b30870c25a890fc40d9fce8cb7295 *man/HWf.Rd
 7ae211256b81e67119334dbbb3a82668 *man/HapMapCHBChr1.Rd
-b3ab0082d685aa1cdf6e75803afaecce *man/HardyWeinberg-package.Rd
+3e7f3abcb6ed9d8015b849ba6a9bf1c2 *man/HardyWeinberg-package.Rd
 e6496b19140509e495bd460edfcd594c *man/JPTmultiallelicsChr7.Rd
 14c5fc814cd0616de79a2ffa6ea24c1d *man/JPTmultiallelicsChrX.Rd
 1b077fada5be35d2c04cedcc209dabfe *man/JPTsnps.Rd
@@ -214,7 +217,8 @@ e6496b19140509e495bd460edfcd594c *man/JPTmultiallelicsChr7.Rd
 c5fdd6cd52e460daface8a284583ac80 *man/MakeFactor.Rd
 4cc8051ac17c3062717d05ee4a500134 *man/Markers.Rd
 67d171013a2a6bdcc0adabecd0c04681 *man/Mourant.Rd
-48f10b133c8708617d698cdc234523ea *man/TSIXTriAllelics.Rd
+9db0e9f0377ff8c51de8754bb32f35a5 *man/NistSTRs.Rd
+98c47abc14c01f9c24cca6abbe4f5d4a *man/TSIXTriAllelics.Rd
 b40f2f482a74c531d970224db9ab16c1 *man/ThetatoF.Rd
 115822afb08737f77a67c61c9ee4fe38 *man/UniqueGenotypeCounts.Rd
 fa3a8b3ac88896fe58c25ce329f240ab *man/af.Rd
@@ -252,7 +256,7 @@ dddcd54dcdbf0537ad9e015a3e90833d *vignettes/HWHomHet2.pdf
 caa4a8ceb63405115c414a54c7e2bf5f *vignettes/HapMapCHBChr1.pdf
 91f5dd53bd960086d9298ef74c7ee1ec *vignettes/HapMapCHBChr1Chisq.pdf
 d91fbfd173d4533c28b8def4a07a5179 *vignettes/HapMapCHBChr1Exact.pdf
-4296680b667b12d5873c6e69aad48e4b *vignettes/HardyWeinberg.Rnw
+308b97e7c966324dc2ed155375b91636 *vignettes/HardyWeinberg.Rnw
 8f95ccedb0da3cfa9054ad3731a4e2e9 *vignettes/HardyWeinberg.bib
 21a6930f306d621f92d32d82307ab009 *vignettes/MourantQQPlot.pdf
 148cb6ef8c996b19f2f9d1ddfe4b7f19 *vignettes/MourantTP.pdf

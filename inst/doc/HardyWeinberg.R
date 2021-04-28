@@ -288,3 +288,15 @@ x <- toTriangular(x)
 #results <- HWPerm.mult(x)
 
 
+###################################################
+### code chunk number 38: HardyWeinberg.Rnw:1342-1349
+###################################################
+set.seed(123)
+data(NistSTRs)
+A1 <- NistSTRs[,1]
+A2 <- NistSTRs[,2]
+GenotypeCounts <- AllelesToTriangular(A1,A2)
+print(GenotypeCounts)
+#out <- HWPerm.mult(GenotypeCounts)
+
+

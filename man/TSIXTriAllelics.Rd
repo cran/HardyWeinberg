@@ -11,16 +11,16 @@
 \format{
   A data frame with 6 observations on the following 10 variables.
   \describe{
-    \item{\code{id}}{Identifier of the polymorphism}
-    \item{\code{Ma}}{Male A genotype count}
-    \item{\code{Mb}}{Male B genotype count}
-    \item{\code{Mc}}{Male C genotype count}
-    \item{\code{Faa}}{Female AA genotype count}
-    \item{\code{Fab}}{Female AB genotype count}
-    \item{\code{Fac}}{Female AC genotype count}
-    \item{\code{Fbb}}{Female BB genotype count}
-    \item{\code{Fbc}}{Female BC genotype count}
-    \item{\code{Fcc}}{Female CC genotype count}
+    \item{\code{ID}}{Identifier of the polymorphism}
+    \item{\code{A}}{Male A genotype count}
+    \item{\code{B}}{Male B genotype count}
+    \item{\code{C}}{Male C genotype count}
+    \item{\code{AA}}{Female AA genotype count}
+    \item{\code{AB}}{Female AB genotype count}
+    \item{\code{AC}}{Female AC genotype count}
+    \item{\code{BB}}{Female BB genotype count}
+    \item{\code{BC}}{Female BC genotype count}
+    \item{\code{CC}}{Female CC genotype count}
   }
 }
 \source{

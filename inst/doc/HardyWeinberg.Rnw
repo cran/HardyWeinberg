@@ -17,7 +17,7 @@
 
 
 %% almost as usual
-\author{Jan Graffelman\\Universitat Polit\`ecnica de Catalunya\\version 1.7.1\\ \today}
+\author{Jan Graffelman\\Universitat Polit\`ecnica de Catalunya\\version 1.7.2\\ \today}
 \title{Exploring Diallelic Genetic Markers: The \pkg{HardyWeinberg} Package}
 
 %% for pretty printing and a nice hypersummary also set:
@@ -1335,8 +1335,20 @@ x <- toTriangular(x)
 #results <- HWPerm.mult(x)
 @
 
-Note that this gives a similar, but not identical p-value, in comparison with \code{HWTriExact} above. As this works with named vectors (in capitals) this currently allows the permutation test to be used for variants with up to 26 alleles.
- 
+Note that this gives a similar, but not identical p-value, in comparison with \code{HWTriExact} above. As this works with named vectors (in capitals) this currently allows the permutation test to be used for variants with up to 26 alleles.\\
+
+For genetic markers with multiple alleles such as microsatellites (STRs), the different alleles are often separated in different columns. The example below uses microsatellite data, where the two alleles are supplied separately. The corresponding alleles are often coded as integers, and we use function \code{AllelesToTriangular} to obtain a lower triangular matrix with the autosomal genotype counts. This matrix is used as input for \code{HWPerm.mult} that runs the permutation test. 
+
+<<fig=FALSE,echo=TRUE>>=
+set.seed(123)
+data(NistSTRs)
+A1 <- NistSTRs[,1]
+A2 <- NistSTRs[,2]
+GenotypeCounts <- AllelesToTriangular(A1,A2)
+print(GenotypeCounts)
+#out <- HWPerm.mult(GenotypeCounts)
+@
+
 \section{Discussion}
 \label{sec:others}
 

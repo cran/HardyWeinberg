@@ -98,6 +98,18 @@ x5.f <- toTriangular(c(AA=8,AB=12,AC=13,BB=8,BC=7,CC=0))
 out <- HWPerm.mult(x5.m,x5.f)
 }
 
+#
+# Autosomal STR with multipe alleles
+#
+
+data(NistSTRs)
+A1 <- NistSTRs[,1]
+A2 <- NistSTRs[,2]
+GenotypeCounts <- AllelesToTriangular(A1,A2)
+print(GenotypeCounts)
+\dontrun{
+out <- HWPerm.mult(GenotypeCounts)
+}
 }
 \keyword{misc}
 
