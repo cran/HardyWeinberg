@@ -4,15 +4,16 @@
 \title{Chi square tests for Hardy Weinberg equilibrium}
 \description{
   \code{HWChisq} performs the chi-square test for Hardy-Weinberg
-  equilibrium both for autosomal and X-chromosomal markers.  
+  equilibrium both for autosomal and X-chromosomal markers; it can dealt both with bi-allelic and multi-allelic variants.  
 }
 \usage{
 HWChisq(X, cc = 0.5, verbose = TRUE, x.linked = FALSE, phifixed = NULL) 
 }
 \arguments{
-  \item{X}{\code{X} a vector containg the genotypic counts (AA,AB,BB for
-    autosomal markers c(A,B,AA,AB,BB) for X-chromosomal markers).}
-  \item{cc}{\code{cc} the continuity correction parameter (default
+  \item{X}{For bi-allelic variants, \code{X} is a vector containg the genotypic counts (AA,AB,BB for
+    autosomal markers c(A,B,AA,AB,BB) for X-chromosomal markers). For multi-allelic variants, \code{X} is a
+    lower triangular matrix with genotype counts, homozygotes on the diagonal and heterozygotes below the diagonal.}
+  \item{cc}{\code{cc} the continuity correction parameter, the correction is only applied to bi-allelic markers (default
     \code{cc = 0.5}).}
   \item{verbose}{ \code{verbose = TRUE} prints results, \code{verbose = FALSE}
     is silent.}
@@ -42,12 +43,14 @@ HWChisq(X, cc = 0.5, verbose = TRUE, x.linked = FALSE, phifixed = NULL)
    simulation studies where a universe with known gender ratio is
    sampled) \code{phifixed} could be set to the theoretical ratio of interest.   
 
-   When \code{alternative} is set to \code{less}, a one-sided test for
+   With bi-allelic variants, when \code{alternative} is set to \code{less}, a one-sided test for
    against a negative inbreeding coefficient (heterozygote excess) is
    performed. When \code{alternative} is set to \code{greater} a one-sided test for
    against a positive inbreeding coefficient (lack of heterozygotes) is
    performed.
-   
+
+   For multi-allelic variants, which typically do have some rare alleles and rare genotypes, the asymptotic chi-square test is in
+   general not recommended, and exact test procedures or permutation tests are recommended (see \code{HWExact} or \code{HWPerm.mult}).
 }
 \value{
 \code{HWChisq} returns a list with the components:
@@ -56,7 +59,8 @@ HWChisq(X, cc = 0.5, verbose = TRUE, x.linked = FALSE, phifixed = NULL)
   \item{D }{Half the deviation from Hardy-Weinberg equilibrium for the AB genotype.}
   \item{p }{the allele frequency of A.}
   \item{f }{the inbreeding coefficient.}
-  \item{expected }{the expected counts under Hardy-Weinberg equilibrium} 
+  \item{expected }{the expected counts under Hardy-Weinberg equilibrium.}
+  \item{chi.contrib }{the contributions of the different genotypes to the chi-square statistic.}
 }
 \references{Weir, B.S. (1996) Genetic data analysis II. Sinauer
   Associates, Massachusetts. See Chapter3.
@@ -84,5 +88,21 @@ HW.test <- HWChisq(x,cc=0,verbose=TRUE)
 #
 rs5968922 <-  c(A=392, B=212, AA=275, AB=296, BB=80)
 HW.test <- HWChisq(rs5968922,cc=0,x.linked=TRUE,verbose=TRUE)
+#
+# Test a multi-allelic microsatellite
+#
+data(NistSTRs)
+A1 <- NistSTRs[,1]
+A2 <- NistSTRs[,2]
+GC <- AllelesToTriangular(A1,A2)
+HW.test <- HWChisq(GC)
+#
+# retaining only the three  most common alleles
+#
+ii <- (A1 == 10 | A1 == 11 | A1 == 12) & (A2 == 10 | A2 == 11 | A2 == 12)
+A1s <- A1[ii]
+A2s <- A2[ii]
+GC <- AllelesToTriangular(A1s,A2s)
+HW.test <- HWChisq(GC)
 }
 \keyword{htest}

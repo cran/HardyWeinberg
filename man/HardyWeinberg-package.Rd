@@ -4,14 +4,14 @@
 \docType{package}
 \title{Statistical Tests and Graphics for Hardy-Weinberg Equilibrium}
 \description{
-   Contains tools for exploring Hardy-Weinberg equilibrium (Hardy, 1908;  Weinberg, 1908) for bi and multi-allelic genetic marker data. All classical tests (chi-square, exact, likelihood-ratio and permutation tests) with bi-allelic variants are included in the package, as well as functions for power computation and for the simulation of marker data under equilibrium and disequilibrium. Routines for dealing with markers on the X-chromosome are included (Graffelman & Weir, 2016) including Bayesian procedures. Some exact and permutation procedures also work with multi-allelic variants. Special test procedures that jointly address Hardy-Weinberg equilibrium and equality of allele frequencies in both sexes are supplied, for the bi and multi-allelic case. Functions for testing equilibrium in the presence of missing data by using multiple imputation are also provided. Implements several graphics for exploring the equilibrium status of a large set of bi-allelic markers: ternary plots with acceptance regions, log-ratio plots and Q-Q plots. 
+   Contains tools for exploring Hardy-Weinberg equilibrium (Hardy, 1908;  Weinberg, 1908) for bi and multi-allelic genetic marker data. All classical tests (chi-square, exact, likelihood-ratio and permutation tests) with bi-allelic variants are included in the package, as well as functions for power computation and for the simulation of marker data under equilibrium and disequilibrium. Routines for dealing with markers on the X-chromosome are included (Graffelman & Weir, 2016) including Bayesian procedures. Some exact and permutation procedures also work with multi-allelic variants. Special test procedures that jointly address Hardy-Weinberg equilibrium and equality of allele frequencies in both sexes are supplied, for the bi and multi-allelic case. Functions for testing equilibrium in the presence of missing data by using multiple imputation are also provided. Implements several graphics for exploring the equilibrium status of a large set of bi-allelic markers: ternary plots with acceptance regions, log-ratio plots and Q-Q plots. The functionality of the package is explained in detail in a related paper (Graffelman, 2015). 
 }
 \details{
 \tabular{ll}{
 Package: \tab HardyWeinberg\cr
 Type: \tab Package\cr
-Version: \tab 1.7.2\cr
-Date: \tab 2021-04-28\cr
+Version: \tab 1.7.3\cr
+Date: \tab 2021-11-17\cr
 License: \tab GPL Version 2 or later.\cr
 }
 
@@ -38,7 +38,7 @@ Based on the Ternary Plot. \emph{Human Heredity} 65(2):77-84.
 
 Graffelman, J. (2015) Exploring Diallelic Genetic Markers: The {HardyWeinberg} Package.
 \emph{Journal of Statistical Software} 64(3):
-1-23. \url{https://www.jstatsoft.org/v64/i03/}.
+1-23. \doi{10.18637/jss.v064.i03}.
 
 Graffelman, J. and Weir, B.S. (2016) Testing for Hardy-Weinberg
 equilibrium at bi-allelic genetic markers on

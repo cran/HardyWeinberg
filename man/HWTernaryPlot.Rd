@@ -11,12 +11,12 @@
 }
 \usage{
 HWTernaryPlot(X, n = NA, addmarkers = TRUE, newframe = TRUE, hwcurve = TRUE, 
-vbounds = TRUE, mafbounds = FALSE, mafvalue = 0.05, axis = 0, region = 1, 
+vbounds = FALSE, mafbounds = FALSE, mafvalue = 0.05, axis = 0, region = 1, 
 vertexlab = colnames(X), alpha = 0.05, vertex.cex = 1, pch = 19, cc = 0.5, 
 markercol = "black", markerbgcol = "black", cex = 0.75, axislab = "", 
 verbose = FALSE, markerlab = NULL, markerpos = NULL, mcex = 1, connect =
 FALSE, curvecols = rep("black",5), signifcolour = TRUE, curtyp =
-"solid", ssf = "max", pvaluetype = "selome", ...)
+"solid", ssf = "max", pvaluetype = "selome", grid = FALSE, ...)
 }
 \arguments{
   \item{X}{ a matrix of \code{n} genotypic compositions or counts. If it
@@ -86,7 +86,8 @@ FALSE, curvecols = rep("black",5), signifcolour = TRUE, curtyp =
               drawing acceptance regions is determined from the matrix
 	      of counts.}
   \item{pvaluetype}{ method to compute p-values in an exact test
-    (\code{"dost"} or \code{"selome"})}	    
+    (\code{"dost"} or \code{"selome"})}
+  \item{grid}{ draw a reference grid for genotype frequencies at (0.2,0.4,0.6,0.8)}
   \item{\dots}{ other arguments passed on to the plot function (e.g. \code{main} for a main title). }
 }
 \value{
@@ -106,7 +107,7 @@ Graffelman, J. and Morales, J. (2008) Graphical Tests for Hardy-Weinberg Equilib
 Based on the Ternary Plot. \emph{Human Heredity} 65(2):77-84. 
 
 Graffelman, J. (2015) Exploring Diallelic Genetic Markers: The HardyWeinberg Package.
-\emph{Journal of Statistical Software} 64(3): 1-23. \url{https://www.jstatsoft.org/v64/i03/}.
+\emph{Journal of Statistical Software} 64(3): 1-23. \doi{10.18637/jss.v064.i03}.
 }
 \author{ Jan Graffelman \email{jan.graffelman@upc.edu} }
 \seealso{ \code{\link{HWChisq}} }

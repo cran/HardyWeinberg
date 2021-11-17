@@ -30,7 +30,7 @@ pp. 471-490.
 Engels, W. R. (2009) Exact Tests for Hardy-Weinberg Proportions. \emph{Genetics} 183, pp. 1431-1441.
 
 Graffelman, J. (2015) Exploring Diallelic Genetic Markers: The HardyWeinberg Package.
-\emph{Journal of Statistical Software} 64(3): 1-23. \url{https://www.jstatsoft.org/v64/i03/}.
+\emph{Journal of Statistical Software} 64(3): 1-23. \doi{10.18637/jss.v064.i03}.
 }
 \author{ Jan Graffelman \email{jan.graffelman@upc.edu}} 
 \seealso{

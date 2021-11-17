@@ -1,4 +1,4 @@
-`HWTernaryPlot` <- function(X, n=NA, addmarkers=TRUE, newframe=TRUE, hwcurve=TRUE, vbounds=TRUE, mafbounds=FALSE, mafvalue=0.05, axis=0, region=1, vertexlab=colnames(X), alpha = 0.05, vertex.cex = 1, pch = 19, cc = 0.5, markercol = "black", markerbgcol= "black", cex=0.75, axislab ="", verbose=FALSE, markerlab=NULL, markerpos=NULL, mcex=1, connect = FALSE, curvecols=rep("black",5) , signifcolour=TRUE, curtyp = "solid", ssf = "max", pvaluetype = "selome", ...)
+`HWTernaryPlot` <- function(X, n=NA, addmarkers=TRUE, newframe=TRUE, hwcurve=TRUE, vbounds=FALSE, mafbounds=FALSE, mafvalue=0.05, axis=0, region=1, vertexlab=colnames(X), alpha = 0.05, vertex.cex = 1, pch = 19, cc = 0.5, markercol = "black", markerbgcol= "black", cex=0.75, axislab ="", verbose=FALSE, markerlab=NULL, markerpos=NULL, mcex=1, connect = FALSE, curvecols=rep("black",5) , signifcolour=TRUE, curtyp = "solid", ssf = "max", pvaluetype = "selome", grid = FALSE, ...)
   {
 # plot a ternary diagram that represents all rows of X as points. Acceptance regions for various tests for HWE
 #    can be added.
@@ -48,8 +48,27 @@
     r <- sqrt(chiquant/n)
     k <- cc/n
     M <- matrix(c(-1/sqrt(3),0,0,1,1/sqrt(3),0),ncol=2,byrow=T)
+    #
+    # coordinates for grid
+    #
+    gridstyle <- "dashed"
+    B1 <- rbind(c(0.8,0.2,0.0),
+              c(0.6,0.4,0.0),
+              c(0.4,0.6,0.0),
+              c(0.2,0.8,0.0))
+    E1 <- rbind(c(0.0,0.2,0.8),
+              c(0.0,0.4,0.6),
+              c(0.0,0.6,0.4),
+              c(0.0,0.8,0.2))
+    B2 <- B1[,c(3,1,2)]
+    E2 <- E1[,c(3,1,2)]
+    B3 <- B1[,c(2,3,1)]
+    E3 <- E1[,c(2,3,1)]
+    B <- rbind(B1,B2,B3)
+    E <- rbind(E1,E2,E3)
+    Bc <- B%*%M
+    Ec <- E%*%M
     nsignif <- NA
-    
     markerq <- (Xcom[,2]+2*Xcom[,3])/2
 
       if(newframe) {
@@ -122,6 +141,12 @@
           }
        }
 
+       if (grid) {
+          for(i in 1:nrow(Bc)) {
+             segments(Bc[i,1],Bc[i,2],Ec[i,1],Ec[i,2],lty=gridstyle)
+          }
+       }
+
        if(mafbounds) {
           minaf <- mafvalue
           minaft <- 2*(minaf-0.5)/sqrt(3)
@@ -129,7 +154,7 @@
           maxaft <- 2*(maxaf-0.5)/sqrt(3)
           lines(c(minaft,minaft),c(0,2*minaf),lty="dashed")
           lines(c(maxaft,maxaft),c(0,2-2*maxaf),lty="dashed")
-       }    
+       }
 
        if(region==1) { # simple hw ci
           HWChisqUpperl(r,verbose=FALSE,cex=cex,curvecol=curvecols[2],curtyp=curtyp)
