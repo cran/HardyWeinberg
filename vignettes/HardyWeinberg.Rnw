@@ -17,7 +17,7 @@
 
 
 %% almost as usual
-\author{Jan Graffelman\\Universitat Polit\`ecnica de Catalunya\\version 1.7.3\\ \today}
+\author{Jan Graffelman\\Universitat Polit\`ecnica de Catalunya\\version 1.7.4\\ \today}
 \title{Exploring Diallelic Genetic Markers: The \pkg{HardyWeinberg} Package}
 
 %% for pretty printing and a nice hypersummary also set:
@@ -1036,7 +1036,7 @@ The permutation test for X-linked markers gives
 HWPerm(SNP1,x.linked=TRUE)
 @ 
 
-And an X-chromosomal likelihood ratio test givs
+And an X-chromosomal likelihood ratio test gives
 
 <<echo=TRUE>>=
 HWLratio(SNP1,x.linked=TRUE)

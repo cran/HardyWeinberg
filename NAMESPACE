@@ -11,6 +11,7 @@ export (af,alleles,AFtest,agcounts,AllelesToTriangular,dgraffelmanweir.bi,dleven
 import (mice)
 import (Rcpp)
 import (Rsolnp)
+import (nnet)
 importFrom("graphics", "abline", "lines", "par", "plot", "points", "polygon", "segments", "text")
 importFrom("stats", "aggregate", "dmultinom", "fisher.test", "integrate", "pbeta", "pchisq", "pt", "qchisq", "qnorm", "qt", "quantile",
            "rbeta", "rmultinom", "runif", "var")
