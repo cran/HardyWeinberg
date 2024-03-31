@@ -14,49 +14,57 @@ EAFExact <- function(m,f,verbose=TRUE,...) {
   } else {
     alleles.f <- colnames(f)
   }
-  allele.names.equal <- all(alleles.m==alleles.f)
+  allele.names.equal <- all(sort(alleles.m) == sort(alleles.f))
   if(!allele.names.equal) stop("EAF: male and female alleles different")
   if(is.vector(m) & is.vector(f)) {
     if(length(m)==2 & length(f)==3) {
       # X-chromosomal bi-alleliec
       knownformat <- TRUE
       lab.f <- names(f)
-      nfAA <- f[lab.f == "AA"]
-      nfAB <- f[lab.f == "AB"]
-      nfBB <- f[lab.f == "BB"]
+      hom1 <- paste(alleles.f[1],alleles.f[1],sep="")
+      hom2 <- paste(alleles.f[2],alleles.f[2],sep="")
+      het  <- names(f)[heterozyg(f)]
+      nfAA <- f[lab.f == hom1]
+      nfAB <- f[lab.f == het]
+      nfBB <- f[lab.f == hom2]
       fA <- 2 * nfAA + nfAB
       fB <- 2 * nfBB + nfAB
       lab.m <- names(m)
-      nmA <- m[lab.m == "A"]
-      nmB <- m[lab.m == "B"]
-      m.ac <- c(nmA,nmB)
-      f.ac <- c(fA,fB)
-      nt <- 2*nf + nm
+      nmA <- m[lab.m == alleles.f[1]]
+      nmB <- m[lab.m == alleles.f[2]]
+      m.ac <- c(nmA, nmB)
+      f.ac <- c(fA, fB)
+      nt <- 2 * nf + nm
     }
     if(length(m)==3 & length(f)==3) {
       # Autosomomal bi-allelic
       knownformat <- TRUE
       lab.f <- names(f)
-      nfAA <- f[lab.f == "AA"]
-      nfAB <- f[lab.f == "AB"]
-      nfBB <- f[lab.f == "BB"]
+      hom1 <- paste(alleles.f[1],alleles.f[1],sep="")
+      hom2 <- paste(alleles.f[2],alleles.f[2],sep="")
+      hetf  <- names(f)[heterozyg(f)]
+      hetm  <- names(m)[heterozyg(m)]
+      if(hetf!=hetm) {
+        stop("heterozygotes of males and females not equally coded.\n")
+      }
+      nfAA <- f[lab.f == hom1]
+      nfAB <- f[lab.f == hetf]
+      nfBB <- f[lab.f == hom2]
       fA <- 2 * nfAA + nfAB
       fB <- 2 * nfBB + nfAB
-      
       lab.m <- names(m)
-      nmAA <- m[lab.m == "AA"]
-      nmAB <- m[lab.m == "AB"]
-      nmBB <- m[lab.m == "BB"]
+      nmAA <- m[lab.m == hom1]
+      nmAB <- m[lab.m == hetf]
+      nmBB <- m[lab.m == hom2]
       mA <- 2 * nmAA + nmAB
       mB <- 2 * nmBB + nmAB
-      
-      m.ac <- c(mA,mB)
-      f.ac <- c(fA,fB)
-      nt <- 2*(nm+nf)
+      m.ac <- c(mA, mB)
+      f.ac <- c(fA, fB)
+      nt <- 2 * (nm + nf)
     }
     if(length(m) > 3 & length(f) > 3) { # these will be counted as autosomal multiallelic below.
-        m <- toTriangular(m)
-        f <- toTriangular(f)
+      m <- toTriangular(m)
+      f <- toTriangular(f)
     }
   } 
   if(is.vector(m) & is.matrix(f)) {
@@ -86,5 +94,5 @@ EAFExact <- function(m,f,verbose=TRUE,...) {
     print(tab)
     cat("\nSample of",n,"indivduals with ",nt,"alleles. p.value = ",pval,"\n")
   }
-  list(pval=pval,tab=tab)
+  out <- list(pval=pval,tab=tab)
 }

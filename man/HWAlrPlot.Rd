@@ -22,7 +22,7 @@ HWAlrPlot(X, zeroadj = 0.5)
 \references{Graffelman, J. and Egozcue, J. J. (2011) Hardy-Weinberg
   equilibrium: a non-parametric compositional approach. In: Vera
   Pawlowsky-Glahn and Antonella Buccianti (eds.) Compositional Data
-  Analysis: Theory and Applications, John Wiley \& Sons, Ltd, pp. 207-215}
+  Analysis: Theory and Applications, John Wiley & Sons, Ltd, pp. 207-215}
 \author{ Jan Graffelman (jan.graffelman@upc.edu) }
 \seealso{
 \code{\link{HWClrPlot},\link{HWIlrPlot}}

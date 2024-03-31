@@ -59,7 +59,7 @@ HWExact <- function (X, alternative = "two.sided", pvaluetype = "selome", eps=1e
       D <- 0.5 * (Xhet - nA * nB/(2 * n))
       cat("Haldane Exact test for Hardy-Weinberg equilibrium (autosomal)\n")
       stringpvalue <- switch(pvaluetype, dost = "using DOST p-value\n",
-                             selome = "using SELOME p-value\n", midp = "using MID p-value\n",
+                             selome = "using standard (SELOME) p-value\n", midp = "using MID p-value\n",
                              stop("invalid value for parameter pvaluetype"))
       cat(stringpvalue)
       cat(paste("sample counts: n", names(Xhom[1]), " = ",
@@ -87,40 +87,43 @@ HWExact <- function (X, alternative = "two.sided", pvaluetype = "selome", eps=1e
       X <- round(X, digits = 0)
     }
     lab <- names(X)
-    if(!all(lab %in% c("A","AA","AB","B","BB")))
-      stop("Unknown genotypes occurred. Supply counts as a named vector c(A,AA,AB,B,BB)")
-    n <- sum(X)         
-    nfAA <- X[lab=="AA"]
-    nfAB <- X[lab=="AB"]
-    nfBB <- X[lab=="BB"]
-    nmA <- X[lab=="A"]
-    nmB <- X[lab=="B"]
-    nAf <- 2*nfAA + nfAB
-    nBf <- 2*nfBB + nfAB
-    nm <- nmA+nmB
-    nf <- n - nm
-    X <- c(nmA,nmB,nfAA,nfAB,nfBB)
-    nA <- nmA + 2*nfAA + nfAB
-    nB <- nmB + 2*nfBB + nfAB
-    nt <- nA+nB
-    pA <- nA/nt
-    # immediately arrange according to minor allele
-    if(nA < nB) {
-      X <- c(nmA,nmB,nfAA,nfAB,nfBB)
-    } else {
-      X <- c(nmB,nmA,nfBB,nfAB,nfAA)
+    if(is.null(lab)) {
+      warning("Genotype counts not labeled, default sequence c(A,B,AA,AB,BB) assumed.")
+      names(X) <- c("A","B","AA","AB","BB")
     }
+    als <- alleles(X)
+    if(length(als) != 2) {
+       stop("HWExact: X is not a bi-allelic x-linked marker")
+    }
+    hom1 <- paste(als[1],als[1],sep="")
+    hom2 <- paste(als[2],als[2],sep="")
+    fems <- X[!(names(X) %in% als)]
+    het  <- names(fems)[heterozyg(fems)]
+    theo.types <- c(als[1],als[2],hom1,het,hom2)
+    if(!all(lab %in%  theo.types))
+      stop("Unknown genotypes occurred. Supply counts as a named vector c(A,B,AA,AB,BB)")
+    n <- sum(X)         
+
+    X <- order.x(X)
+   
     ### recompute all genotype and allele counts considering A the minor allele
+
     nfAA <- X[3]
     nfAB <- X[4]
     nfBB <- X[5]
     nmA <- X[1]
     nmB <- X[2]
+
+    nm <- nmA+nmB
+    nf <- n - nm
+
     nAf <- 2*nfAA + nfAB
     nBf <- 2*nfBB + nfAB
     nA <- nmA + 2*nfAA + nfAB
     nB <- nmB + 2*nfBB + nfAB
-    pA <- nA/nt    
+    
+    nt <- nA+nB
+    pA <- nA/nt
    
     Z <- auxiliartable(X)
     

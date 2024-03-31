@@ -23,7 +23,7 @@ vaf(X, hw = FALSE)
 }
 \references{Weir, B.S. (1996) Genetic data analysis II. Sinauer Associates, Massachusetts. See Chapter 2.}
 \author{Jan Graffelman \email{jan.graffelman@upc.edu}}
-\seealso{\code{\link{af}},\code{\link{maf}}}
+\seealso{\code{\link{af}}, \code{\link{maf}}}
 \examples{
 x <- c(MM=298,MN=489,NN=213)
 pA <- af(x)

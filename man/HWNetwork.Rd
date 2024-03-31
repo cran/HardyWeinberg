@@ -34,7 +34,7 @@ Graffelman, J. (2015) Exploring Diallelic Genetic Markers: The HardyWeinberg Pac
 }
 \author{ Jan Graffelman \email{jan.graffelman@upc.edu}} 
 \seealso{
- \code{\link{HWExact},\link{HWExactStats}}
+ \code{\link{HWExact}, \link{HWExactStats}}
 }
 \examples{
 #
@@ -47,7 +47,7 @@ names(ma) <- c("A","B","C")
 fe <- TSIXTriAllelics[1,5:10]
 names(fe) <- c("AA","AB","AC","BB","BC","CC")
 
-fe <- toTriangular(fe)
+fe <- HardyWeinberg:::toTriangularfixed(fe)
 
 HWNetwork(ma=ma,fe=fe)
 }

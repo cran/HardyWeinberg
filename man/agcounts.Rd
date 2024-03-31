@@ -31,7 +31,7 @@ agcounts(x, verbose = FALSE)
   \item{pB}{overall B allele frequency}
 }
 \author{ Jan Graffelman \email{jan.graffelman@upc.edu} }
-\seealso{\code{\link{mac}},\code{link{maf}}}
+\seealso{\code{\link{mac}}, \code{link{maf}}}
 \examples{
 rs5968922 <-  c(A=392, B=212, AA=275, AB=296, BB=80)
 counts <- agcounts(rs5968922)

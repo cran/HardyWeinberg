@@ -84,10 +84,15 @@ HW.test <- HWChisq(x,verbose=TRUE)
 #
 HW.test <- HWChisq(x,cc=0,verbose=TRUE)
 #
-# Test for an X-chromsomal SNP.
+# Test for X-chromsomal SNPs.
 #
 rs5968922 <-  c(A=392, B=212, AA=275, AB=296, BB=80)
 HW.test <- HWChisq(rs5968922,cc=0,x.linked=TRUE,verbose=TRUE)
+#
+#
+#
+y <- c(GG=48, CG=209, CC=277, G=129, C=337) 
+HWChisq(y,x.linked=TRUE,cc=0)
 #
 # Test a multi-allelic microsatellite
 #

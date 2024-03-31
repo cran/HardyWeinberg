@@ -1,11 +1,14 @@
 HWChisqStats <- function(X,x.linked=FALSE,pvalues=FALSE) {
-  if(!x.linked) {
+  if(is.vector(X)) X <- matrix(X,nrow=1)
+  if(!x.linked) { # autosomal
+    X  <- X[,names(order.auto(X[1,]))]
     n <- rowSums(X)
     nA <- 2*X[,1] + X[,2]
     nB <- 2*X[,3] + X[,2]
     chi <- (4*X[,1]*X[,3] - X[,2]*X[,2])/(nA*nB)
     if(pvalues) stat <- pchisq(n*chi*chi,1,lower.tail=FALSE) else stat <- n*chi*chi
-  } else {
+  } else { # X chromosomal
+    X  <- X[,names(order.x(X[1,]))]
     nm <- X[,1] + X[,2]
     nA <- X[,1] + 2*X[,3] + X[,4]
     nA2 <- nA*nA

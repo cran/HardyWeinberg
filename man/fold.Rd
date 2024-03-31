@@ -22,7 +22,7 @@ fold(X, lower = TRUE)
 }
 \author{ Jan Graffelman \email{jan.graffelman@upc.edu} }
 \seealso{
-\code{\link{lower.tri},\link{upper.tri}}
+\code{\link{lower.tri}, \link{upper.tri}}
 }
 \examples{
 allelenames <- paste("A",11:13,sep="")

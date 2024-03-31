@@ -21,5 +21,10 @@ alleles(x, fromlabels = TRUE)
 \examples{
    x <- c(AA=10,AG=10,GG=10,AT=5)
    als.x <- alleles(x)
+   print(als.x)
+
+   y <- rep(names(x),x)
+   als.y <- alleles(y,fromlabels = FALSE)
+   print(als.y)
 }
 \keyword{misc}

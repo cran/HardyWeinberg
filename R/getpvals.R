@@ -17,7 +17,7 @@ getpvals <- function(X,nsim=100,pvaluetype="selome") {
     nBB <- (nB-nAB)/2
     Xaux <- cbind(nAA,nAB,nBB)
     colnames(Xaux) <- c("AA","AB","BB")
-    pvals <- HWExactMat(Xaux,pvaluetype=pvaluetype)$pvalvec
+    pvals <- HWExactStats(Xaux,plinkcode=FALSE,pvaluetype=pvaluetype)
     # sample from the p-value distribution
     simpval <- rbind(simpval,sample(pvals,nsim,replace=TRUE,prob=probs))
   }

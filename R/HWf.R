@@ -7,12 +7,10 @@ HWf <- function(X)
       warning("Genotype counts are not integers, counts will be rounded.")
       X <- round(X, digits = 0)
     }
-    Xhom <- X[homozyg(X)]
-    Xhet <- X[heterozyg(X)]
-    X <- c(min(Xhom), Xhet, max(Xhom))
+    X <- order.auto(X)
     if (maf(X) == 0) {
-      warning("Monomorphic marker, f set to zero.")
-      fhat <- 0
+      warning("Monomorphic marker, f is NaN.")
+      fhat <- NaN
     }
     else {
       nA <- 2 * X[1] + X[2]
@@ -22,6 +20,7 @@ HWf <- function(X)
     }
   } # end if(is.vector)
   if(is.matrix(X)) { # its a matrix of genotype counts
+    X <- X[,names(order.auto(X[1,]))]
     nA <- 2 * X[, 1] + X[, 2]
     nB <- 2 * X[, 3] + X[, 2]
     fhat <- (4 * X[, 1] * X[, 3] - X[, 2] * X[, 2])/(nA * nB)

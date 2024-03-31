@@ -38,7 +38,7 @@ HWABO <- function(x,p=c(1/3,1/3,1/3),maxiter=50,tol=1e-10,verbose=TRUE) {
      It.hist <- rbind(It.hist,res)
    }
    rownames(It.hist) <- 0:(nrow(It.hist)-1)
-   colnames(It.hist) <- c("p","q","r","ll")
+   colnames(It.hist) <- c("pA","pB","pO","ll")
    if(verbose) {
      cat("Iteration history:\n")
      print(It.hist)
@@ -67,5 +67,5 @@ HWABO <- function(x,p=c(1/3,1/3,1/3),maxiter=50,tol=1e-10,verbose=TRUE) {
      cat("X2 = ",X2,"p-value = ",pval,"\n")
    }
    names(pn) <- c("p","q","r")
-   return(list(pn=pn,It.hist=It.hist,stats=stats,X2=X2,pval=pval))
+   out <- list(pn=pn,It.hist=It.hist,stats=stats,X2=X2,pval=pval)
 }

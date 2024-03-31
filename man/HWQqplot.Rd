@@ -1,6 +1,6 @@
 \name{HWQqplot}
 \alias{HWQqplot}
-\alias{HWQqplot}
+\alias{HWQQplot}
 \title{
 A Q-Q plot for Hardy-Weinberg equilibrium
 }
@@ -44,13 +44,13 @@ Rohlfs, R.V. and Weir, B.S. (2008) Distributions of Hardy-Weinberg
 equilibrium test statistics. Genetics 180, pp. 1609-1616.
 }
 \author{ Jan Graffelman \email{jan.graffelman@upc.edu} }
-\seealso{ \code{\link{HWTernaryPlot}} \code{\link{HWExact}} \code{\link{qqplot}}}
+\seealso{ \code{\link{HWTernaryPlot}}, \code{\link{HWExact}}, \code{\link{qqplot}}}
 \examples{
 \dontrun{
 set.seed(1234)
 n <- 200 # sample size
 m <- 100 # number of markers
-X <- HWData(n,m)$Xt
+X <- HWData(n,m)
 HWQqplot(X,logplot=TRUE,pvaluetype="selome",main="Q-Q Plot for HWE")
 }
 }

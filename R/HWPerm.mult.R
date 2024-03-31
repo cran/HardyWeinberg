@@ -1,7 +1,10 @@
 HWPerm.mult <- function (x, y = NULL, nperm = 17000, eps = 1e-10, verbose = TRUE, ...) 
 {
   testtype <- NULL
-  if(is.matrix(x) & is.null(y)) {
+  if(is.vector(x) & is.null(y)) {
+    x <- toTriangular(x)
+    testtype <- 1 # autosomal
+  } else if(is.matrix(x) & is.null(y)) {
     testtype <- 1 # autosomal
   } else if(is.matrix(x) & is.matrix(y)) {
     testtype <- 2 # autosomal, stratified by sex
@@ -142,6 +145,6 @@ HWPerm.mult <- function (x, y = NULL, nperm = 17000, eps = 1e-10, verbose = TRUE
           "\n")
     }
   }
-  return(list(pofthesample = pofthesample, pseudodist = pseudodist, 
-              pval = pval))
+  out <- list(pofthesample = pofthesample, pseudodist = pseudodist, 
+              pval = pval)
 }

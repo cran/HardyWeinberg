@@ -1,6 +1,6 @@
-HWLindley <-
-function(alphaseq=seq(-3,3,by=0.01),x) {
+HWLindley <- function(alphaseq=seq(-3,3,by=0.01),x) {
   N <- sum(x)
+  x <- order.auto(x)
   nAA <- x[1]
   nAB <- x[2]
   nBB <- x[3]

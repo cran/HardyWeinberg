@@ -10,13 +10,16 @@ factors for tests for Hardy-Weinberg equilibrium of autosomal and X-chromosomal
 variants.
 }
 \usage{
-HWPosterior(X, verbose = TRUE, prior.af = c(0.5,0.5), prior.gf =
+HWPosterior(males, females, verbose = TRUE, prior.af = c(0.5,0.5), prior.gf =
             c(0.333,0.333,0.333), x.linked = FALSE, precision = 0.05) 
 }
 \arguments{
-  \item{X}{A vector of genotype counts. The order c(A,B,AA,AB,BB) is
-    assumed. Differently ordered vectors can be supplied but then elements must
-    be labeled by their genotype}
+  \item{males}{A vector of male genotype counts. For autosomal variants, this
+    should be a three-element named vector like (AA,AB,BB); for X-chromosomal
+    variants it should be a two-element vector giving the counts of the hemizygous
+    genotypes like (A,B).}
+  \item{females}{A vector of female genotype counts. This should be a three-element
+    named vector like (AA,AB,BB)} 
   \item{verbose}{prints results if \code{verbose = TRUE}}
   \item{prior.af}{Beta prior parameters for male and female allele frequencies}
   \item{prior.gf}{Dirichlet prior parameters for female genotype
@@ -41,9 +44,13 @@ HWPosterior(X, verbose = TRUE, prior.af = c(0.5,0.5), prior.gf =
   For autosomal variants, a vector of posterior probabilities is produced.
 }
 \references{
-  Puig, X., Ginebra, J. and Graffelman, J. (2017) A Bayesian test for
-  Hardy-Weinberg equilibrium of bi-allelic X-chromosomal markers. To
-  appear in Heredity.
+  Puig, X., Ginebra, J. and Graffelman, J. (2017) A Bayesian test for Hardy-Weinberg
+  equilibrium of bi-allelic X-chromosomal markers. Heredity 119(4):226--236.
+  \doi{10.1038/hdy.2017.30}.
+
+  Puig, X., Ginebra, J. and Graffelman, J. (2019) Bayesian model selection for the study
+  of Hardy-Weinberg proportions and homogeneity of gender allele frequencies.
+  Heredity  123(5), pp. 549-564. \doi{10.1038/s41437-019-0232-0}
 }
 \author{
   Xavi Puig \email{xavier.puig@upc.edu} and
@@ -54,13 +61,16 @@ HWPosterior(X, verbose = TRUE, prior.af = c(0.5,0.5), prior.gf =
 #
 # An X-chromosomal example
 #
-x <- c(A=43,B=13,AA=26,AB=19,BB=3)
-out <- HWPosterior(x,verbose=TRUE,x.linked=TRUE)
+males   <- c(A=43,B=13)
+females <- c(AA=26,AB=19,BB=3)
+out     <- HWPosterior(males,females,verbose=TRUE,x.linked=TRUE)
 #
 # An autosomal example
 #
 data(JPTsnps)
-post.prob <- HWPosterior(JPTsnps[1,],x.linked=FALSE)
+males     <- JPTsnps[1,1:3]
+females   <- JPTsnps[1,4:6]
+post.prob <- HWPosterior(males,females,x.linked=FALSE)
 }
 \keyword{htest}
 

@@ -78,9 +78,16 @@ HW.test <- HWExact(x,verbose=TRUE)
 #
 HW.test <- HWExact(x,verbose=TRUE,pvaluetype="midp")
 #
-# Example x-linked marker
+# Example x-linked markers
 #
 rs5968922  <- c(A=392, B=212, AA=275, AB=296, BB=80 )
-HWExact(rs5968922,x.linked=TRUE,verbose=TRUE) 
+HWExact(rs5968922,x.linked=TRUE,verbose=TRUE)
+#
+#
+#
+y <- c(GG=48, CG=209, CC=277, G=129, C=337) 
+HWExact(y,x.linked=TRUE)
+#
+#
 }
 \keyword{htest}

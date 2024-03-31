@@ -34,7 +34,7 @@ conditional on allele frequency.
   \item{pval }{p-value of the permutation test.}
 }
 \references{
-Ziegler, A. & K\"{o}nig, I.R. (2006) A statistical approach to genetic
+Ziegler, A. & Konig, I.R. (2006) A statistical approach to genetic
 epidemiology. Wiley.
 }
 \author{ Jan Graffelman \email{jan.graffelman@upc.edu} }
@@ -42,13 +42,25 @@ epidemiology. Wiley.
 \examples{
 x <- c(MM=298,MN=489,NN=213)
 \dontrun{
-HW.test <- HWPerm(x,nperm=10000,verbose=TRUE) # uses default chi-square statistic
-HW.test <- HWPerm(x,nperm=10000,verbose=TRUE,function(z)
-HWChisq(z)$chisq,cc=0.5) # uses chi-square statistic with continuity correction.
-HW.test <- HWPerm(x,nperm=10000,verbose=TRUE,function(y) HWLratio(y)$G2)
-# uses likelihood ratio statistic.
-HWPerm(x,nperm=10000,verbose=TRUE,function(y) 1-HWExact(y)$pval)
-# uses exact test p-value
+#
+# use a default chi-square statistic
+#
+HW.test <- HWPerm(x,nperm=10000,verbose=TRUE)
+#
+# use a chi-square statistic with continuity correction.
+#
+HW.test <- HWPerm(x,nperm=10000,verbose=TRUE,
+FUN=function(z) HWChisq(z,verbose=FALSE)$chisq,cc=0.5) # 
+#
+# use a likelihood ratio statistic.
+#
+HW.test <- HWPerm(x,nperm=10000,verbose=TRUE,
+FUN=function(y) HWLratio(y,verbose=FALSE)$G2)
+# 
+# use an exact test p-value
+#
+HWPerm(x,nperm=10000,verbose=TRUE,FUN=function(y) 1-HWExact(y,verbose=FALSE)$pval)
+# 
 #
 # Permutation test for a marker on the X chromosome
 #

@@ -30,9 +30,11 @@ HWLindley(alphaseq = seq(-3, 3, by = 0.01), x)
 }
 \examples{
 x <- c(MM=298,MN=489,NN=213)
-post.dens <- HWLindley(seq(-2,2,by=0.01),x)
+post.dens <- HWLindley(seq(-1,1,by=0.01),x)
 \dontrun{
-  plot(seq(-2,2,by=0.01),post.dens,type="l")
+plot(seq(-1,1,by=0.01),post.dens,type="l",xlab=expression(alpha),
+     ylab=expression(pi(alpha)))
+segments(0,0,0,HWLindley(0,x),lty="dotted",col="red")
 }
 }
 \keyword{distribution}

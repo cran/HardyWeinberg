@@ -1,6 +1,9 @@
 HWPerm <- function (x, nperm = 17000, verbose = TRUE, x.linked = FALSE, FUN = ifelse(x.linked,Chisquare.x,Chisquare), eps=1e-10, ...) 
 {
-if(!x.linked) { # autosomal marker
+if(!x.linked) { # autosomal biallelic marker
+    if (length(x) != 3 | any(x < 0)) 
+        stop("HWPerm: x is not a 3 by 1 non-negative count vector")
+    x <- order.auto(x)
     n <- sum(x)
     nA <- 2 * x[1] + x[2]
     nB <- 2 * n - nA
@@ -47,16 +50,15 @@ if(!x.linked) { # autosomal marker
     if(!all(lab %in% c("A","AA","AB","B","BB")))
         stop("Unknown genotypes occurred. Supply counts as a named vector like c(A,AA,AB,B,BB)")
     n <- sum(x)         
-    nfAA <- x[lab=="AA"]
-    nfAB <- x[lab=="AB"]
-    nfBB <- x[lab=="BB"]
-    nmA <- x[lab=="A"]
-    nmB <- x[lab=="B"]
-    nm <- nmA+nmB
+    x <- order.x(x)
+     
+    nA <- x[1] + 2*x[3] + x[4]
+    nB <- x[2] + 2*x[5] + x[4]
+
+    nm <- x[1] + x[2]
     nf <- n - nm
-    x <- c(nmA,nmB,nfAA,nfAB,nfBB)
-    nA <- nmA + 2*nfAA + nfAB
-    nB <- nmB + 2*nfBB + nfAB
+    nt <- nA + nB
+
     if(min(nA,nB)==0) stop("Monomorphic marker.")
     nt <- nA+nB
     stat.obs <- FUN(x)

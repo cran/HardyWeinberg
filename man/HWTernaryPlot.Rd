@@ -15,8 +15,9 @@ vbounds = FALSE, mafbounds = FALSE, mafvalue = 0.05, axis = 0, region = 1,
 vertexlab = colnames(X), alpha = 0.05, vertex.cex = 1, pch = 19, cc = 0.5, 
 markercol = "black", markerbgcol = "black", cex = 0.75, axislab = "", 
 verbose = FALSE, markerlab = NULL, markerpos = NULL, mcex = 1, connect =
-FALSE, curvecols = rep("black",5), signifcolour = TRUE, curtyp =
-"solid", ssf = "max", pvaluetype = "selome", grid = FALSE, ...)
+FALSE, curvecols = rep("black",5), signifcolour = TRUE, patternsigsymbol = 19,
+curtyp = "solid", ssf = "max", pvaluetype = "selome", grid = FALSE,
+gridlabels = TRUE, patternramp = FALSE, ...)
 }
 \arguments{
   \item{X}{ a matrix of \code{n} genotypic compositions or counts. If it
@@ -81,6 +82,7 @@ FALSE, curvecols = rep("black",5), signifcolour = TRUE, curtyp =
         (green markers non-siginficant, red markers significant). 
         \code{signifcolour} only takes effect if \code{region} is set to
 	1, 2 or 7.}
+  \item{patternsigsymbol}{ plotting character used to represent significant makers when \code{patternramp=TRUE}} 
   \item{curtyp}{ style of the drawn curves (\code{"dashed","solid","dotted",...})}
   \item{ssf}{ sample size function (\code{"max","min","mean","median",...}). Indicates how the sample size for
               drawing acceptance regions is determined from the matrix
@@ -88,6 +90,9 @@ FALSE, curvecols = rep("black",5), signifcolour = TRUE, curtyp =
   \item{pvaluetype}{ method to compute p-values in an exact test
     (\code{"dost"} or \code{"selome"})}
   \item{grid}{ draw a reference grid for genotype frequencies at (0.2,0.4,0.6,0.8)}
+  \item{gridlabels}{ if \code{grid=TRUE} plot labels at the grid}
+  \item{patternramp}{ paint a colour ramp for patterns of genotype frequencies. This will ignore \code{signifcolour}, and
+  use colour to represent marker frequencies. The ramp is a green-red gradient for the relative frequency of the pattern. }
   \item{\dots}{ other arguments passed on to the plot function (e.g. \code{main} for a main title). }
 }
 \value{
@@ -112,12 +117,68 @@ Graffelman, J. (2015) Exploring Diallelic Genetic Markers: The HardyWeinberg Pac
 \author{ Jan Graffelman \email{jan.graffelman@upc.edu} }
 \seealso{ \code{\link{HWChisq}} }
 \examples{
+#
+# Ternary plot with 1000 SNPs and HWE curve
+#
 
-n <- 100 # sample size
-m <- 100 # number of markers
+X <- HWData(nm=1000,n=100)
+HWTernaryPlot(X,100,region=0,vertex.cex=2,pch=1)
 
-X <- HWData(n,m)
-HWTernaryPlot(X,100,region=1,hwcurve=TRUE,vbounds=FALSE,vertex.cex=2)
+#
+# Genotype frequency pattern of simulated SNPs with uniform
+# allele frequency distribution
+#
+
+X <- HWData(nm=1000,n=100)
+HWTernaryPlot(X,patternramp = TRUE)
+
+#
+# Genotype frequency pattern of simulated SNPs with skewed 
+# allele frequency distribution
+#
+
+X <- HWData(nm=1000,n=100,shape1=1,shape2=20)
+HWTernaryPlot(X,patternramp = TRUE)
+
+#
+# Genotype frequency pattern of SNPs simulated under HWE with
+# allele frequency of 0.50
+#
+
+X <- HWData(nm=1000,n=100,p=0.25)
+HWTernaryPlot(X,patternramp = TRUE)
+
+#
+# Genotype frequency pattern of SNPs simulated under HWE with
+# allele frequency of 0.25
+#
+
+X <- HWData(nm=1000,n=100,p=0.25)
+HWTernaryPlot(X,patternramp = TRUE)
+
+#
+# Genotype frequency pattern of SNPs simulated under HWE with
+# allele frequency of 0.25, using a triangle to mark siginficant markers
+#
+
+X <- HWData(nm=1000,n=100,p=0.25)
+HWTernaryPlot(X,patternramp = TRUE, region=1, patternsigsymbol = 2)
+
+#
+# Ternary plot of 1000 SNPs simulated under HWE and uniform allele frequency, with
+# acceptance region for a chi-square test and significant markers in red.
+#
+
+X <- HWData(nm=1000,n=100)
+HWTernaryPlot(X)
+
+#
+# Ternary plot of 100 SNPs simulated under HWE and uniform allele frequency, with
+# acceptance region for an exact test and significant markers in red.
+#
+
+X <- HWData(nm=100,n=100)
+\dontrun{HWTernaryPlot(X,region=7)}
 }
 
 \keyword{aplot}

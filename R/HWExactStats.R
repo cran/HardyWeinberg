@@ -9,7 +9,7 @@ HWExactStats <- function(X,x.linked=FALSE,plinkcode=TRUE,midp=FALSE,...) {
       }
     } else {
       for (i in 1:nmarkers) {
-        pvalvec[i] <- HWExact(X[i,],x.linked=x.linked,...)$pval
+        pvalvec[i] <- HWExact(X[i,],x.linked=x.linked,verbose=FALSE,...)$pval
       }  
     }
   } else { # not x.linked
@@ -19,7 +19,7 @@ HWExactStats <- function(X,x.linked=FALSE,plinkcode=TRUE,midp=FALSE,...) {
       }
     } else {
       for (i in 1:nmarkers) {
-        pvalvec[i] <- HWExact(X[i,],x.linked=x.linked,...)$pval
+        pvalvec[i] <- HWExact(X[i,],x.linked=x.linked,verbose=FALSE,...)$pval
       }  
     }
   }

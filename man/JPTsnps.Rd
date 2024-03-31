@@ -2,12 +2,15 @@
 \alias{JPTsnps}
 \docType{data}
 \title{
-Bi-allelic SNPs from a Japanese population 
+Bi-allelic SNPs from a Japanese population stratified by gender
 }
 \description{
 \code{JPTsnps} contains genotype counts for the two sexes of ten single
 nucleotide polymorphisms of the Japanese (JPT) sample of the 1000
-Genomes project.
+Genomes project, consisting of 56 males and 48 females.
+
+The first three columns contain the male genotype counts, and the last
+three columns contain the female genotype counts.
 }
 \usage{data("JPTsnps")}
 \format{data frame}

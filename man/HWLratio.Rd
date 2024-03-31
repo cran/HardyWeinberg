@@ -30,9 +30,16 @@ x <- c(298,489,213)
 names(x) <- c("MM","MN","NN")
 HW.test <- HWLratio(x,verbose=TRUE)
 #
-# Test for an X-chromsomal SNP.
+# Test for X-chromsomal SNPs.
 #
 rs5968922 <-  c(A=392, B=212, AA=275, AB=296, BB=80)
 HW.test <- HWLratio(rs5968922,x.linked=TRUE,verbose=TRUE)
+#
+#
+#
+y <- c(GG=48, CG=209, CC=277, G=129, C=337) 
+HWLratio(y,x.linked=TRUE)
+#
+#
 }
 \keyword{htest}

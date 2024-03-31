@@ -1,15 +1,15 @@
 HWTriExact <- function(x,y=NULL,eps=1e-10,nperm=17000,verbose=TRUE) {
-    test.type <- NULL
-    x <- unlist(x)
-    if(!is.null(y)) y <- unlist(y)
+  test.type <- NULL
+  x <- unlist(x)
+  if(!is.null(y)) y <- unlist(y)
   if(length(x)==6 & is.null(y))   test.type <- 1 # ordinary autosomal
   if(length(x)==6 & length(y)==6) test.type <- 2 # autosomal accounting for sex
   if(length(x)==6 & length(y)==3) test.type <- 3 # x-chromosomal accounting for sex 
-    if(is.null(test.type)) stop("incorrect number of genotype counts in x or y")
-    pseudodist <- NULL
+  if(is.null(test.type)) stop("incorrect number of genotype counts in x or y")
+  pseudodist <- NULL
     
   if(test.type==1) {
-    if(is.vector(x)) G <- toTriangular(x) else G <- x
+    if(is.vector(x)) G <- toTriangularfixed(x) else G <- x
     pofthesample <- dlevene(G) 
     n.a <- sort(colSums(G) + rowSums(G))
     na <- n.a[1]; nb <- n.a[2]; nc <- n.a[3]
@@ -17,7 +17,7 @@ HWTriExact <- function(x,y=NULL,eps=1e-10,nperm=17000,verbose=TRUE) {
     ntab <- nrow(O)
     pr <- numeric(nrow(O))
     for(i in 1:nrow(O)) {
-      pr[i] <- dlevene(toTriangular(O[i,]))  
+      pr[i] <- dlevene(toTriangularfixed(O[i,]))  
     }
 
     ii <- nearlyEqual(pr, rep(pofthesample, nrow(O)), eps)
@@ -34,7 +34,7 @@ HWTriExact <- function(x,y=NULL,eps=1e-10,nperm=17000,verbose=TRUE) {
     }
   } # end test.type==1
   if(test.type==2) { # autosomal accounting for gender
-    out <- HWPerm.mult(toTriangular(x),toTriangular(y),nperm=nperm)
+    out <- HWPerm.mult(toTriangularfixed(x),toTriangularfixed(y),nperm=nperm)
     pval <- out$pval
     pofthesample <- out$pofthesample
     pseudodist <- out$pseudodist
@@ -45,7 +45,7 @@ HWTriExact <- function(x,y=NULL,eps=1e-10,nperm=17000,verbose=TRUE) {
     na <- m[1] + 2*f[1] + f[2] + f[3]
     nb <- m[2] + 2*f[4] + f[2] + f[5]
     nc <- m[3] + 2*f[6] + f[3] + f[5]
-    f <- toTriangular(f)
+    f <- toTriangularfixed(f)
     pofthesample <- density.ma.gender(m,f)
     z <- sort(c(na,nb,nc))
     na <- z[1]
@@ -57,7 +57,7 @@ HWTriExact <- function(x,y=NULL,eps=1e-10,nperm=17000,verbose=TRUE) {
     pr <- numeric(nrow(X))
     for (i in 1:nrow(X)) {
       ma <- X[i,1:3]
-      fe <- toTriangular(X[i,4:9])
+      fe <- toTriangularfixed(X[i,4:9])
       pr[i] <- density.ma.gender(ma,fe)  
     }
 

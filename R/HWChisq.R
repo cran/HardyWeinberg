@@ -42,26 +42,24 @@ HWChisq <- function (X, cc = 0.5, verbose = TRUE, x.linked = FALSE, phifixed = N
       DF <- 1
       ccv <- rep(cc, 3)
       n <- sum(X)
-      Xhom <- X[homozyg(X)]
-      Xhet <- X[heterozyg(X)]
-      X <- c(min(Xhom), Xhet, max(Xhom))
-      names(X) <- c("AA", "AB", "BB")
+      # reorder: minor homozygote, heterozygote, major homozygote
+      X <- order.auto(X)
+      minorhom <- names(X)[1]
       p <- (2 * X[1] + X[2])/(2 * n)
-      names(p) <- NULL
+      names(p) <- substr(minorhom,1,1)
       q <- 1 - p
       if ((p == 0) | (q == 0)) {
         if (verbose) 
           cat("warning: monomorphic marker\n")
           mono <- TRUE
       }
-      obs <- X
       expected <- c(n * p^2, n * 2 * p * q, n * q^2)
       names(expected) <- names(X)
       if (any(expected < 5)) 
         warning("Expected counts below 5: chi-square approximation may be incorrect")
-      D <- 0.5 * (obs[2] - expected[2])
+      D <- 0.5 * (X[2] - expected[2])
       names(D) <- NULL
-      chi <- (abs(obs - expected) - ccv)^2
+      chi <- (abs(X - expected) - ccv)^2
       f <- HWf(X)
       if (!mono) {
         chi.contrib <- chi/expected
@@ -93,35 +91,33 @@ HWChisq <- function (X, cc = 0.5, verbose = TRUE, x.linked = FALSE, phifixed = N
       ccv <- rep(cc, 5)
       n <- sum(X)
       lab <- names(X)
-      if(!all(lab %in% c("A","AA","AB","B","BB")))
-        stop("Unknown genotypes occurred. Supply counts as a named vector c(A,AA,AB,B,BB)")
-      nfAA <- X[lab=="AA"]
-      nfAB <- X[lab=="AB"]
-      nfBB <- X[lab=="BB"]
-      nmA <- X[lab=="A"]
-      nmB <- X[lab=="B"]
-      #    mcat(nfAA,nfAB,nfBB)
-      #    mcat(nmA,nmB)
-      nm <- nmA+nmB
+      if(is.null(lab)) {
+        warning("Genotypes are not labelled, default sequence (A,B,AA,AB,BB) is assumed.")
+        names(X) <- c("A", "B", "AA", "AB", "BB")
+	lab <- names(X)
+      }
+
+      X <- order.x(X)
+      minor.al <- names(X)[1]
+
+      nm <- X[1] + X[2]
       nf <- n - nm
-      X <- c(nmA,nmB,nfAA,nfAB,nfBB)
-      names(X) <- c("A","B","AA", "AB", "BB")
-      p <- (2 * nfAA + nfAB + nmA)/(2 * nf + nm)
+
+      p <- (2 * X[3] + X[4] + X[1])/(2 * nf + nm)
       if(is.null(phifixed)) theta <- nm/n else theta <- phifixed
-      #    mcat(theta,p)
-      names(p) <- NULL
+      #mcat(theta,p)
+      names(p) <- minor.al
       q <- 1 - p
       if ((p == 0) | (q == 0)) {
         if (verbose) 
           cat("warning: monomorphic marker\n")
         mono <- TRUE
       }
-      obs <- X
       expected <- c(theta*n*p, theta*n*(1-p), (1-theta)*n * p^2, (1-theta)*n * 2 * p * q, (1-theta)*n * q^2)
       names(expected) <- names(X)
       if (any(expected < 5)) 
         warning("Expected counts below 5: chi-square approximation may be incorrect")
-      chi <- (abs(obs - expected) - ccv)^2
+      chi <- (abs(X - expected) - ccv)^2
       if(all(X[3:5]==0)) f <- NA else f <- HWf(X[3:5]) # computed from females only.
       D <- NA
       if(is.null(phifixed)) DF <- 2 else DF <- 3

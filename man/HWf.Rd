@@ -22,7 +22,7 @@ HWf(X)
 }
 \references{
 Crow, J. F. and Kimura, M. (1970) An introduction to population genetics theory.
-Harper \& Row, publishers, New York
+Harper & Row, publishers, New York
 }
 \author{ Jan Graffelman \email{jan.graffelman@upc.edu} }
 \seealso{ \code{\link{HWChisq}} }
@@ -32,11 +32,11 @@ Harper \& Row, publishers, New York
 #
 x <- c(MM=298,MN=489,NN=213)
 fhat <- HWf(x)
-cat("Inbreeding coefficient: ",fhat,"\n")
-
+fhat
 #
 # Multiple samples
 #
+set.seed(123)
 X <- HWData(nm=100,n=1000)
 fhat <- HWf(X)
 }

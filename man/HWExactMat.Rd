@@ -1,9 +1,8 @@
 \name{HWExactMat}
-\Rdversion{1.1}
 \alias{HWExactMat}
 \title{Matrix version of HWExact}
 \description{
-   HWExactMat executes a fast Exact test for HWE for each row in a matrix.
+   Function \code{HWExactMat} is deprecated; use \code{HWExactStats} instead. 
 }
 \usage{
 HWExactMat(X, ...)
@@ -16,12 +15,12 @@ HWExactMat(X, ...)
   \item{pvalvec}{Vector with the p-values of each test}
 }
 \author{ Jan Graffelman \email{jan.graffelman@upc.edu} }
-\seealso{ \code{\link{HWExact}} }
+\seealso{ \code{\link{HWExact}} \code{\link{HWExactStats}} }
 \examples{
-X <- HWData(100,10)
+X <- HWData(100,100)
 colnames(X) <- c("MM","MN","NN")
 Results <- HWExactMat(X)
-Output <- cbind(X,Results$pvalvec)
+Output <- cbind(X,Results)
 print(Output)
 }
 \keyword{htest}
