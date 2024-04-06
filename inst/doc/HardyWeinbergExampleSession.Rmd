@@ -1,0 +1,766 @@
+---
+title: "Example session with the HardyWeinberg package"
+author:
+- Jan Graffelman - Dpt. of Statistics, Universitat Politecnica de Catalunya 
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+bibliography: HardyWeinberg.bib
+vignette: >
+  %\VignetteIndexEntry{Example session with the HardyWeinberg package}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+knitr::opts_chunk$set(fig.align = "center")
+knitr::opts_chunk$set(warnings = FALSE)
+knitr::opts_chunk$set(message = FALSE)
+knitr::opts_chunk$set(fig.width = 6, fig.height = 6) 
+```
+
+## Introduction
+
+<div style="text-align: justify"> 
+
+This document gives a description of the functionality of the **HardyWeinberg** package (@Graffel26); it essentially reproduces and extends the "example session" described in the aformentioned article, which is accessible via the vignette of 
+the package. References for the statistical procedures that are used can be found in the vignette and in the help files of the functions of the package.
+
+We subsequently address:
+
+1. [Installation](#installation)
+
+2. [A single biallelic marker](#single)
+
+    2.1. [Genotype and allele counts](#counts)
+    
+    2.2. [Testing for Hardy-Weinberg equilibrium](#testing)
+    
+    2.2.1. [Autosomal markers](#autosomal)
+    
+    2.2.2. [X-chromosomal markers](#xchromosome)
+        
+    2.3. [Special topics](#special)
+    
+    2.3.1. [Missing genotype data](#missing)
+      
+    2.3.2. [Power computation](#power)
+    
+    2.3.3. [Population substructure](#substructure)
+    
+    2.3.4. [Scenario testing under stratification by gender](#scenario)
+   
+3. [Sets of biallelic markers](#setsbiallelic)
+
+    3.1. [Genotype count patterns](#patterns)
+    
+    3.2. [Testing HWE with many variants](#manybiallelics)
+    
+    3.3. [Visualising the HWE test results](#visualising)
+    
+    3.3.1. [Ternary diagrams](#ternary)
+    
+    3.3.2. [QQ plots](#qqplot)
+    
+    3.4. [Simulating biallelic marker data](#simulating)
+
+4. [Multiallelic markers](#multiallelic)
+
+    4.1. [Triallelic variants](#triallelic)
+    
+    4.2. [Microsatellites (STRs)](#microsatellites)
+
+
+## 1. Installation<a name="introduction"></a>
+
+The package is installed with the instructions
+
+```{r preinstall}
+#install.packages("HardyWeinberg")
+library(HardyWeinberg)
+```
+
+and its vignette can be consulted with `vignette("HardyWeinberg")`.
+
+## 2. A single biallelic marker<a name="single"></a>
+
+## 2.1. Genotype and allele counts<a name="counts"></a>
+
+We use a sample of 1000 individuals genotyped for the MN blood group locus as an example. We store the genotype counts (298, 489 and 213 for MM, MN and NN respectively) in a vector `x` with named elements:
+
+```{r}
+x <- c(MM = 298, MN = 489, NN = 213)
+```
+
+Most functions of the HardyWeinberg package will accept the counts in any order, as long as they are labelled with two letters. If counts are not labelled, the default order (AA,AB,BB) is assumed. The allele frequency of the M allele can be calculated using the given order of the genotypes with `af(x)`, though we usually calculate the minor allele frequency (MAF) with
+
+```{r}
+maf(x)
+```
+
+The function `maf` can also be used, with its `option` argument, to extract all sorted allele counts and their relative frequencies. 
+
+```{r}
+maf(x,2)
+maf(x,3)
+```
+
+Genotype frequencies can be conveniently visualised in a ternary diagram (in genetics also known as a de Finetti diagram) with function `HWTernaryPlot`:
+
+```{r}
+HWTernaryPlot(x,region=0,hwcurve=FALSE,grid=TRUE,markercol="blue")
+```
+
+## 2.2. Testing for Hardy-Weinberg equilibrium<a name="testing"></a>
+
+We conduct several classical tests for Hardy-Weinberg equilibrium, addressing both autosomal and X chromosomal tests.
+
+### 2.2.1. Autosomal markers<a name="autosomal"></a>
+
+We use the MN blood group locus to illustrate autosomal procedures.
+
+#### Chi-square test
+
+The classical chi-square test can be carried out using `HWChisq`:
+
+```{r}
+HW.test <- HWChisq(x, verbose = TRUE)
+```
+
+This shows that the chi-square statistic has value `r formatC(HW.test$chisq, digits=4, format = "f")`, and that the corresponding p-value for the test is `r formatC(HW.test$pval, digits=4, format = "f")`. Using a significance threshold of five percent, we do not reject HWE for the MN locus. When `verbose` is set to `FALSE` (default) the test is silent, and `HW.test` is a list object containing the results of the test (chi-square statistic, the p-value of the test, half the deviation from HWE (`D`) for the heterozygote ($D = \frac{1}{2} (f_{AB} - e_{AB}$)), the minor allele frequency (`p`), the inbreeding coefficient `f` and the expected counts under the equilibrium assumption). By default, `HWChisq` 
+applies a continuity correction. This is not recommended for low minor allele 
+frequencies. In order to perform a chi-square test without Yates' continuity correction, it is necessary to set the `cc` parameter to zero:
+
+
+```{r}
+HW.test <- HWChisq(x, cc = 0, verbose = TRUE)
+```
+
+The test with correction gives a smaller $\chi^2$-statistic and a larger p-value in comparison with the ordinary $\chi^2$ test.
+
+#### LRT test
+
+The likelihood ratio test (LRT) for HWE can be performed with `HWLratio`:
+
+```{r}
+HW.lrtest <- HWLratio(x, verbose = TRUE)
+```
+
+Note that the $G^2$-statistic and the p-value obtained are very close to the chi-square statistic and its p-value.
+
+#### Exact test
+
+An exact test for HWE can be performed by using routine `HWExact`: 
+
+```{r}
+HW.exacttest <- HWExact(x, verbose = TRUE, pvaluetype = "midp")
+```
+
+The exact test leads to the same conclusion, we do not reject HWE (mid p-value = `r formatC(HW.exacttest$pval, digits=4, format = "f")`). Both one-sided and two-sided exact tests are possible by using the argument `alternative`, which can be set to `"two.sided"`, `"greater"`, or `"less"`. Three different ways of computing the p-value of an exact test are implemented, and can be specified by the `pvaluetype` argument, which can be set to standard or `selome` (sum equally likely or more extreme) p-value, the `dost` (double one-sided tail probability) p-value, or the better powered `midp` p-value. By default `HWExact` calculates a standard exact p-value, though the mid p-value is recommended for having better statistical properties. The exact test is based on a recursive algorithm. For very large samples, R may give an error message "evaluation nested too deeply: infinite recursion". This can usually be resolved by increasing R's limit on the number of nested expressions with `options(expressions = 10000)` prior to calling `HWExact`. See `?HWExact` for more information on this issue.
+
+#### Permutation test
+
+The permutation test for HWE can be run by using `HWPerm`:
+
+```{r}
+set.seed(123)
+#HW.permutationtest <- HWPerm(x, verbose = TRUE)
+#Permutation test for Hardy-Weinberg equilibrium
+#Observed statistic: 0.2214896   17000 permutations. p-value: 0.6508235 
+```
+
+and the number of permutations can be specified via the `nperm` argument. By default the chi-square statistic will be used as the test statistic, but alternative statistics may be supplied by the `FUN` argument.
+
+If, for some reason, the equilibrium status of a particular marker is at stake, all frequentist tests can be run to see to what extent they do agree or disagree. Function `HWAlltests` performs all tests with one call and returns a table of all p-values.
+
+```{r alltests}
+#HW.results <- HWAlltests(x, verbose = TRUE, include.permutation.test = TRUE)
+#                                            Statistic   p-value
+#Chi-square test:                            0.2214896 0.6379073
+#Chi-square test with continuity correction: 0.1789563 0.6722717
+#Likelihood-ratio test:                      0.2214663 0.6379250
+#Exact test with selome p-value:                    NA 0.6556635
+#Exact test with dost p-value:                      NA 0.6723356
+#Exact test with mid p-value:                       NA 0.6330965
+#Permutation test:                           0.2214896 0.6508235
+```
+
+The MN data concern a large sample ($n =$ `r formatC(sum(x), digits=0, format = "f")`) with an intermediate allele frequency (p = `r formatC(HW.test$p, digits=4, format = "f")`), for which all test results closely agree. For smaller samples and more extreme allele frequencies, larger differences between the tests are typically observed.
+
+#### Bayesian procedure
+
+A Bayesian procedure for HWE consists of the calculation of the posterior distribution for Lindley's disequilibrium parameter $\alpha$. We calculate and plot this density, representing the equilibrium situation $\alpha = 0$ by vertical red
+line.
+
+```{r}
+post.dens <- HWLindley(seq(-1,1,by=0.01),x)
+plot(seq(-1,1,by=0.01),post.dens,type="l",xlab=expression(alpha),
+     ylab=expression(pi(alpha)))
+segments(0,0,0,HWLindley(0,x),lty="dotted",col="red")
+```
+
+Alternatively, we calculate a Bayesian 95% credible interval with
+
+```{r}
+HWLindley.cri(x=x)
+```
+
+The results of the Bayesian analysis neither produce evidence against the equilibrium hypothesis.
+
+
+### 2.2.2. X-chromosomal markers<a name="xchromosome"></a>
+
+We perform HWE tests for X-chromosomal markers, using a vector of five elements containing both male and female genotype counts. Hemizygous male genotype counts should be labelled with a single letter, diploid female counts with two. We consider the X-chromosomal single nucleotide polymorphism (SNP):
+
+```{r}
+SNP1 <- c(A=399,B=205,AA=230,AB=314,BB=107) 
+```
+
+#### Chi-square test
+
+```{r}
+HWChisq(SNP1,cc=0,x.linked=TRUE,verbose=TRUE)
+```
+
+When males are excluded from the test we get:
+
+```{r}
+HWChisq(SNP1[3:5],cc=0)
+```
+
+Note that the test including males is significant, whereas the test excluding males is not. 
+
+#### Likelihood ratio test
+
+The X-chromosomal likelihood ratio test gives:
+
+```{r}
+HWLratio(SNP1,x.linked=TRUE)
+```
+
+and is again very similar to the chi-square test.
+
+
+#### Exact test
+
+The exact test for HWE for an X-chromosomal marker can be performed by adding the `x.linked=TRUE` option:
+
+```{r}
+HWExact(SNP1,x.linked=TRUE)
+```
+
+which gives a p-value similar to the $\chi^2$ test. When the mid p-value is used we obtain
+
+```{r}
+HWExact(SNP1,x.linked=TRUE,pvaluetype="midp")
+```
+
+These exact tests show that the joint null of Hardy-Weinberg proportions *and* equality of allele frequencies has to be rejected. An exact test using the females only gives again a non-significant result:
+
+
+```{r}
+HWExact(SNP1[3:5],pvaluetype="midp")
+```
+
+#### Permutation test
+
+The permutation test for X-linked markers gives
+
+```{r permutationxlinked}
+#HWPerm(SNP1,x.linked=TRUE)
+#Permutation test for Hardy-Weinberg equilibrium of an X-linked marker
+#Observed statistic: 7.624175   17000 permutations. p-value: 0.02211765 
+```
+
+
+A summary of all frequentist X-chromosomal tests is obtained by
+
+```{r alltestsxlinked}
+#HWAlltests(SNP1,x.linked=TRUE,include.permutation.test=TRUE)
+#                                            Statistic    p-value
+#Chi-square test:                             7.624175 0.02210200
+#Chi-square test with continuity correction:  7.242011 0.02675576
+#Likelihood-ratio test:                       7.693436 0.02134969
+#Exact test with selome p-value:                    NA 0.02085798
+#Exact test with dost p-value:                      NA         NA
+#Exact test with mid p-value:                       NA 0.02082957
+#Permutation test:                            7.624175 0.02211765
+```
+
+Results of all tests are similar. Finally, we test equality of allele frequencies in males and females with an exact test:
+
+```{r}
+AFtest(SNP1)
+```
+
+For this SNP, there is a significant difference in allele frequency 
+between males and females. 
+
+#### Bayesian procedure
+
+A Bayesian test for HWE for variants on the X-chromosome is implemented in the function `HWPosterior`. A Bayesian analysis of the same SNP is obtained by: 
+
+```{r bayesianx}
+HWPosterior(males=SNP1[1:2],females=SNP1[3:5],x.linked=TRUE)
+```
+
+and shows that a model with Hardy-Weinberg proportions for females and different allele frequencies for both sexes has the largest posterior probability, and the largest Bayes factor, which is in accordance with the previous frequentist procedures.
+
+## 2.3. Special topics<a name="special"></a>
+
+### 2.3.1. Missing genotype data<a name="missing"></a>
+
+We indicate how to test for HWE when there is missing genotype data. We use the data set `Markers` for that purpose.
+
+```{r}
+data(Markers)
+Markers[1:12,]
+```
+
+Note that this data is at the level of each individual. Dataframe `Markers` contains one SNP with missings (`SNP1`), the two allele intensities of that SNP (`iG` and `iT`) and two covariate markers (`SNP2` and `SNP3`). Here, the covariates have no missing values. We first test `SNP1` for HWE using a chi-square test and ignoring the missing genotypes:
+
+
+```{r}
+Xt <- table(Markers[,1])
+Xv <- as.vector(Xt)
+names(Xv) <- names(Xt)
+Xv
+HW.test <- HWChisq(Xv,cc=0,verbose=TRUE)
+```
+
+This gives a significant result (p-value = `r formatC(HW.test$pval, digits=4, format = "f")`). If the data can be assumed to be missing completely at random (MCAR), then we may impute missings by randomly sampling the observed data. This can be done by supplying the `method = "sample"` argument, and we create 50 imputed data sets (`m = 50`).
+
+```{r}
+set.seed(123)
+Results <- HWMissing(Markers[,1], m = 50, method = "sample", verbose=TRUE)
+```
+
+As could be expected, the conclusion is the same: there is significant deviation from HWE (p-value = `r formatC(Results$Res[4], digits=4, format = "f")`). It will make more sense to take advantage of variables that are correlated with `SNP1`, and use multiple imputation of the missings of `SNP1` using a multinomial logit model. The multinomial logit model will be used when we set `method = "polyreg"` or leave the `method` argument out, since `"polyreg"` is the default for imputation of factor variables by means of a multinomial logit model used by R package **mice**. We test `SNP1` (with missings) for HWE, using a multinomial logit model to impute `SNP1` using information from the allele intensities `iG` 
+and `iT` and the neighbouring markers `SNP2` and `SNP3`.
+
+```{r}
+set.seed(123)
+Results <- HWMissing(Markers[, 1:5], m = 50, verbose = TRUE)
+```
+
+Note the sharp drop of the inbreeding coefficient, and the missing data statistics $\lambda$ and $r$. The test is now not significant (p-value = 
+`r formatC(Results$Res[4], digits=4, format = "f")`). Exact inference for HWE with missings is possible by setting the argument `statistic="exact"`. This gives the result
+
+```{r}
+set.seed(123)
+Results <- HWMissing(Markers[, 1:5], m = 50, statistic = "exact", verbose = TRUE)
+```
+and a similar p-value is obtained.
+
+### 2.3.2. Power computation<a name="power"></a>
+
+Tests for HWE have low power for small samples with a low minor allele frequency, or samples that deviate only moderately from HWE. It is therefore important to be able to compute power. The function `HWPower` can be used to compute the power of a test for HWE. If its disequilibrium argument `theta` (the effect size), is set to 4 (the default value), then the function computes the Type I error rate for the test; the disequilibrium parameter $\theta$ is defined as $f_{AB}^2/(f_{AA} \cdot f_{BB})$.  
+
+Function `mac` is used to compute the minor allele count. We compute the power for the data on the MN locus:
+
+```{r}
+x <- c(MM = 298, MN = 489, NN = 213)
+n <- sum(x)
+nM <- mac(x) 
+pw4 <- HWPower(n, nM, alpha = 0.05, test = "exact", theta = 4, 
+               pvaluetype = "selome")
+print(pw4)
+pw8 <- HWPower(n, nM, alpha = 0.05, test = "exact", theta = 8, 
+               pvaluetype = "selome")
+print(pw8)
+```
+
+These computations show that for a large sample like this one, the Type I error rate (`r formatC(pw4, digits=4, format = "f")`) is very close to the nominal rate, 0.05, and that the standard exact test has good power (`r formatC(pw8, digits=4, format = "f")`) for detecting deviations as large $\theta=8$, which is a doubling of the number of heterozygotes with respect to HWE. Type I error rate and power for the chi-square test can be calculated by setting `test="chisq"`. With the allele frequency of this sample (`r formatC(af(x), digits=4, format = "f")`), $\theta=8$ amounts to an inbreeding coefficient of `r formatC(ThetatoF(af(x),8), digits=4, format = "f")`
+
+### 2.3.3. Population substructure<a name="substructure"></a>
+
+When a sample consists of individuals stemming from different source populations characterised by different allele frequencies, tests for HWE often end up significant, indicating in fact that the assumption of a homogeneous allele frequency is not satisfied. It is recommended to test for HWE in a stratified manner for each source population, if the provenance of the individuals is known. Asymptotic procedures to test HWE across multiple samples genotyped for the *same* biallelic marker have been developed and are available in function `HWStrata`.
+
+#### Testing across strata
+
+We use the Glyoxalasa polymorphism to illustrate a test across strata.
+
+```{r glyoxalasa}
+data("Glyoxalase")
+Glyoxalase <- as.matrix(Glyoxalase)
+HWStrata(Glyoxalase)
+```
+
+This test does not reject HWE for the entire sample. When stratified testing is
+applied using `HWExactStats`, a significant deviation is found for one population.
+
+```{r}
+pvalues <- HWExactStats(Glyoxalase)
+pvalues
+```
+
+#### Contributions in mixed samples
+
+Whenever a sample is known to consist of individuals of two (or more) subpopulations, the relative contributions of the subpopulations to the mixed sample can be estimated by the EM algorithm, if the genotype or allele frequencies of the source populations are known. This is implemented for a biallelic SNP with individuals from two subpopulations in function `HWEM`. 
+
+We estimate the contributions of two known populations to a sample of genotype frequencies that is a mix of these two populations. The genotype frequencies of the two source populations are stored in vectors `g1` and `g2`, and the mixed sample in `x`.
+
+```{r}
+g1 <- c(AA=0.034, AB=0.330, BB=0.636)
+g2 <- c(AA=0.349, AB=0.493, BB=0.158)
+x  <- c(AA=0.270, AB=0.453, BB=0.277)
+```
+Their contributions are estimated using `HWEM`
+
+```{r}
+G <- cbind(g1,g2)
+contributions <- HWEM(x,G=G)
+contributions
+```
+
+About `r formatC(100*contributions[1], digits=0, format = "f")` percent is estimated to stem for the first population, and `r formatC(100*contributions[2], digits=0, format = "f")` percent from the second. If only the allele frequencies of the source populations are known, contributions can be estimated by supplying the allele frequencies and assuming Hardy-Weinberg proportions:
+
+
+```{r}
+p <- c(af(g1),af(g2))
+contributions <- HWEM(x,p=p)
+contributions
+```
+
+### 2.3.4 Scenario testing under stratification by gender<a name="scenario"></a>
+
+Autosomal tests for HWE assume equality of allele frequencies in the sexes. When sex is taken into account, several scenarios are possible, according to whether males of females genotypes satisfy the assumptions of equal allele frequencies and HWE or not. The function `HWPosterior` can be used to perform Bayesian model selection using the posterior probability of each scenario. We consider an example using a SNP of the JPT sample taken from the 1000G project, using their male and female genotype counts.
+
+
+```{r}
+data(JPTsnps)
+JPTsnps[1,]
+Results <- HWPosterior(males=JPTsnps[1,1:3],
+                       females=JPTsnps[1,4:6],
+                       x.linked=FALSE,precision=0.05)
+```
+
+The results show that for this variant, equality of allele frequencies in the sexes and HWP for both sexes (model $M_{11}$) is the model with the largest probability. For more accurate results, higher precision of posterior probabilities can be obtained by specifying `precision=0.005`, at the expense of increasing the computation time.
+
+Alternatively, the same variant can be analysed by calculating Akaike's information criterion (AIC) for each scenario. This is achieved by
+
+```{r}
+data(JPTsnps)
+AICs <- HWAIC(JPTsnps[1,1:3],JPTsnps[1,4:6])
+AICs
+```
+
+In this case, the AIC criterion identifies the same $M_{11}$ model as the best fitting model.
+
+## 3. Sets of biallelic markers<a name="setsbiallelic"></a>
+
+## 3.1. Genotype count patterns<a name="patterns"></a>
+
+We use the data set `CEUchr22` to illustrate biallelic procedures with multiple SNPs. The dataset `CEUchr22` contains 10,000 
+SNPs sampled at random from chromosome 22 of the CEU population from the 1000 genomes project. 
+
+```{r datasets}
+data("CEUchr22")
+CEUchr22[1:5,1:5]
+```
+
+This data is in (0,1,2) format and we first construct a matrix with the three genotype counts for each SNP.
+
+
+```{r}
+Z <- MakeCounts(CEUchr22)
+Z <- Z[,1:3]
+head(Z)
+```
+
+We use a ternary diagram with a colour ramp for the frequency of the genotype count patterns.
+
+```{r}
+HWTernaryPlot(Z[,1:3],patternramp=TRUE,region=0)
+```
+
+This shows that SNPs that are monomorphic for the reference allele (A) make up about 82% of the database. We redo this plot filtering out SNPs with a minor allele frequency (MAF) below 5%:
+
+
+```{r}
+pminor <- maf(Z)
+HWTernaryPlot(Z[pminor>0.05,],patternramp=TRUE,region=0)
+```
+
+This reveals that SNPs with a zero count for the BB homozygote and a varying low count for AB are relatively more common. We study the distribution of the MAF with a histogram, excluding the monomorphics:
+
+```{r}
+hist(pminor[pminor > 0],freq=FALSE,xlab="MAF",main="CEU MAF CHR 22")
+```
+
+This shows the typical pattern of more frequent low MAF polymorphisms. We can also
+use function `maf` to extract the minor allele count for each SNP, and represent these in a barplot:
+
+```{r}
+cminor <- maf(Z[pminor > 0,],option=3)
+barplot(table(cminor[,1]),cex.names = 0.75)
+```
+This shows, as expected, that SNPs with just one, two or three copies of the minor allele are most common.
+
+## 3.2. Testing HWE with many variants<a name="manybiallelics"></a>
+
+The aforementioned functions `HWChisq`, `HWLratio`, `HWExact`, `HWPerm` all test a single biallelic marker for HWE. If the genotype counts AA, AB, BB are collected in a three-column matrix, with each row representing a marker then large sets of markers can be tested most efficiently with the functions `HWChisqStats` for the chi-square test, and with `HWExactStats` for the exact tests. These routines return the p-values or test statistics for each marker. These functions have fewer options but are computationally better optimized. Both functions allow for X-linked markers via the `x.linked` argument. Exact tests that rely on exhaustive enumeration are slow in R, and `HWExactStats` uses by default faster C++ code generously shared by Christopher Chang. The same C++ code is used in the current version (2.0) of the
+PLINK software (https://www.cog-genomics.org/plink/2.0/). We apply these functions to the previously obtained genotype counts of the `CEUChr22` data, using only polymorphic SNPs:
+
+
+```{r manytests}
+Zpoly <- Z[!is.mono(Z),]
+npoly <- nrow(Zpoly)
+chisq.pvalues <- HWChisqStats(Zpoly,pvalues=TRUE)
+exact.pvalues <- HWExactStats(Zpoly,midp=TRUE)
+bonferronithreshold <- 0.05/npoly
+sum(chisq.pvalues < bonferronithreshold)
+sum(exact.pvalues < bonferronithreshold)
+```
+
+If a (conservative) Bonferroni correction is applied, some highly significant SNPs are detected. The exact test detects fewer, as it is more conservative. A set of low MAF SNPs is significant in a chi-square test, but not in the exact test.  
+
+## 3.3. Visualising HWE test results<a name="visualising"></a> 
+
+### 3.3.1. Ternary diagrams<a name="ternary"></a> 
+
+Genetic association studies, genome-wide association studies in particular, use many genetic markers. In this context graphics such as ternary plots, log-ratio plots and QQ plots become particularly useful, because they can reveal whether HWE is a reasonable assumption for the whole data set. We begin to explore the `CEUChr22` SNPs by making a ternary plot.
+
+```{r ternaryCEU}
+Zu <- UniqueGenotypeCounts(Z)
+Zu <- Zu[,1:3]
+HWTernaryPlot(Zu,region=1,pch=1)
+```
+The curves around the Hardy-Weinberg parabola delimit the acceptance region for a
+chi-square test for HWE, with a default significance threshold of five percent. A number of SNPs is seen to have significant deviation from HWP, either for having an excess or a lack of heterozygotes. One SNP is seen to consist almost entirely of heterozygotes. The acceptance region of the exact test can be shown by setting `region=7`. 
+
+```{r}
+HWTernaryPlot(Zu[,1:3],region=7,pch=1)
+```
+The exact test acceptance region is wiggly due to the discrete nature of the exact test. This region shows fewer significant markers, notably towards the homozygote vertices, and illustrates that the exact test is more conservative than the chi-square test. 
+
+For large databases of SNPs, drawing the ternary plot can be time consuming. Usually the matrix with genotype counts contains several rows with the same counts. The ternary plot can be constructed faster by plotting only the unique rows of the count matrix. Function `UniqueGenotypeCounts`, illustrated above, extracts the unique rows of the count matrix and also counts their frequency. 
+    
+### 3.3.2. QQ plots<a name="qqplot"></a>
+
+When many statistical tests are performed, the distribution of the obtained p-values is of interest. For tests based on continuous test statistics, under the null hypothesis the distribution of the p-values is expected to be uniform. We exclude monomorphic variants using the logical function `is.mono`. We first use `qqunif` to compare the chi-square p-values of the HWE test against a uniform distribution (panel A). We next simulate markers under HWE with `HWData`, matching the simulated markers in sample size and allele frequency distribution to the observed data. This is achieved by setting argument `p` of `HWData` equal to the allele frequencies of the observed data, where the latter are computed with function `af`. The corresponding QQ-plot of the simulated p-values is shown in 
+panel B. For the empirical data, the observed p-value distribution strongly 
+deviates from the uniform distribution, as well as from the expected pattern under HWE. 
+
+Given that genotype data is discrete, often with low counts, the null distribution of the p-values is in fact not uniform. We therefore build a new QQ plot of exact p-values against p-values that are obtained from sampling the true null a few times (five times in the code below) using `HWQqplot`, doing this both for the observed data (panel C) and for data sampled from the Levene-Haldane equilibrium distribution, conditional on the observed minor allele counts (panel D). The pattern for the empirical data differs strongly form the expected p-value distribution as shown in panel D. There are many more significant markers than expected under the HWE assumption.
+
+
+```{r}
+data("CEUchr22")
+
+Z <- MakeCounts(CEUchr22)
+Z <- Z[,1:3]
+Z <- Z[!is.mono(Z),]
+
+alfreq  <- af(Z)
+alcount <- maf(Z,option=3)[,1]
+
+chisq.pvals <- HWChisqStats(Z,pvalues=TRUE)
+
+set.seed(123)
+Z.sim.chi <- HWData(nm=nrow(Z),n=99,p=alfreq)
+Z.sim.chi <- Z.sim.chi[!is.mono(Z.sim.chi),]
+chisq.pvals.sim <- HWChisqStats(Z.sim.chi,pvalues=TRUE)
+
+set.seed(123)
+Z.sim.exa <- HWData(nm=nrow(Z),n=99,nA=alcount,conditional = TRUE)
+Z.sim.exa <- Z.sim.exa[!is.mono(Z.sim.exa),]
+
+opar <- par(mfrow=c(2,2),mar=c(3,3,2,0)+0.5,mgp=c(2,1,0))
+par(mfg=c(1,1))
+ qqunif(chisq.pvals,logplot = TRUE,
+       plotline = 1,main="A: observed QQ uniform")
+par(mfg=c(1,2))
+ qqunif(chisq.pvals.sim,logplot = TRUE,xylim=15,
+        main="B: simulated QQ uniform")
+par(mfg=c(2,1))
+ set.seed(123)
+ HWQqplot(Z,nsim=5,logplot=TRUE,main="C: observed QQ HWE null")
+par(mfg=c(2,2))
+ set.seed(123)
+ HWQqplot(Z.sim.exa,nsim=5,logplot=TRUE,main="D: simulated QQ HWE null")
+par(opar)
+```
+
+## 3.4. Simulating biallelic marker data<a name="simulating"></a>
+
+The function `HWData` allows for the simulation of genetic markers under equilibrium and disequilibrium conditions. This enables us to create simulated data sets that match the observed data set in sample size and allele frequency distribution, as shown in the previous section. The comparison of graphics and statistics for observed and simulated datasets is helpful when assessing the extent of HWE for a large set of markers.  We simulate $m=100$ markers for $n=100$ individuals by taking random samples from a multinomial distribution with $\theta_{AA} = p^2, \hspace{1mm} \theta_{AB} = 2pq, \hspace{1mm}$ and $\theta_{BB} = q^2$. This is done by routine `HWData`, which can generate data sets that stem from a population that is either in or out of Hardy-Weinberg equilibrium. Routine `HWData` can generate data that are in exact equilibrium (`exactequilibrium = TRUE`) or that are generated from a multinomial distribution (default).  The markers generated by `HWData` are independent (there is no linkage disequilibrium). `HWData` returns a matrix of genotype counts, which are converted to genotypic compositions (i.e., the relative genotype frequencies) if argument `counts` is set to `FALSE`. Routine `HWData` can simulate genotype counts under several conditions. A fixed allele frequency can be specified by setting `p` to a scalar or vector with the desired allele frequencies and specifying `conditional=TRUE`. Sampling is then according to Levene-Haldane's exact distribution. If `conditional` is `FALSE`, the given vector `p` of allele frequencies will be used in sampling from the multinomial distribution. If `p` is not specified, `p` will be drawn from a uniform distribution, and genotypes are drawn from a multinomial distribution with probabilities $p^2, 2pq$ and $q^2$ for AA, AB and BB respectively. It is also possible to generate data under disequilibrium, by specifying a vector of inbreeding coefficients `f`. The use of `HWData` is illustrated below by simulating several data sets. Each simulated dataset is plotted in a ternary diagram below in order to show the effect of the different simulation options. We subsequently simulate 100 markers under HWE with allele frequency 0.5 (`X1`), 100 markers under HWE with a random uniform allele frequency (`X2`), 100 markers under inbreeding ($f = 0.5$) with allele frequency 0.5 (`X3`), 100 markers under inbreeding ($f=0.5$) with a random uniform allele frequency (`X4`), 100 markers with fixed allele frequencies of 0.2, 0.4, 0.6 and 0.8 (25 each, `X5`) and 100 markers in exact equilibrium with a random uniform allele frequency (`X6`).
+
+```{r simulate}
+set.seed(123)
+n <- 100
+m <- 100
+X1 <- HWData(m, n, p = rep(0.5, m))
+X2 <- HWData(m, n)
+X3 <- HWData(m, n, p = rep(0.5, m), f = rep(0.5, m))
+X4 <- HWData(m, n, f = rep(0.5, m))
+X5 <- HWData(m, n, p = rep(c(0.2, 0.4, 0.6, 0.8), 25), conditional = TRUE)
+X6 <- HWData(m, n, exactequilibrium = TRUE)
+opar <- par(mfrow = c(3, 2),mar = c(1, 0, 3, 0) + 0.1)
+par(mfg = c(1, 1))
+HWTernaryPlot(X1, main = "(a)")
+par(mfg = c(1, 2))
+HWTernaryPlot(X2, main = "(b)")
+par(mfg = c(2, 1))
+HWTernaryPlot(X3, main = "(c)")
+par(mfg = c(2, 2))
+HWTernaryPlot(X4, main = "(d)")
+par(mfg = c(3, 1))
+HWTernaryPlot(X5, main = "(e)")
+par(mfg = c(3, 2))
+HWTernaryPlot(X6, main = "(f)")
+par(opar)
+```
+
+In practice, SNPs mostly have a skewed distribution of the minor allele frequency (MAF), such that low MAF variants are much more common. SNPs with such an allele frequency distribution can be simulated with `HWData` by setting the parameters of the beta distribution `shape1` and `shape2` to 1 and 10 respectively:
+
+```{r}
+X <- HWData(nm=100,shape1=1,shape2=10)
+```
+
+## 4. Multiallelic markers<a name="multiallelic"></a>
+
+The HardyWeinberg package has incorporated functions for dealing with multiallelic markers, geared towards the analysis of microsatellite or Short Tandem Repeat (STR) datasets. Special functions for triallelic and multiallelic variants are illustrated below.  
+
+## 4.1. Triallelic variants<a name="triallelic"></a>
+    
+#### The ABO locus
+
+The classical three-allelic ABO locus can be tested for equilibrium with an iterative algorithm implemented in `HWABO`, as shown for the sample (A=182,B=60,AB=17,OO=176) below.
+
+```{r}
+x <- c(fA=182,fB=60,nAB=17,nOO=176)
+al.fre <- HWABO(x)
+```
+
+Allele frequencies, initially set to being equally frequent, converge in six iterations to their final values. A Chi-square test with one degree of freedom indicates equilibrium can not be rejected.
+
+### Triallelic variants
+
+A general triallelic locus can be tested for equilibrium with an exact test by `HWTriExact` as shown below, supplying the genotype counts as a six element named vector.
+
+```{r}
+x <- c(AA=20,AB=31,AC=26,BB=15,BC=12,CC=0)
+#results <- HWTriExact(x)
+#Tri-allelic Exact test for HWE (autosomal).
+#Allele counts: A = 38 B = 73 C = 97 
+#sum probabilities all outcomes 1 
+#probability of the sample 0.0001122091 
+#p-value =  0.03370688 
+```
+
+The output gives the probability of the observed sample, and the exact test p-value. For this example, the null hypothesis of equilibrium proportions is rejected at a significance level of five percent. `HWTriExact` uses a complete enumeration algorithm programmed in R, which can be slow, depending on the genotype counts of the particular sample. A faster analysis for triallelics is to use a network algorithm. For the data at hand, the exact test based on the network algorithm is carried out by with `HWNetwork`
+
+```{r}
+x <- c(AA=20,AB=31,AC=26,BB=15,BC=12,CC=0)
+x <- toTriangular(x)
+x
+m <- c(A=0,B=0,C=0)
+results <- HWNetwork(ma=m,fe=x)
+```
+
+We note that `HWNetwork` allows for the X chromosomal variants, and requires the specification of male and female genotype counts (arguments `ma` and `fe`). To do an autosomal test as shown above, hemizygous male counts should be set to zero, and the female genotype counts should be set to contain the summed autosomal counts of males and females. Second, note that the `fe` argument is required to be a lower triangular matrix, and for this reason the counts are first reorganised in this format with `toTriangular`. The p-value is exactly the same as before. 
+For markers with more alleles, a permutation test will generally be faster. We run the permutation test for the triallelic autosomal locus analysed above 
+
+
+```{r}
+set.seed(123)
+x <- c(AA=20,AB=31,AC=26,BB=15,BC=12,CC=0)
+x <- toTriangular(x)
+#results <- HWPerm.mult(x)
+#Permutation test for Hardy-Weinberg equilibrium (autosomal).
+#3 alleles detected.
+#Observed statistic: 0.0001122091   17000 permutations. p-value: 0.03405882 
+```
+
+Note that this gives a similar, but not identical p-value, in comparison with `HWTriExact` above. As this works with two-character named vectors this currently allows the permutation test to be used for variants with well over 52 alleles.
+
+An X chromosomal variant is tested for HWE by supplying separate vectors for males and females as shown below:
+
+```{r}
+males   <- c(A=1,B=21,C=34) 
+females <- c(AA=0,AB=1,AC=0,BB=8,BC=24,CC=15)
+results <- HWTriExact(females,males)
+```
+and this can also be done with the network algorithm by
+
+```{r}
+males   <- c(A=1,B=21,C=34) 
+females <- toTriangular(c(AA=0,AB=1,AC=0,BB=8,BC=24,CC=15))
+results <- HWNetwork(ma=males,fe=females)
+```
+
+
+## 4.2. Microsatellites (STRs)<a name="microsatellites"></a>
+
+For genetic markers with multiple alleles such as microsatellites (STRs), the different alleles are often separated in different columns. The example below uses autosomal microsatellite data from the US National Institute of Standards and Technology (NIST), stored in dataframe `NistSTRs`, containing 29 STRs for 361 individuals. The two alleles of a marker are coded in successive columns. The corresponding alleles are often coded as integers, and we use function `AllelesToTriangular` to obtain a lower triangular matrix with the autosomal genotype counts. This matrix is used as input for `HWPerm.mult` that runs the permutation test. 
+
+```{r}
+data("NistSTRs")
+NistSTRs[1:5,1:5]
+n <- nrow(NistSTRs)
+p <- ncol(NistSTRs)/2
+n
+p
+
+A1 <- NistSTRs[,1]
+A2 <- NistSTRs[,2]
+GenotypeCounts <- AllelesToTriangular(A1,A2)
+print(GenotypeCounts)
+
+set.seed(123)
+#out <- HWPerm.mult(GenotypeCounts)
+#Permutation test for Hardy-Weinberg equilibrium (autosomal).
+#7 alleles detected.
+#Observed statistic: 2.290724e-11   17000 permutations. p-value: 0.8644706 
+```
+
+For this seven-allelic STR, there is no evidence against HWE. Function `HWStr` is a wrapper function allowing to test a set of STRs coded in the two-column format by a permutation or chisquare test. All STRs in the dataframe `NistSTRs` can be tested with
+
+```{r}
+#Results <- HWStr(NistSTRs,test="permutation")
+#29 STRs detected.
+#> Results
+#          STR   N Nt MinorAF MajorAF     Ho     He     Hp   pval
+#1    CSF1PO-1 361  7  0.0055  0.3601 0.7341 0.7194 1.4016 0.8614
+#2  D10S1248-1 361  9  0.0014  0.3075 0.7645 0.7586 1.5552 0.6488
+#3   D12S391-1 361 16  0.0014  0.1717 0.8975 0.8909 2.3686 0.8955
+#4   D13S317-1 361  8  0.0014  0.3255 0.7618 0.7837 1.7102 0.1049
+#5   D16S539-1 361  7  0.0180  0.3144 0.7645 0.7600 1.5933 0.1641
+#6    D18S51-1 361 15  0.0014  0.1704 0.8560 0.8758 2.2139 0.1926
+#7   D19S433-1 361 15  0.0014  0.3615 0.7673 0.7694 1.7624 0.9667
+#8   D1S1656-1 361 15  0.0028  0.1496 0.9252 0.8992 2.4073 0.8699
+#9    D21S11-1 361 16  0.0014  0.2825 0.8227 0.8288 1.9946 0.6156
+#10 D22S1045-1 361  8  0.0055  0.3823 0.7535 0.7220 1.4823 0.9785
+#11  D2S1338-1 361 12  0.0014  0.1856 0.8698 0.8814 2.2464 0.5066
+#12   D2S441-1 361 11  0.0014  0.3435 0.7867 0.7693 1.6734 0.7125
+#13  D3S1358-1 361  9  0.0014  0.2729 0.7562 0.7900 1.6437 0.3789
+#14   D5S818-1 361  9  0.0014  0.3878 0.7064 0.6977 1.3939 0.7615
+#15  D6S1043-1 361 14  0.0014  0.2964 0.7978 0.8232 2.0059 0.0220
+#16   D7S820-1 361  9  0.0014  0.2562 0.8310 0.8161 1.7925 0.5045
+#17  D8S1179-1 361 10  0.0014  0.3296 0.7839 0.8072 1.8386 0.8606
+#18   F13A01-1 361 12  0.0014  0.3490 0.7590 0.7353 1.5471 0.8793
+#19     F13B-1 361  6  0.0055  0.3892 0.7008 0.7175 1.3790 0.8276
+#20   FESFPS-1 361  7  0.0014  0.4114 0.6731 0.6930 1.3085 0.8506
+#21      FGA-1 361 14  0.0014  0.2050 0.8670 0.8594 2.1163 0.0528
+#22      LPL-1 361  8  0.0014  0.4224 0.7175 0.6947 1.3386 0.9721
+#23  Penta_C-1 361 10  0.0014  0.3947 0.7701 0.7523 1.6035 0.0248
+#24  Penta_D-1 361 13  0.0014  0.2327 0.8587 0.8247 1.8925 0.1464
+#25  Penta_E-1 361 19  0.0014  0.1994 0.8920 0.8910 2.4391 0.4811
+#26     SE33-1 361 39  0.0014  0.0942 0.9501 0.9483 3.1472 0.2506
+#27     TH01-1 361  8  0.0014  0.3449 0.7424 0.7646 1.5616 0.2379
+#28     TPOX-1 361  8  0.0014  0.5249 0.6537 0.6404 1.2572 0.5545
+#29      vWA-1 361 10  0.0014  0.2839 0.8061 0.8076 1.7577 0.4501
+```
+
+The p-values of the permutation test in the last column show that at a usual five percent significance level, HWP would be rejected for Penta\_C and D6S1043 and that FGA\-1 is borderline.
+</div>
+
+
+## References

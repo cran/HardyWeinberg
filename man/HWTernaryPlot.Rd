@@ -17,7 +17,7 @@ markercol = "black", markerbgcol = "black", cex = 0.75, axislab = "",
 verbose = FALSE, markerlab = NULL, markerpos = NULL, mcex = 1, connect =
 FALSE, curvecols = rep("black",5), signifcolour = TRUE, patternsigsymbol = 19,
 curtyp = "solid", ssf = "max", pvaluetype = "selome", grid = FALSE,
-gridlabels = TRUE, patternramp = FALSE, ...)
+gridlabels = TRUE, patternramp = FALSE, axisticklabels = FALSE, ...)
 }
 \arguments{
   \item{X}{ a matrix of \code{n} genotypic compositions or counts. If it
@@ -43,7 +43,8 @@ gridlabels = TRUE, patternramp = FALSE, ...)
    0 = no axis is drawn \cr
    1 = draw the AA axis \cr
    2 = draw the AB axis \cr
-   3 = draw the BB axis \cr}
+   3 = draw the BB axis \cr
+   4 = draw tick on the A-B axis}
   \item{region}{ the type of acceptance region to be delimited in the triangle \cr 
    0 = no acceptance region is drawn \cr
    1 = draw the acceptance region corresponding to a Chi-square test \cr 
@@ -93,6 +94,7 @@ gridlabels = TRUE, patternramp = FALSE, ...)
   \item{gridlabels}{ if \code{grid=TRUE} plot labels at the grid}
   \item{patternramp}{ paint a colour ramp for patterns of genotype frequencies. This will ignore \code{signifcolour}, and
   use colour to represent marker frequencies. The ramp is a green-red gradient for the relative frequency of the pattern. }
+  \item{axisticklabels}{ place numeric labels for allele frequencies on the A-B axis. }
   \item{\dots}{ other arguments passed on to the plot function (e.g. \code{main} for a main title). }
 }
 \value{

@@ -1,4 +1,4 @@
-938ce33ff5b0a12fba4a4f6616331895 *DESCRIPTION
+d2a3a02982fc538cdca8279a155febd8 *DESCRIPTION
 34a4a2f1184cc65594ce84bbb7dbee3b *NAMESPACE
 7b8f4a43f713baefec20ae29d4c740c5 *R/AFtest.R
 ba528b4e183c7e7a4452b7a691d1724c *R/AllelesToTriangular.R
@@ -43,7 +43,7 @@ a296fe086fafedb5d6e442f01846d88a *R/HWClr.R
 dab520dbce398600437119a5a55f394c *R/HWD.R
 7b0e895eaa610800f823d8041073b36f *R/HWData.R
 8188fa4ecb97b8f672ba0fe31076921b *R/HWEM.R
-bf17615aa044fcbfd067a18e83f85ce4 *R/HWExact.R
+9f8d84de7229617266ac492441ac0f70 *R/HWExact.R
 fc87cbf20135a5d9071a66ddf8dc6885 *R/HWExactMat.R
 dfc68966cdfedf45ab0292ac691b0393 *R/HWExactPower.R
 13ae59040eebda8bd35630a83bde819b *R/HWExactPrevious.R
@@ -66,7 +66,7 @@ b86b65f512562532b208f2c80c2d6b38 *R/HWPower.R
 f3428a73e2cdc00201bd1835dfa92927 *R/HWQqplot.R
 fe363153f8a818d6982dc834c347d931 *R/HWStr.R
 d4db39784d71a095c49b6d95c3bd492d *R/HWStrata.R
-e76ba37f37e98ecd3934c6edd99f2f1b *R/HWTernaryPlot.R
+3bcef0b2f3e2bd574756471384f2d063 *R/HWTernaryPlot.R
 94df734c92b8fe5249d305919ccef0b2 *R/HWTriExact.R
 d5432ad81e3130ce42bfb9e64e09a0a1 *R/HWUppercl.R
 7451bf801820c661d1d924d50ac8eebe *R/HWf.R
@@ -122,7 +122,7 @@ a9fb2107f2a612c81ce938afa00b0bbc *R/homozyg.R
 fd585f31ed3aa1d879dd78fb676e1caa *R/hwe.modelE.obj.R
 2408226a8040180ffa20c0d36a25deff *R/hwe.modelE.sol.R
 2f0e154d533ec3bce98c01b2b2acebf9 *R/ifisherz.R
-8f8375331fa70ed3fe49079ae785dafd *R/is.mono.R
+a0077d278852238e0e6f248bbc9c532a *R/is.mono.R
 2e891d5f380e4fd3a17d19dc7869a1a0 *R/is.wholenumber.R
 e752b9b3d1fcc9e4323dc6af282203fc *R/limit.R
 c512e36bdea2840d251f12b579b08f2b *R/loglik.1.R
@@ -141,7 +141,7 @@ f2e05f23016853664345e8f06701e8f0 *R/loglik.M12.R
 0f7f453feb628fef63ae9079452d81ee *R/loglik.M24.R
 f7ed1adaa080b4d7cdde552e0b4f932f *R/loglik.M25.R
 fd9e93713316eae974898cdfb0421a2c *R/mac.R
-32b7d50041fd91302551bee11ceb4002 *R/maf.R
+bb4644b3275a32660ee8b9f8275d836c *R/maf.R
 d52868da4759464eb98f2205ee71a3b1 *R/make.outcomes.R
 1b87ef485a8722011687d964c5752793 *R/mipvalue.R
 eba2c67ebdfdae195fe241d1ebe38526 *R/missingentirerow.R
@@ -163,7 +163,7 @@ e5be9f2f28cbc0b48268371cbb1906db *R/toTriangular.R
 66cb04489077f9a68adff21c70b4dfbc *R/toTriangularfixed.R
 e8de4143f15b8abd9d9c519670088d6d *R/vaf.R
 181b5ac5a69bd3e3e542680739e88fd5 *build/partial.rdb
-afa0659092bf0dcc64086508f72fd49e *build/vignette.rds
+1d0b29c8ab097529ece4e4dd84e1b494 *build/vignette.rds
 de901f61dc40540171eb943cea9f9fbe *data/Alzheimer.rda
 3f3bacc7b9310b8040f705e61024ee66 *data/CEUchr22.rda
 ee3805d149450db5a6ce67979b3a498c *data/Glyoxalase.rda
@@ -180,7 +180,10 @@ aa058a73cc541d70c9155008537b4b62 *data/TSIXTriAllelics.rda
 451363deeee1d017c47f82e5fb0dde5a *inst/CITATION
 168713c0080a7df92e6c4a75f04c9665 *inst/doc/HardyWeinberg.R
 68b7184b90469f8bf616e6e80043bf03 *inst/doc/HardyWeinberg.Rnw
-44423dda316fc119ca8a474b405cc58e *inst/doc/HardyWeinberg.pdf
+ac30d461606e23a89b0f518982447002 *inst/doc/HardyWeinberg.pdf
+80f335607634f4333c67d659659bf76e *inst/doc/HardyWeinbergExampleSession.R
+706f14bb8b0a24ccc484db8f1ceb4dba *inst/doc/HardyWeinbergExampleSession.Rmd
+0177b90eb61d586af07cd41d45a3f90e *inst/doc/HardyWeinbergExampleSession.html
 78efad9d76b562e21e46e9d0c4b12bfa *man/AFtest.Rd
 b39c5e62c538fa791165b7dae5b7a431 *man/AllelesToTriangular.Rd
 f33cac08f311810d1710c04a60e7f956 *man/Alzheimer.Rd
@@ -224,7 +227,7 @@ f1546afb8ef3e1ced062bf283e0e7cd3 *man/HWPosterior.Rd
 ba7a15b8ad817bbdb10e6f9b414c66e6 *man/HWQqplot.Rd
 7929e6e2143eaf821246081ff7cd461f *man/HWStr.Rd
 31c2aba4f826c040809080a46fb8883c *man/HWStrata.Rd
-ba2168e7aecd8e264ed85c17b828af43 *man/HWTernaryPlot.Rd
+9b1058628df11e5b4abdd21880348082 *man/HWTernaryPlot.Rd
 d735c0829a1d2d0ef6bfc48c55b6fce6 *man/HWTriExact.Rd
 15f47d5ecc1a95170122226f8f78ba7d *man/HWf.Rd
 7ae211256b81e67119334dbbb3a82668 *man/HapMapCHBChr1.Rd
@@ -254,9 +257,9 @@ ef9a4262a54085abce1be31714301ca2 *man/fold.Rd
 e8a35989b7abcb42153c3cc2ca06412e *man/genlabels.Rd
 3427d184e9976d0fd656cda8af90c585 *man/he.Rd
 27eea081bbd2bf5d03954ab2eafb0b62 *man/ifisherz.Rd
-9ccc26ead16ed924fbc9d942506b188a *man/is.mono.Rd
+b3afc9eb2794d9324184af0c099f5fd7 *man/is.mono.Rd
 cd7fc0d7952c34bc453d04c38ea26939 *man/mac.Rd
-bb8d2509414153c0737ced95fc678f67 *man/maf.Rd
+17a213d42a81d8eb8718a8ada9b642fd *man/maf.Rd
 2bc89129e72b56e615a236d71d1d9e6b *man/n.alleles.Rd
 1ff0d37a09a17a1a3c749fdd9d95fad0 *man/order.auto.Rd
 612d301dd32d947a6442d1abbe2a2537 *man/order.x.Rd
@@ -287,7 +290,6 @@ d91fbfd173d4533c28b8def4a07a5179 *vignettes/HapMapCHBChr1Exact.pdf
 68b7184b90469f8bf616e6e80043bf03 *vignettes/HardyWeinberg.Rnw
 a564e63e5a81f7a92aa2438c72d9a23c *vignettes/HardyWeinberg.bib
 706f14bb8b0a24ccc484db8f1ceb4dba *vignettes/HardyWeinbergExampleSession.Rmd
-d52bb580d6c3f12a1fdc8ad1a76eefb8 *vignettes/HardyWeinbergExampleSession.html
 21a6930f306d621f92d32d82307ab009 *vignettes/MourantQQPlot.pdf
 148cb6ef8c996b19f2f9d1ddfe4b7f19 *vignettes/MourantTP.pdf
 9727f639ab939bf29cce7b35fa192c3b *vignettes/Simulated2.pdf

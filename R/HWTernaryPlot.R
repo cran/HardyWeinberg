@@ -1,7 +1,7 @@
 HWTernaryPlot <- function(X, n=NA, addmarkers=TRUE, newframe=TRUE, hwcurve=TRUE, vbounds=FALSE, mafbounds=FALSE, mafvalue=0.05, axis=0, region=1, vertexlab=colnames(X),
                           alpha = 0.05, vertex.cex = 1, pch = 19, cc = 0.5, markercol = "black", markerbgcol= "black", cex=0.75, axislab ="", verbose=FALSE,
 			  markerlab=NULL, markerpos=NULL, mcex=1, connect = FALSE, curvecols=rep("black",5), signifcolour = TRUE, patternsigsymbol = 19,
-			  curtyp = "solid", ssf = "max", pvaluetype = "selome", grid = FALSE, gridlabels = TRUE, patternramp = FALSE, ...) {
+			  curtyp = "solid", ssf = "max", pvaluetype = "selome", grid = FALSE, gridlabels = TRUE, patternramp = FALSE, axisticklabels = FALSE, ...) {
 #
 # plot a ternary diagram that represents all rows of X as points.
 # Acceptance regions for various tests for HWE can be added.
@@ -95,6 +95,18 @@ HWTernaryPlot <- function(X, n=NA, addmarkers=TRUE, newframe=TRUE, hwcurve=TRUE,
     AXB <- rbind(c(0.5,0.5,0),c(0,0,1))
     AXB <- AXB%*%M
     lines(AXB[,1],AXB[,2],...)
+  } else if (axis==4) {
+    l <- 2/sqrt(3) # total length of base
+    steps <- l/10
+    ss <- seq(-1/sqrt(3),1/sqrt(3),by=steps)
+    fr <- cbind(ss,rep(0,11))
+    to <- cbind(ss,rep(-0.05,11))
+    segments(fr[,1],fr[,2],to[,1],to[,2])
+    if(axisticklabels) {
+      for(i in 0:10) {
+        text(to[i+1,1],to[i+1,2],toString(round(i/10,digits=1)),pos=1,cex=0.75)
+      }
+    }
   } else {
     cat("Unknown value for parameter axis\n")
   }

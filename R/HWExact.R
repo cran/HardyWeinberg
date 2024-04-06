@@ -88,7 +88,7 @@ HWExact <- function (X, alternative = "two.sided", pvaluetype = "selome", eps=1e
     }
     lab <- names(X)
     if(is.null(lab)) {
-      warning("Genotype counts not labeled, default sequence c(A,B,AA,AB,BB) assumed.")
+      warning("Genotype counts not labelled, default sequence c(A,B,AA,AB,BB) assumed.")
       names(X) <- c("A","B","AA","AB","BB")
     }
     als <- alleles(X)

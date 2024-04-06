@@ -17,7 +17,7 @@ maf <- function(x,option=1,verbose=FALSE) {
   }
   if(layout==1) { # a single marker in a vector
     if(is.null(names(x))) {
-      warning("Genotype counts are not labeled, default sequence (AA,AB,BB) assumed.")
+      warning("Genotype counts are not labelled, default sequence (AA,AB,BB) assumed.")
       x <- genlabels(x)
     }
     n   <- sum(x,na.rm=TRUE)
@@ -29,10 +29,6 @@ maf <- function(x,option=1,verbose=FALSE) {
     }
     genot <- expand.grid(alleles(x),alleles(x))
     genot <- paste(genot$Var2,genot$Var1,sep="")
-    if(verbose) {
-      cat("genotype frequencies:\n")
-      print(genot)
-    }
     GT <- matrix(genot,ncol=na,byrow = TRUE) # names of genotypes
     rownames(GT) <- als
     colnames(GT) <- rownames(GT)
@@ -45,14 +41,18 @@ maf <- function(x,option=1,verbose=FALSE) {
         GTc[i,j] <- sum(x[ind.gt],na.rm=TRUE)
       }
     }
+    if(verbose) {
+      cat("genotype frequencies:\n")
+      print(GTc)
+    }
     acounts <- numeric(na)
     names(acounts) <- als
     for(i in 1:na) {
       acounts[i] <- sum(GTc[i,] + GTc[,i])  
     }
     acounts <- sort(acounts)
-    nt <- sum(acounts)
-    if(nt != 2*n) {
+    nt <- as.integer(sum(acounts))
+    if(nt != as.integer(2*n)) {
       stop("number of alleles does not double the sample size")
     }
   } else if(layout==2) { # it's square matrix of genotype counts.
@@ -61,8 +61,8 @@ maf <- function(x,option=1,verbose=FALSE) {
     acounts <- numeric(na)
     acounts <- rowSums(x) + colSums(x)
     acounts <- sort(acounts)
-    nt <- sum(acounts)
-    twon <- 2*n
+    nt <- as.integer(sum(acounts))
+    twon <- as.integer(2*n)
     if(twon!=nt) stop("number of alleles is not twice the sample size.")
   } else if(layout==3) { # it's a matrix with multiple biallelic markers; 
     if(is.null(colnames(x))) {
