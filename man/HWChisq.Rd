@@ -61,6 +61,8 @@ HWChisq(X, cc = 0.5, verbose = TRUE, x.linked = FALSE, phifixed = NULL)
   \item{f }{the inbreeding coefficient.}
   \item{expected }{the expected counts under Hardy-Weinberg equilibrium.}
   \item{chi.contrib }{the contributions of the different genotypes to the chi-square statistic.}
+  \item{Ho}{observed heterozygosity.}
+  \item{He}{expected heterozygosity under Hardy-Weinberg equilibrium.}
 }
 \references{Weir, B.S. (1996) Genetic data analysis II. Sinauer
   Associates, Massachusetts. See Chapter3.

@@ -16,7 +16,7 @@
 
 
 %% almost as usual
-\author{Jan Graffelman\\Universitat Polit\`ecnica de Catalunya\\version 1.7.7\\ \today}
+\author{Jan Graffelman\\Universitat Polit\`ecnica de Catalunya\\version 1.7.9\\ \today}
 \title{Exploring Diallelic Genetic Markers: The \pkg{HardyWeinberg} Package}
 
 %% for pretty printing and a nice hypersummary also set:
@@ -118,7 +118,7 @@
 
 \section{Introduction}
 
-The \pkg{HardyWeinberg} package~\citep{Graffel26} consists of a set of tools for analyzing diallelic genetic markers in the \proglang{R} environment~\citep{RRR}, and is particularly focused on the graphical representation of their (dis)equilibrium condition in various ways. The package is mainly aimed at researchers working in the fields of genetics, statistics, epidemiology, bio-informatics and bio-statistics and is available from the Comprehensive \proglang{R} Archive Network (CRAN) at \url{http://CRAN.R-project.org/package=HardyWeinberg}. This paper describes the state of the art of version 1.7.7 of the package. If you appreciate this software you may wish to cite the corresponding paper in the {\it Journal of Statistical Software}~\citep{Graffel26}. The structure of this paper is as follows. In Section~\ref{sec:hardyweinberg} we briefly introduce Hardy-Weinberg equilibrium. Section~\ref{sec:tests} reviews the classical statistical tests and power computation for Hardy-Weinberg equilibrium. Section~\ref{sec:xchrom} briefly presents the X-chromosomal tests for equilibrium. Section~\ref{sec:graphics} treats graphical representations of Hardy-Weinberg equilibrium for sets of markers. Section~\ref{sec:multiple} considers multi-allelic genetic markers. Section~\ref{sec:session} is an example session showing how to analyze genetic markers with the functions of the package. Finally, a discussion (Section~\ref{sec:others}) with some comments on related packages completes the paper.
+The \pkg{HardyWeinberg} package~\citep{Graffel26} consists of a set of tools for analyzing diallelic genetic markers in the \proglang{R} environment~\citep{RRR}, and is particularly focused on the graphical representation of their (dis)equilibrium condition in various ways. The package is mainly aimed at researchers working in the fields of genetics, statistics, epidemiology, bio-informatics and bio-statistics and is available from the Comprehensive \proglang{R} Archive Network (CRAN) at \url{http://CRAN.R-project.org/package=HardyWeinberg}. This paper describes the state of the art of version 1.7.9 of the package. If you appreciate this software you may wish to cite the corresponding paper in the {\it Journal of Statistical Software}~\citep{Graffel26}. The structure of this paper is as follows. In Section~\ref{sec:hardyweinberg} we briefly introduce Hardy-Weinberg equilibrium. Section~\ref{sec:tests} reviews the classical statistical tests and power computation for Hardy-Weinberg equilibrium. Section~\ref{sec:xchrom} briefly presents the X-chromosomal tests for equilibrium. Section~\ref{sec:graphics} treats graphical representations of Hardy-Weinberg equilibrium for sets of markers. Section~\ref{sec:multiple} considers multi-allelic genetic markers. Section~\ref{sec:session} is an example session showing how to analyze genetic markers with the functions of the package. Finally, a discussion (Section~\ref{sec:others}) with some comments on related packages completes the paper.
 
 \section{Hardy-Weinberg equilibrium}
 \label{sec:hardyweinberg}

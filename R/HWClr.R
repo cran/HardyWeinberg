@@ -3,7 +3,7 @@ HWClr <- function(X,zeroadj=0.5) {
   X[X==0] <- zeroadj
   if(is.matrix(X)) {
     gm <- apply(X,1,gmeanrow)
-    Y <- log(solve(diag(gm))%*%X)
+    Y <- log(diag(1/gm) %*% X)
   }
   if(is.vector(X)) {
     gm <- gmeanrow(X)
@@ -11,3 +11,4 @@ HWClr <- function(X,zeroadj=0.5) {
   }
   return(Y)
 }
+

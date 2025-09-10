@@ -12,7 +12,7 @@
 
 <meta name="author" content="Jan Graffelman - Dpt. of Statistics, Universitat Politecnica de Catalunya" />
 
-<meta name="date" content="2024-04-05" />
+<meta name="date" content="2025-09-09" />
 
 <title>Example session with the HardyWeinberg package</title>
 
@@ -364,7 +364,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 package</h1>
 <h4 class="author">Jan Graffelman - Dpt. of Statistics, Universitat
 Politecnica de Catalunya</h4>
-<h4 class="date">2024-04-05</h4>
+<h4 class="date">2025-09-09</h4>
 
 
 
@@ -461,7 +461,8 @@ procedures.</p>
 <code>HWChisq</code>:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>HW.test <span class="ot">&lt;-</span> <span class="fu">HWChisq</span>(x, <span class="at">verbose =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="co">#&gt; Chi-square test with continuity correction for Hardy-Weinberg equilibrium (autosomal)</span></span>
-<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="co">#&gt; Chi2 =  0.1789563 DF =  1 p-value =  0.6722717 D =  -3.69375 f =  0.01488253</span></span></code></pre></div>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="co">#&gt; Chi2 =    0.1790 DF =    1 p-value =  0.6723 </span></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="co">#&gt;  f =  0.0149 Ho =  0.4890 He =  0.4964</span></span></code></pre></div>
 <p>This shows that the chi-square statistic has value 0.1790, and that
 the corresponding p-value for the test is 0.6723. Using a significance
 threshold of five percent, we do not reject HWE for the MN locus. When
@@ -477,7 +478,8 @@ order to perform a chi-square test without Yates’ continuity correction,
 it is necessary to set the <code>cc</code> parameter to zero:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>HW.test <span class="ot">&lt;-</span> <span class="fu">HWChisq</span>(x, <span class="at">cc =</span> <span class="dv">0</span>, <span class="at">verbose =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="co">#&gt; Chi-square test for Hardy-Weinberg equilibrium (autosomal)</span></span>
-<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="co">#&gt; Chi2 =  0.2214896 DF =  1 p-value =  0.6379073 D =  -3.69375 f =  0.01488253</span></span></code></pre></div>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="co">#&gt; Chi2 =    0.2215 DF =    1 p-value =  0.6379 </span></span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="co">#&gt;  f =  0.0149 Ho =  0.4890 He =  0.4964</span></span></code></pre></div>
 <p>The test with correction gives a smaller <span class="math inline">\(\chi^2\)</span>-statistic and a larger p-value in
 comparison with the ordinary <span class="math inline">\(\chi^2\)</span>
 test.</p>
@@ -584,11 +586,12 @@ nucleotide polymorphism (SNP):</p>
 <h4>Chi-square test</h4>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="fu">HWChisq</span>(SNP1,<span class="at">cc=</span><span class="dv">0</span>,<span class="at">x.linked=</span><span class="cn">TRUE</span>,<span class="at">verbose=</span><span class="cn">TRUE</span>)</span>
 <span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a><span class="co">#&gt; Chi-square test for Hardy-Weinberg equilibrium (X-chromosomal)</span></span>
-<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a><span class="co">#&gt; Chi2 =  7.624175 DF = 2 p-value =  0.022102 D =  NA f =  -0.0003817242</span></span></code></pre></div>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a><span class="co">#&gt; Chi2 =    7.6242 DF =    2 p-value =  0.0221</span></span></code></pre></div>
 <p>When males are excluded from the test we get:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="fu">HWChisq</span>(SNP1[<span class="dv">3</span><span class="sc">:</span><span class="dv">5</span>],<span class="at">cc=</span><span class="dv">0</span>)</span>
 <span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a><span class="co">#&gt; Chi-square test for Hardy-Weinberg equilibrium (autosomal)</span></span>
-<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a><span class="co">#&gt; Chi2 =  9.485941e-05 DF =  1 p-value =  0.9922291 D =  0.05990783 f =  -0.0003817242</span></span></code></pre></div>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a><span class="co">#&gt; Chi2 =    0.0001 DF =    1 p-value =  0.9922 </span></span>
+<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a><span class="co">#&gt;  f =  -0.0004 Ho =  0.4823 He =  0.4822</span></span></code></pre></div>
 <p>Note that the test including males is significant, whereas the test
 excluding males is not.</p>
 </div>
@@ -711,7 +714,8 @@ ignoring the missing genotypes:</p>
 <span id="cb26-6"><a href="#cb26-6" tabindex="-1"></a><span class="co">#&gt; 46 32 20</span></span>
 <span id="cb26-7"><a href="#cb26-7" tabindex="-1"></a>HW.test <span class="ot">&lt;-</span> <span class="fu">HWChisq</span>(Xv,<span class="at">cc=</span><span class="dv">0</span>,<span class="at">verbose=</span><span class="cn">TRUE</span>)</span>
 <span id="cb26-8"><a href="#cb26-8" tabindex="-1"></a><span class="co">#&gt; Chi-square test for Hardy-Weinberg equilibrium (autosomal)</span></span>
-<span id="cb26-9"><a href="#cb26-9" tabindex="-1"></a><span class="co">#&gt; Chi2 =  8.67309 DF =  1 p-value =  0.003229431 D =  -6.77551 f =  0.297491</span></span></code></pre></div>
+<span id="cb26-9"><a href="#cb26-9" tabindex="-1"></a><span class="co">#&gt; Chi2 =    8.6731 DF =    1 p-value =  0.0032 </span></span>
+<span id="cb26-10"><a href="#cb26-10" tabindex="-1"></a><span class="co">#&gt;  f =  0.2975 Ho =  0.3265 He =  0.4648</span></span></code></pre></div>
 <p>This gives a significant result (p-value = 0.0032). If the data can
 be assumed to be missing completely at random (MCAR), then we may impute
 missings by randomly sampling the observed data. This can be done by

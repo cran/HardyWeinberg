@@ -38,7 +38,7 @@ Ziegler, A. & Konig, I.R. (2006) A statistical approach to genetic
 epidemiology. Wiley.
 }
 \author{ Jan Graffelman \email{jan.graffelman@upc.edu} }
-\seealso{\code{\link{HWChisq}},\code{\link{HWExact}},\code{\link{HWLratio}}}
+\seealso{\code{\link{HWChisq}}, \code{\link{HWExact}}, \code{\link{HWLratio}}, \code{\link{HWPerm.mult}}}
 \examples{
 x <- c(MM=298,MN=489,NN=213)
 \dontrun{
